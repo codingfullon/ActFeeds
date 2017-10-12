@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/navWaterReport"
+        android:title="@string/WaterReport"
+        android:icon="@mipmap/ic_local_drink_black_24dp"/>
+
+    <item android:id="@+id/navExerciseReport"
+        android:title="@string/ExerciseReport"
+        android:icon="@mipmap/ic_fitness_center_black_24dp"/>
+
+    <item android:id="@+id/navFruitReport"
+        android:title="@string/FruitsReport"
+        android:icon="@mipmap/ic_restaurant_black_24dp"/>
+</menu>

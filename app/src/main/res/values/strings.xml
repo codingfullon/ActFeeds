@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">FitnessReminder</string>
+    <!-- Text view labels -->
+    <string name="WaterReminder">Water Reminder</string>
+    <string name="ExerciseReminder">Exercise Reminder</string>
+    <string name="FruitsReminder"> Fruits Reminder</string>
+
+    <!--List of habit strings -->
+    <string name="HeaderDailyActivities">Add Daily Habits</string>
+    <string name="WaterReport">Water Report</string>
+    <string name="ExerciseReport">Exercise Report</string>
+    <string name="FruitsReport">Fruits Report</string>
+    <string name="YogaReminder">Yoga Reminder</string>
+
+    <string name="Open">Open</string>
+    <string name="Close">Close</string>
+
+    <!--main activity items -->
+    <string name="DailyHabits">Daily Habits</string>
+    <string name="WeeklyHabits">Weekly Habits</string>
+    <string name="MonthlyHabits">Monthly Habits</string>
+    <string name="CreateOwn">Create Your Own Habits</string>
+
+    <string name="AddNewGoals">Add New Goals</string>
+
+</resources>

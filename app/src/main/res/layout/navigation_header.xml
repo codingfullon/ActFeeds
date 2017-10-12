@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:background="@color/colorPrimaryLight">
+
+    <TextView
+        android:id="@+id/DrawerTitle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:text="History"
+        android:textAppearance="@android:style/TextAppearance.Holo.Large" />
+</android.support.v7.widget.Toolbar>
