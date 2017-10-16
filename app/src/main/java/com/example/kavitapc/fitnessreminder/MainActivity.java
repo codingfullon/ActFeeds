@@ -2,33 +2,38 @@ package com.example.kavitapc.fitnessreminder;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements AddedGoals.OnFragmentInteractionListener,
+        AddNewGoals.OnFragmentInteractionListener, HabbitsReport.OnFragmentInteractionListener {
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mActionToggle;
 
-    private TextView tvDetailDailyHabits;
-    private TextView tvDetailWeeklyHabits;
-    private TextView tvDetailMonthlyHabits;
-    private TextView tvDetailCreateOwnHabits;
-
-    private Toast mToast;
+    private ViewPager viewPager;
+    private PagerAdapter pagerAdapter;
+    private TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+
 
         //Open drawer when clicked on Action bar
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -38,44 +43,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        //Initializing the variables
-        //tvDetailDailyHabits = (TextView) findViewById(R.id.tvDailyHabits);
-       // tvDetailWeeklyHabits = (TextView) findViewById(R.id.tvWeeklyHabits);
-       // tvDetailMonthlyHabits = (TextView) findViewById(R.id.tvMonthlyHabits);
-       // tvDetailCreateOwnHabits = (TextView) findViewById(R.id.tvCreateOwn);
+        //setting up view pager
+        viewPager =(ViewPager)findViewById(R.id.pager);
+        pagerAdapter = new PagerAdapter(getSupportFragmentManager());
+        pagerAdapter.addFragment(new AddedGoals(),"AddedHabits");
+        pagerAdapter.addFragment(new AddNewGoals(),"AddNewHabits");
+        pagerAdapter.addFragment(new HabbitsReport(), "Reports");
+        viewPager.setAdapter(pagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
+        //tabLayout.addOnTabSelectedListener();
+
 
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(mActionToggle.onOptionsItemSelected(item)){
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+
+        return mActionToggle.onOptionsItemSelected(item)||super.onOptionsItemSelected(item);
     }
 
+
     @Override
-    public void onClick(View v) {
-        int id = v.getId();
-
-        if(id==R.id.tvDailyHabits){
-            mToast=Toast.makeText(this,"Item was clicked",Toast.LENGTH_LONG);
-            mToast.show();
-            Intent intent=new Intent(MainActivity.this,DailyHabitsDetails.class);
-            startActivity(intent);
-        }else if(id==R.id.tvWeeklyHabits){
-            mToast=Toast.makeText(this,"Item was clicked",Toast.LENGTH_LONG);
-            mToast.show();
-        }
-        else if(id==R.id.tvMonthlyHabits){
-            mToast=Toast.makeText(this,"Item was clicked",Toast.LENGTH_LONG);
-            mToast.show();
-
-        }else if(id==R.id.tvCreateOwn){
-            mToast=Toast.makeText(this,"Item was clicked",Toast.LENGTH_LONG);
-            mToast.show();
-
-        }
+    public void onFragmentInteraction(Uri uri) {
 
     }
 }
