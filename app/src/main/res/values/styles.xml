@@ -11,8 +11,9 @@
     <style name="TextViewStyle">
         <item name ="android:layout_width">wrap_content</item>
         <item name ="android:layout_height">wrap_content</item>
-        <item name="android:drawablePadding">2dp</item>-->
+        <item name="android:drawablePadding">2dp</item>
         <item name="android:background">@drawable/item_selector</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Headline</item>
     </style>
 
 </resources>

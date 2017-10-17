@@ -13,7 +13,6 @@
         android:drawableStart="@mipmap/ic_local_drink_black_24dp"
         android:drawableTint="@color/colorPrimary"
         android:text="@string/WaterReminder"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="25dp"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -24,7 +23,6 @@
         android:drawableStart="@mipmap/ic_fitness_center_black_24dp"
         android:drawableTint="@color/colorPrimary"
         android:text="@string/ExerciseReminder"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:layout_marginLeft="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="8dp"
@@ -36,7 +34,6 @@
         android:drawableStart="@mipmap/ic_restaurant_black_24dp"
         android:drawableTint="@color/colorPrimary"
         android:text="@string/FruitsReminder"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/tvExerciseReminder"
         android:layout_marginLeft="16dp"
@@ -50,7 +47,6 @@
         android:drawableStart="@mipmap/ic_accessibility_black_24dp"
         android:drawableTint="@color/colorPrimary"
         android:text="@string/YogaReminder"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvFruitsReminder" />
 

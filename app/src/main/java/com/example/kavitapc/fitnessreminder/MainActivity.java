@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
 
-
         //Open drawer when clicked on Action bar
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mActionToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.Open, R.string.Close);
@@ -51,14 +50,10 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
         pagerAdapter.addFragment(new HabbitsReport(), "Reports");
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
-        //tabLayout.addOnTabSelectedListener();
-
-
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         return mActionToggle.onOptionsItemSelected(item)||super.onOptionsItemSelected(item);
     }
 
