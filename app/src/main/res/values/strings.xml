@@ -1,16 +1,49 @@
 <resources>
     <string name="app_name">FitnessReminder</string>
-    <!-- Text view labels -->
-    <string name="WaterReminder">Water Reminder</string>
-    <string name="ExerciseReminder">Exercise Reminder</string>
-    <string name="FruitsReminder"> Fruits Reminder</string>
+    <!-- Daily habits list items -->
+    <string name="WaterReminder">Drink Water</string>
+    <string name="ExerciseReminder">Exercise</string>
+    <string name="FruitsReminder">Eat Fruits</string>
+    <string name="ExpressGratitude">Express gratitude</string>
+    <string name="LaughLaughAndLaugh">Laugh, laugh and laugh again</string>
+    <string name="Read">Read</string>
+    <string name="WriteSomething">Write something worth reading</string>
+    <string name="WorkOnSecretProject">Work on a secret project</string>
+    <string name="Running">Running</string>
+    <string name="Meditate">Meditate</string>
+    <string name="LearnNewWords">Learn new words</string>
+    <string name="EatBowlSalad">Eat a bowl of salad</string>
+    <string name="Study">Study</string>
+    <string name="CleanTidy">Clean and Tidy up</string>
+    <string name="CheckToDo">Check to do list</string>
+    <string name="Breakfast">Eat healthy breakfast</string>
 
-    <!--List of habit strings -->
+    <!--Weekly habits-->
+    <string name="Swimming">Swimming</string>
+    <string name="Laundry">Laundry</string>
+    <string name="CheckBills">Check bills</string>
+    <string name="MakeToDo">Make to do list</string>
+    <string name="Networking">Networking/Reconnect with friends</string>
+    <string name="CareLovedOnes">Do something exciting with loved ones</string>
+    <string name="Socialize">Socialize</string>
+    <string name="LearnCooking">Learn to cook something new</string>
+    <string name="DeclutterPlace">Declutter your place</string>
+
+    <!--Monthly habits-->
+    <string name="PlanInvestments">Plan your investments</string>
+    <string name="CheckStatement">Check your statement</string>
+    <string name="PlanTravel">Plan to travel</string>
+    <string name="RearrangeSpace">Rearrange your space</string>
+    <string name="PlanOccasions">Plan for occasions in advance</string>
+
+
+    <!--List of habit's strings -->
     <string name="HeaderDailyActivities">Add Daily Habits</string>
     <string name="WaterReport">Water Report</string>
     <string name="ExerciseReport">Exercise Report</string>
     <string name="FruitsReport">Fruits Report</string>
     <string name="YogaReminder">Yoga Reminder</string>
+
 
     <string name="Open">Open</string>
     <string name="Close">Close</string>
@@ -25,5 +58,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="AddDailyHabits">Add Daily Habits</string>
 
 </resources>
