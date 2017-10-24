@@ -2,6 +2,7 @@ package com.example.kavitapc.fitnessreminder;
 //Shows daily habits list to add
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.support.v7.app.AppCompatActivity;
@@ -24,18 +25,21 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class DailyHabitsDetails extends AppCompatActivity {
 
    private ListView lvDailyHabits;
    private ListViewCustomAdapter customAdapter;
    ArrayList<ItemAttributes> dailyHabitsArray = new ArrayList<>();
+    private static final String fileName = "DailyHabitsKeyValue";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_daily_habits_details);
+        setContentView(R.layout.activity_dwm_habits_details);
         lvDailyHabits = (ListView) findViewById(R.id.simpleListView);
+
 
         dailyHabitsArray.add(new ItemAttributes(getString(R.string.WaterReminder), R.drawable.ic_drink_water_black_24dp));
         dailyHabitsArray.add(new ItemAttributes(getString(R.string.YogaReminder), R.drawable.ic_yoga_black_24dp));
@@ -55,36 +59,9 @@ public class DailyHabitsDetails extends AppCompatActivity {
         dailyHabitsArray.add(new ItemAttributes(getString(R.string.CheckToDo), R.drawable.ic_book_black_24dp));
         dailyHabitsArray.add(new ItemAttributes(getString(R.string.Breakfast), R.drawable.ic_fruits_black_24dp));
 
+        customAdapter = new ListViewCustomAdapter(this, R.layout.dwm_habits_rows, dailyHabitsArray, fileName);
 
-        customAdapter = new ListViewCustomAdapter(this, R.layout.daily_habits_rows, dailyHabitsArray);
         lvDailyHabits.setAdapter(customAdapter);
-
-        lvDailyHabits.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                View view2 = customAdapter.getView(position, view, parent);
-                CheckBox checkBox = (CheckBox) view.findViewById(R.id.cbDailyHabitsRow);
-                checkBox.setChecked(true);
-                checkBox.setFocusable(true);
-                checkBox.setFocusableInTouchMode(true);
-                String text = checkBox.getText().toString();
-                Toast.makeText(getApplicationContext(), "Selected item: " + text + " - " + position, Toast.LENGTH_SHORT).show();
-                Log.i(text, "clicked");
-
-            }
-        });
-
     }
-
-    protected void createPreferences(String key, Boolean value){
-
-        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(key,value);
-        editor.commit();
-
-    }
-
 
 }

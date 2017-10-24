@@ -51,8 +51,6 @@ public class AddNewGoals extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
     }
 
 
@@ -83,13 +81,19 @@ public class AddNewGoals extends Fragment {
                     } else if (id == R.id.tvWeeklyHabits) {
                         mToast = Toast.makeText(context, "Item 2 was clicked", Toast.LENGTH_LONG);
                         mToast.show();
+                        Intent intent = new Intent(context, WeeklyHabitsDetails.class);
+                        startActivity(intent);
                     } else if (id == R.id.tvMonthlyHabits) {
                         mToast = Toast.makeText(context, "Item 3 was clicked", Toast.LENGTH_LONG);
                         mToast.show();
+                        Intent intent = new Intent(context, MonthlyHabits.class);
+                        startActivity(intent);
 
                     } else if (id == R.id.tvCreateOwn) {
                         mToast = Toast.makeText(context, "Item 4 was clicked", Toast.LENGTH_LONG);
                         mToast.show();
+                        Intent intent = new Intent(context, CreateOwn.class);
+                        startActivity(intent);
 
                     }
                 }

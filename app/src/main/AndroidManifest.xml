@@ -24,9 +24,15 @@
         <activity
             android:name=".DailyHabitsDetails"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".WeeklyHabitsDetails" />
-        <activity android:name=".MonthlyHabits" />
-        <activity android:name=".CreateOwn"></activity>
+        <activity
+            android:name=".WeeklyHabitsDetails"
+            android:parentActivityName=".MainActivity"/>
+
+        <activity android:name=".MonthlyHabits"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".CreateOwn"
+            android:parentActivityName=".MainActivity"/>
+
     </application>
 
 </manifest>
