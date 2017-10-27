@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements AddedGoals.OnFragmentInteractionListener,
-        AddNewGoals.OnFragmentInteractionListener, HabbitsReport.OnFragmentInteractionListener {
+        FeedsPage.OnFragmentInteractionListener, HabitsReport.OnFragmentInteractionListener {
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mActionToggle;
@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
         viewPager =(ViewPager)findViewById(R.id.pager);
         pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragment(new AddedGoals(),"AddedHabits");
-        pagerAdapter.addFragment(new AddNewGoals(),"AddNewHabits");
-        pagerAdapter.addFragment(new HabbitsReport(), "Reports");
+        pagerAdapter.addFragment(new FeedsPage(),"AddNewHabits");
+        pagerAdapter.addFragment(new HabitsReport(), "Reports");
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
     }

@@ -22,17 +22,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DailyHabitsDetails"
+            android:name=".AddGoals"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".WeeklyHabitsDetails"
-            android:parentActivityName=".MainActivity"/>
-
-        <activity android:name=".MonthlyHabits"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".CreateOwn"
-            android:parentActivityName=".MainActivity"/>
-
+            android:name=".CreateOwn"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".GoalDetails"
+            android:parentActivityName=".AddGoals"></activity>
     </application>
 
 </manifest>
