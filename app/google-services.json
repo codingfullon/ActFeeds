@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "186403755213",
+    "firebase_url": "https://actfeed-7c2a9.firebaseio.com",
+    "project_id": "actfeed-7c2a9",
+    "storage_bucket": "actfeed-7c2a9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:186403755213:android:bf8aecfbfc2c3a07",
+        "android_client_info": {
+          "package_name": "com.example.kavitapc.fitnessreminder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "186403755213-cc2loo9pmnqc7dp3bp1nkkqu5lr3d85m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEP0_O6FnG6c4kbAUmG8mWkNBYq6iuR44"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
