@@ -54,7 +54,7 @@
     <string name="MonthlyHabits">Monthly Habits</string>
     <string name="CreateOwn">Create Your Own Habits</string>
 
-    <string name="AddNewGoals">Add New Goals</string>
+    <string name="FeedsPage">Feeds Data</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -63,8 +63,12 @@
     <!--Goal details-->
     <string name="StartDate">Start Date</string>
     <string name="EndDate">End Date</string>
-    <string name="Repeat">Repeat On</string>
+    <string name="Repeat">Repeat Daily</string>
     <string name="AddPeople">Add People</string>
+    <string name="WakeUpEarly">Wake up early</string>
+    <string name="message_token_format" translatable="false">InstanceID Token: %s</string>
+    <string name="default_group_size">1</string>
+    <string name="default_activity_name">Name</string>
 
 
 </resources>

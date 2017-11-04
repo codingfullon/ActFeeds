@@ -9,18 +9,17 @@
     <TextView
         android:id="@+id/tvGoalTitle"
         style="@style/TextViewStyle"
-        android:layout_width="330dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="16dp"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="TextView"
+        app:layout_constraintHorizontal_bias="0.606"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/button4"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.433"
-        android:layout_height="45dp" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvStartDate"
@@ -35,10 +34,10 @@
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintTop_toTopOf="@+id/space"
-        android:layout_marginTop="23dp"
         android:layout_marginEnd="8dp"
-        android:onClick="showDatePickerDialog"/>
+        android:onClick="showDatePickerDialog"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
 
     <TextView
         android:id="@+id/tvEndDate"
@@ -49,7 +48,7 @@
         android:layout_marginLeft="16dp"
         android:text="@string/EndDate"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintTop_toBottomOf="@+id/tvStartDate"
         android:layout_marginStart="16dp"
         android:layout_marginRight="8dp"
@@ -58,15 +57,16 @@
         android:layout_marginEnd="8dp"
         android:onClick="showDatePickerDialog"/>
 
-    <TextView
-        android:id="@+id/tvRepeatOn"
+    <CheckBox
+        android:id="@+id/cbRepeatOn"
+        android:checked="true"
         android:gravity="center"
-        android:layout_width="77dp"
+        android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_marginLeft="16dp"
         android:text="@string/Repeat"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="38dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintTop_toBottomOf="@+id/tvEndDate"
         android:layout_marginStart="16dp"
         android:layout_marginRight="8dp"
@@ -76,20 +76,19 @@
 
     <TextView
         android:id="@+id/tvAddPeople"
-        android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:text="@string/AddPeople"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="14dp"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
-
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="16dp"
+        android:gravity="center"
+        android:text="@string/AddPeople"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
     <View
         android:id="@+id/space"
         android:layout_width="0dp"
@@ -99,13 +98,23 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvGoalTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/tvGoalTitle"
+        app:layout_constraintVertical_bias="0.927" />
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/colorAccent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvGoalTitle"
+        android:id="@+id/view3" />
 
     <View
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@color/colorAccent"
-        app:layout_constraintBottom_toTopOf="@+id/tvRepeatOn"
+        app:layout_constraintBottom_toTopOf="@+id/cbRepeatOn"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -116,36 +125,108 @@
         android:layout_height="1dp"
         android:background="@color/colorAccent"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/tvAddPeople"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvRepeatOn"
-        app:layout_constraintVertical_bias="0.87"
-        android:id="@+id/view" />
+        android:id="@+id/view"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/rvWeekDays" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/bSave"
         android:layout_width="88dp"
         android:layout_height="48dp"
         android:drawableLeft="@drawable/ic_arrow_downward_black_24dp"
         android:drawableTint="@color/colorAccent"
         android:text="save"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginRight="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:text="Set Priority"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/view3"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvWeekDays"
+        android:layout_width="wrap_content"
+        android:layout_height="46dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="7dp"
+        android:scrollbarAlwaysDrawHorizontalTrack="true"
+        android:scrollbars="horizontal"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cbRepeatOn" />
 
     <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/frameLayout"
+        android:layout_width="0dp"
+        android:layout_height="47dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvRepeatOn"
-        app:layout_constraintVertical_bias="0.092"
-        android:id="@+id/frameLayout">
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rbHigh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/materialRed"
+                android:text="High"
+                android:textColor="@android:color/primary_text_light"
+                android:onClick="onPrioritySelected"/>
+
+            <RadioButton
+                android:id="@+id/rbMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/materialOrange"
+                android:text="Medium"
+                android:textColor="@android:color/primary_text_light" />
+
+            <RadioButton
+                android:id="@+id/rbLow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/materialYellow"
+                android:text="Low"
+                android:textColor="@android:color/primary_text_light" />
+        </RadioGroup>
 
     </FrameLayout>
+
 
 </android.support.constraint.ConstraintLayout>

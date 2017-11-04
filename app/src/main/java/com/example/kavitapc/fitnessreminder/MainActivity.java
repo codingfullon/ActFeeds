@@ -1,21 +1,17 @@
 package com.example.kavitapc.fitnessreminder;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.kavitapc.fitnessreminder.utilities.PagerAdapter;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class MainActivity extends AppCompatActivity implements AddedGoals.OnFragmentInteractionListener,
         FeedsPage.OnFragmentInteractionListener, HabitsReport.OnFragmentInteractionListener {
@@ -26,11 +22,14 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
     private ViewPager viewPager;
     private PagerAdapter pagerAdapter;
     private TabLayout tabLayout;
+    private static String LOG_TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Bundle bundle = getIntent().getExtras();
+
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
 
@@ -50,6 +49,19 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
         pagerAdapter.addFragment(new HabitsReport(), "Reports");
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+
+        //get extra data from server
+        Bundle extras = getIntent().getExtras();
+        if (extras != null && extras.containsKey("test")) {
+            Log.d(LOG_TAG, "Contains: " + extras.getString("test"));
+        }else {
+            Log.d(LOG_TAG, "Contains: Nothing");
+        }
+
+        String token = FirebaseInstanceId.getInstance().getToken();
+        String msg = getString(R.string.message_token_format, token);
+        Log.d(LOG_TAG, msg);
+
     }
 
     @Override

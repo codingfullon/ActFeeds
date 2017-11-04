@@ -1,31 +1,14 @@
 package com.example.kavitapc.fitnessreminder;
 //Shows daily habits list to add
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.TypedArray;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.preference.PreferenceManager;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.kavitapc.fitnessreminder.utilities.ItemAttributes;
+import com.example.kavitapc.fitnessreminder.utilities.ListViewCustomAdapter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 
 public class AddGoals extends AppCompatActivity {
 
@@ -73,14 +56,9 @@ public class AddGoals extends AppCompatActivity {
         dailyHabitsArray.add(new ItemAttributes(getString(R.string.PlanTravel), R.drawable.ic_travel_car_black_24dp));
         dailyHabitsArray.add(new ItemAttributes(getString(R.string.RearrangeSpace), R.drawable.ic_wiping_swipe_clean_tidy));
         dailyHabitsArray.add(new ItemAttributes(getString(R.string.PlanOccasions), R.drawable.ic_write_black_24dp));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.WakeUpEarly), R.drawable.ic_wb_sunny_black_24dp));
 
         customAdapter = new ListViewCustomAdapter(this, R.layout.dwm_habits_rows, dailyHabitsArray, fileName);
         lvDailyHabits.setAdapter(customAdapter);
-
-
-
     }
-
-
-
 }

@@ -30,7 +30,7 @@ public class FeedsPage extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_add_new_goals, container, false);
+        View view = inflater.inflate(R.layout.fragment_feeds_page, container, false);
         return view;
     }
 
