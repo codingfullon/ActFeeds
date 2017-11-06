@@ -1,5 +1,6 @@
 package com.example.kavitapc.fitnessreminder.data;
 
+import android.net.Uri;
 import android.provider.BaseColumns;
 
 /**
@@ -9,6 +10,14 @@ import android.provider.BaseColumns;
 public class HabitContract {
 
     private HabitContract(){}
+
+    public static final String AUTHORITY = "com.example.kavitapc.fitnessreminder";
+    public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);   // The base content URI = "content://" + <authority>
+
+    // Define the possible paths for accessing data in this contract
+    public static final String PATH_USER_HABITS_Detail = "UserHabitDetail";  // This is the path for the "UserHabitDetail" directory
+
+
 
     //Table for each habit
     public static final class HabitEntry implements BaseColumns {
@@ -21,6 +30,9 @@ public class HabitContract {
 
     //Table for each habit added by user
     public static final class UserHabitDetailEntry implements BaseColumns {
+
+        public static final Uri CONTENT_URI =
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_USER_HABITS_Detail).build();  // PATH_USER_HABITS_Detail content URI = base content URI + path
         public static final String TABLE_NAME = "UserHabitDetail";
         public static final String HABIT_NAME = "HabitName";
         public static final String START_DATE = "StartDate";

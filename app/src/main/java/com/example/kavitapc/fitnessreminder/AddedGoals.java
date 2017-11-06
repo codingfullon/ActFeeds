@@ -1,17 +1,31 @@
 package com.example.kavitapc.fitnessreminder;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.ListFragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.kavitapc.fitnessreminder.data.HabitContract;
+import com.example.kavitapc.fitnessreminder.data.HabitDbHelper;
+import com.example.kavitapc.fitnessreminder.utilities.AddedGoalsRecyclerViewAdapter;
 
 import org.w3c.dom.Text;
 
@@ -19,13 +33,17 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class AddedGoals extends Fragment {
+public class AddedGoals extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
 
 
     private OnFragmentInteractionListener mListener;
     private TextView tvDate;
     private FloatingActionButton floatingActionButton;
+    private RecyclerView recyclerViewAddedGoals;
+    AddedGoalsRecyclerViewAdapter mAdapter;
+    protected RecyclerView.LayoutManager mLayoutManager;
+    public static final int TASK_LOADER_ID = 1;
 
     public AddedGoals(){
 
@@ -41,6 +59,13 @@ public class AddedGoals extends Fragment {
         DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         Date date = new Date();
         tvDate.setText(date.toString().substring(0,10));
+
+        recyclerViewAddedGoals =(RecyclerView)view.findViewById(R.id.rvAddedGoals);
+        recyclerViewAddedGoals.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mAdapter = new AddedGoalsRecyclerViewAdapter(getActivity());
+        recyclerViewAddedGoals.setAdapter(mAdapter);
+
+
         floatingActionButton =(FloatingActionButton)view.findViewById(R.id.fabAddGoals);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,16 +74,10 @@ public class AddedGoals extends Fragment {
                 startActivity(intent);
             }
         });
-
+        getActivity().getSupportLoaderManager().initLoader(TASK_LOADER_ID, null, this);
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -72,10 +91,72 @@ public class AddedGoals extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().getSupportLoaderManager().restartLoader(TASK_LOADER_ID, null, this);
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
     }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new AsyncTaskLoader<Cursor>(getActivity()) {
+
+            // Initialize a Cursor, this will hold all the task data
+            Cursor mHabitDetailData = null;
+
+            // onStartLoading() is called when a loader first starts loading data
+            @Override
+            protected void onStartLoading() {
+                if (mHabitDetailData != null) {
+                    // Delivers any previously loaded data immediately
+                    deliverResult(mHabitDetailData);
+                } else {
+                    // Force a new load
+                    forceLoad();
+                }
+            }
+
+            // loadInBackground() performs asynchronous loading of data
+            @Override
+            public Cursor loadInBackground() {
+                try {
+                    HabitDbHelper mDbHelper = new HabitDbHelper(getActivity().getBaseContext());
+                    SQLiteDatabase sqldb = mDbHelper.getWritableDatabase();
+
+                    Cursor cursor = null;
+                    String Query ="SELECT * FROM UserHabitDetail";
+                    cursor = sqldb.rawQuery(Query, null);
+                    return cursor;
+
+                } catch (Exception e) {
+                    Log.e("Failed", "Failed to asynchronously load data.");
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+
+            // deliverResult sends the result of the load, a Cursor, to the registered listener
+            public void deliverResult(Cursor data) {
+                mHabitDetailData = data;
+                super.deliverResult(data);
+            }
+        };
+
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        // Update the data that the adapter uses to create ViewHolders
+        mAdapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {mAdapter.swapCursor(null);    }
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name

@@ -10,13 +10,13 @@
         android:id="@+id/tvGoalTitle"
         style="@style/TextViewStyle"
         android:layout_width="match_parent"
-        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="TextView"
-        app:layout_constraintHorizontal_bias="0.606"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -79,7 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="16dp"
         android:gravity="center"
@@ -143,7 +143,6 @@
         android:layout_marginRight="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="16dp"
-        android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp" />
 
     <TextView
@@ -160,22 +159,6 @@
         app:layout_constraintTop_toBottomOf="@+id/view3"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvWeekDays"
-        android:layout_width="wrap_content"
-        android:layout_height="46dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="7dp"
-        android:scrollbarAlwaysDrawHorizontalTrack="true"
-        android:scrollbars="horizontal"
-        android:visibility="invisible"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cbRepeatOn" />
 
     <FrameLayout
         android:id="@+id/frameLayout"
@@ -204,7 +187,6 @@
                 android:layout_weight="1"
                 android:background="@color/materialRed"
                 android:text="High"
-                android:textColor="@android:color/primary_text_light"
                 android:onClick="onPrioritySelected"/>
 
             <RadioButton
@@ -214,7 +196,7 @@
                 android:layout_weight="1"
                 android:background="@color/materialOrange"
                 android:text="Medium"
-                android:textColor="@android:color/primary_text_light" />
+                />
 
             <RadioButton
                 android:id="@+id/rbLow"
@@ -222,11 +204,24 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/materialYellow"
-                android:text="Low"
-                android:textColor="@android:color/primary_text_light" />
+                android:text="Low" />
         </RadioGroup>
 
     </FrameLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvWeekDays"
+        android:layout_width="0dp"
+        android:layout_height="46dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="15dp"
+        android:scrollbarAlwaysDrawHorizontalTrack="true"
+        android:scrollbars="horizontal"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@+id/cbRepeatOn"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

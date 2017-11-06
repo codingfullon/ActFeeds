@@ -61,6 +61,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
         // Create a new instance of DatePickerDialog and return it
         DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this, year, month, day);
+        //set minimum date as current date
         datePickerDialog.getDatePicker().setMinDate(c.getTimeInMillis());
 
 
@@ -89,8 +90,24 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
             datePickerDialog = new DatePickerDialog(getActivity(), this, year1, month1, day1);
             datePickerDialog.getDatePicker().setMinDate(c1.getTimeInMillis());
 
+        } else if(id == R.id.tvStartDate && !(textViewEndDate.getText().toString()).equals("End Date")) {
+            String dateText = textViewEndDate.getText().toString();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MMM, dd yyyy", Locale.ENGLISH);
+            final Calendar c2 = Calendar.getInstance();
+            Date date;
+            try {
+                date = dateFormat.parse(dateText);
+                c2.setTime(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            int year1 = c2.get(Calendar.YEAR);
+            int month1 = c2.get(Calendar.MONTH);
+            int day1 = c2.get(Calendar.DAY_OF_MONTH);
+            datePickerDialog = new DatePickerDialog(getActivity(), this, year1, month1, day1);
+            datePickerDialog.getDatePicker().setMaxDate(c2.getTimeInMillis());
+            datePickerDialog.getDatePicker().setMinDate(c.getTimeInMillis());
         }
-
         return datePickerDialog;
     }
 

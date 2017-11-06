@@ -52,8 +52,8 @@ public class WeekDaysRecycleViewAdapter extends RecyclerView.Adapter<WeekDaysRec
         String itemName = itemList.get(position).getItemName();
         flagWeekDays = itemList.get(position).getBoolean();
         holder.button.setText(itemName);
-        holder.button.setBackgroundColor(Color.BLUE);
-        holder.button.setSelected(flagWeekDays);
+        //holder.button.setBackgroundColor(Color.BLUE);
+        holder.button.setChecked(flagWeekDays);
 
     }
 
@@ -79,14 +79,16 @@ public class WeekDaysRecycleViewAdapter extends RecyclerView.Adapter<WeekDaysRec
                 itemList.get(getAdapterPosition()).aBoolean = false;
                 Log.d("enabled 0", "true"+button.getText());
 
-                button.setBackgroundColor(Color.WHITE);
+               // button.setBackgroundColor(Color.WHITE);
+                button.setChecked(false);
 
             }
             else{
                 itemList.get(getAdapterPosition()).aBoolean = true;
                 Log.d("enabled 0", "false");
-                button.setSelected(true);
-                button.setBackgroundColor(Color.BLUE);
+                //button.setSelected(true);
+                //button.setBackgroundColor(Color.BLUE);
+                button.setChecked(true);
 
             }
         }

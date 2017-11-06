@@ -1,26 +1,31 @@
 package com.example.kavitapc.fitnessreminder;
 
-import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.database.Cursor;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.AsyncTask;
-import android.provider.ContactsContract;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.example.kavitapc.fitnessreminder.data.HabitContract;
 import com.example.kavitapc.fitnessreminder.data.HabitDbHelper;
 import com.example.kavitapc.fitnessreminder.utilities.DatePickerFragment;
 
+import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import static com.example.kavitapc.fitnessreminder.data.HabitContract.*;
 
@@ -40,6 +45,8 @@ public class GoalDetails extends AppCompatActivity {
     public static final String END_DATE_TEXT = "End_date";
     CheckBox checkBoxRepeat;
     private int mPriority;
+    String title;
+    Button save;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +56,7 @@ public class GoalDetails extends AppCompatActivity {
 
         //Setting goal title from selected goal
         Bundle b = getIntent().getExtras();
-        String title = b.getString("habitTitle");
+        title = b.getString("habitTitle");
         TextView textView= (TextView)findViewById(R.id.tvGoalTitle);
         textView.setText(title);
         // Initialize to highest mPriority by default (mPriority = 1)
@@ -66,11 +73,7 @@ public class GoalDetails extends AppCompatActivity {
             textViewStartDate.setText(textStartDate);
             textViewEndDate.setText(textEndDate);
         }
-
-
-
-
-
+        ////////////////////Add week days list
         addItemArray.add(new WeekDaysAttributes("Sun",true));
         addItemArray.add(new WeekDaysAttributes("Mon",true));
         addItemArray.add(new WeekDaysAttributes("Tue",true));
@@ -83,7 +86,7 @@ public class GoalDetails extends AppCompatActivity {
         LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         rvWeekDays.setLayoutManager(horizontalLayoutManagaer);
 
-         checkBoxRepeat = (CheckBox)findViewById(R.id.cbRepeatOn);
+        checkBoxRepeat = (CheckBox)findViewById(R.id.cbRepeatOn);
         checkBoxRepeat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,10 +97,19 @@ public class GoalDetails extends AppCompatActivity {
                 }
             }
         });
-
-
         weekDaysAdapter = new WeekDaysRecycleViewAdapter(this,addItemArray);
         rvWeekDays.setAdapter(weekDaysAdapter);
+        ///////////////////////////////////////
+
+        save = (Button)findViewById(R.id.bSave);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               saveData();
+                Intent intent = new Intent(GoalDetails.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -117,36 +129,41 @@ public class GoalDetails extends AppCompatActivity {
         outState.putString(END_DATE_TEXT, textEndDate);
     }
 
-//////////////Accessing contacts content provider
-    public class AsyncTaskContacts extends AsyncTask<Void, Void, Cursor> {
+    private long saveData() {
+            //Activity name = title
+            //Priority = mPriority
+            textStartDate = textViewStartDate.getText().toString();
+            textEndDate = textViewEndDate.getText().toString();
+            boolean isCheckRepeatOn = checkBoxRepeat.isChecked();
+            if(textStartDate.toString().equals("Start Date")){
+                textStartDate = (new Date()).toString().substring(0,10);
+            }
+            if(textEndDate.toString().equals("End Date")){
+                GregorianCalendar cal = new GregorianCalendar();
+                cal.setTime(new Date());
+                cal.add(Calendar.DATE, 30);
+                textEndDate = (cal.getTime()).toString().substring(0,10);
+            }
 
-
-        @Override
-        protected Cursor doInBackground(Void... params) {
-
-            ContentResolver contentResolver = getContentResolver();
-            Cursor cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
-
-            return null;
-        }
-
-        public void saveData() {
             HabitDbHelper mDbHelper = new HabitDbHelper(getBaseContext());
             SQLiteDatabase sqLiteDatabase = mDbHelper.getWritableDatabase();
             ContentValues contentValues = new ContentValues();
-            contentValues.put(UserHabitDetailEntry.HABIT_NAME, "Read");
-            contentValues.put(UserHabitDetailEntry.START_DATE, "Read");
-            contentValues.put(UserHabitDetailEntry.END_DATE, "Read");
-            contentValues.put(UserHabitDetailEntry.AVERAGE_TIME, "Read");
-            contentValues.put(UserHabitDetailEntry.REPEAT_DAILY, "Read");
-            contentValues.put(UserHabitDetailEntry.HABIT_PRIVATE, "Read");
-            contentValues.put(UserHabitDetailEntry.DESCRIPTION, "Read");
-            contentValues.put(UserHabitDetailEntry.HABIT_NAME, "Read");
 
+            contentValues.put(UserHabitDetailEntry.HABIT_NAME, title);
+            contentValues.put(UserHabitDetailEntry.START_DATE, textStartDate);
+            contentValues.put(UserHabitDetailEntry.END_DATE, textEndDate);
+            contentValues.put(UserHabitDetailEntry.AVERAGE_TIME, 45);
+            contentValues.put(UserHabitDetailEntry.REPEAT_DAILY, isCheckRepeatOn);
+            contentValues.put(UserHabitDetailEntry.HABIT_PRIVATE, true);
+            contentValues.put(UserHabitDetailEntry.DESCRIPTION, title);
+        Log.d("id is:", "aaaaaaaaaaaaaaaaaaaaaaa"+title);
+        Log.d("id is:", "aaaaaaaaaaaaaaaaaaaaaaa"+textStartDate);
             long newRowId = sqLiteDatabase.insert(UserHabitDetailEntry.TABLE_NAME, null, contentValues);
+            Log.d("Row is","Row inserted...................."+newRowId);
+            return newRowId;
         }
 
-    }
+
 
 }
 
