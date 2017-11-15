@@ -27,7 +27,7 @@ import static java.security.AccessController.getContext;
 public class WeekDaysRecycleViewAdapter extends RecyclerView.Adapter<WeekDaysRecycleViewAdapter.WeekDaysViewHolder> {
 
     private LayoutInflater layoutInflater;
-    private ArrayList<WeekDaysAttributes> itemList = new ArrayList<>();
+    public ArrayList<WeekDaysAttributes> itemList = new ArrayList<>();
     ListItemClickListener mClickListener;
     boolean flagWeekDays;
 
@@ -96,3 +96,4 @@ public class WeekDaysRecycleViewAdapter extends RecyclerView.Adapter<WeekDaysRec
 
 
 }
+

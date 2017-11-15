@@ -31,8 +31,8 @@ public class HabitContract {
     //Table for each habit added by user
     public static final class UserHabitDetailEntry implements BaseColumns {
 
-        public static final Uri CONTENT_URI =
-                BASE_CONTENT_URI.buildUpon().appendPath(PATH_USER_HABITS_Detail).build();  // PATH_USER_HABITS_Detail content URI = base content URI + path
+     //   public static final Uri CONTENT_URI =
+       //         BASE_CONTENT_URI.buildUpon().appendPath(PATH_USER_HABITS_Detail).build();  // PATH_USER_HABITS_Detail content URI = base content URI + path
         public static final String TABLE_NAME = "UserHabitDetail";
         public static final String HABIT_NAME = "HabitName";
         public static final String START_DATE = "StartDate";
@@ -41,18 +41,14 @@ public class HabitContract {
         public static final String REPEAT_DAILY = "RepeatDaily";
         public static final String HABIT_PRIVATE = "habit_private";
         public static final String DESCRIPTION = "Description";
+        public static final String PRIORITY = "Priority";
     }
 
     //Table for each habit's specific repeat on days
     public static final class RepeatOnDaysEntry implements BaseColumns {
         public static final String TABLE_NAME = "RepeatOnDays";
-        public static final String MONDAY = "Monday";
-        public static final String TUESDAY = "Tuesday";
-        public static final String WEDNESDAY = "Wednesday";
-        public static final String THURSDAY = "Thursday";
-        public static final String FRIDAY = "Friday";
-        public static final String SATURDAY = "Saturday";
-        public static final String SUNDAY = "Sunday";
+        public static final String WEEK_DAY = "Day";
+        public static final String DAY_SELECTED = "DaySelected";
         public static final String HABIT_ID = "Habit_Id";
     }
 

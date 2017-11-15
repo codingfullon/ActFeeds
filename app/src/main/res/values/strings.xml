@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FitnessReminder</string>
+    <string name="app_name">ActFeed</string>
     <!-- Daily habits list items -->
     <string name="WaterReminder">Drink Water</string>
     <string name="ExerciseReminder">Exercise</string>
@@ -58,7 +58,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="AddDailyHabits">Add Daily Habits</string>
+    <string name="HabitList">Select an activity</string>
 
     <!--Goal details-->
     <string name="StartDate">Start Date</string>

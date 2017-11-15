@@ -44,11 +44,14 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
         //setting up view pager
         viewPager =(ViewPager)findViewById(R.id.pager);
         pagerAdapter = new PagerAdapter(getSupportFragmentManager());
-        pagerAdapter.addFragment(new AddedGoals(),"AddedHabits");
-        pagerAdapter.addFragment(new FeedsPage(),"AddNewHabits");
-        pagerAdapter.addFragment(new HabitsReport(), "Reports");
+        pagerAdapter.addFragment(new AddedGoals(), "");
+        pagerAdapter.addFragment(new FeedsPage(),"");
+        pagerAdapter.addFragment(new HabitsReport(), "");
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_home_black_24dp);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_group_black_24dp);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_av_timer_black_24dp);
 
         //get extra data from server
         Bundle extras = getIntent().getExtras();

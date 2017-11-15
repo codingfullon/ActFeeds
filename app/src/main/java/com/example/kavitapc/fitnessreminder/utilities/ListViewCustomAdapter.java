@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +30,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<ItemAttributes> {
     private final AppCompatActivity context;
     ArrayList<ItemAttributes> itemList = new ArrayList<>();
     String fileName;
-    public static final String HABIT_TITLE = "habitTitle";
+
 
     public ListViewCustomAdapter(AppCompatActivity context, int resource, ArrayList<ItemAttributes> objects, String fileName) {
         super(context, resource, objects);
@@ -54,42 +56,28 @@ public class ListViewCustomAdapter extends ArrayAdapter<ItemAttributes> {
         LayoutInflater layoutInflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         v = layoutInflater.inflate(R.layout.dwm_habits_rows, null);
         TextView textView = (TextView) v.findViewById(R.id.tvGoalRow);
-        CheckBox checkBox =(CheckBox)v.findViewById(R.id.cbDailyHabitsRow);
         final String itemName = itemList.get(position).getItemName();
         textView.setText(itemName);
-        textView.setCompoundDrawablesWithIntrinsicBounds(itemList.get(position).getIcon(),0,0,0);
-
-        SharedPreferences sharedPreferences = context.getSharedPreferences(fileName, Context.MODE_PRIVATE);
-        checkBox.setChecked(sharedPreferences.getBoolean(itemName,false));
-
-        checkBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkBoxClick(v);
-            }
-        });
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle b = new Bundle();
-                b.putString(HABIT_TITLE,itemName);
-                Intent intent = new Intent(context, GoalDetails.class);
-                intent.putExtras(b);
-                context.startActivity(intent);
-            }
-        });
+        final int icon = itemList.get(position).getIcon();
+        ImageView iconView = (ImageView) v.findViewById(R.id.tvIcon) ;
+        iconView.setImageResource(icon);
 
         return v;
     }
 
-    private void checkBoxClick(View view){
-        CheckBox checkBox = (CheckBox) view.findViewById(R.id.cbDailyHabitsRow);
-        String text = checkBox.getText().toString();
-        SharedPreferences sharedPreferences = context.getSharedPreferences(fileName,Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(text, checkBox.isChecked());
-        editor.apply();
+    @Override
+    public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        View v = convertView;
+        LayoutInflater layoutInflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        v = layoutInflater.inflate(R.layout.dwm_habits_rows, null);
+        TextView textView = (TextView) v.findViewById(R.id.tvGoalRow);
+        final String itemName = itemList.get(position).getItemName();
+        textView.setText(itemName);
+        final int icon = itemList.get(position).getIcon();
+        ImageView iconView = (ImageView) v.findViewById(R.id.tvIcon) ;
+        iconView.setImageResource(icon);
 
-        Toast.makeText(context.getApplicationContext(), "Selected item: " + text, Toast.LENGTH_SHORT).show();
+        //iconView.setCompoundDrawablesWithIntrinsicBounds(icon,0,icon,0);
+        return v;
     }
 }

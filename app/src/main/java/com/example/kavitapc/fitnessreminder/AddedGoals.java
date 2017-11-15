@@ -15,12 +15,14 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.kavitapc.fitnessreminder.data.HabitContract;
@@ -30,13 +32,17 @@ import com.example.kavitapc.fitnessreminder.utilities.AddedGoalsRecyclerViewAdap
 import org.w3c.dom.Text;
 
 import java.text.DateFormat;
+import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class AddedGoals extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
 
-
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MMM, dd yyyy", Locale.ENGLISH);
     private OnFragmentInteractionListener mListener;
     private TextView tvDate;
     private FloatingActionButton floatingActionButton;
@@ -61,16 +67,22 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
         tvDate.setText(date.toString().substring(0,10));
 
         recyclerViewAddedGoals =(RecyclerView)view.findViewById(R.id.rvAddedGoals);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerViewAddedGoals.setLayoutManager(new LinearLayoutManager(getActivity()));
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerViewAddedGoals.getContext(),
+                linearLayoutManager.getOrientation());
+        recyclerViewAddedGoals.addItemDecoration(dividerItemDecoration);
+
         mAdapter = new AddedGoalsRecyclerViewAdapter(getActivity());
         recyclerViewAddedGoals.setAdapter(mAdapter);
+
 
 
         floatingActionButton =(FloatingActionButton)view.findViewById(R.id.fabAddGoals);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), AddGoals.class);
+                Intent intent = new Intent(getContext(), GoalDetails.class);
                 startActivity(intent);
             }
         });
@@ -128,8 +140,22 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
                     HabitDbHelper mDbHelper = new HabitDbHelper(getActivity().getBaseContext());
                     SQLiteDatabase sqldb = mDbHelper.getWritableDatabase();
 
+
+                    Calendar utcCalendar = Calendar.getInstance();
+                    utcCalendar.set(Calendar.HOUR_OF_DAY, 0);
+                    utcCalendar.set(Calendar.MINUTE, 0);
+                    utcCalendar.set(Calendar.SECOND, 0);
+                    utcCalendar.set(Calendar.MILLISECOND, 0);
+                    Date startDate = utcCalendar.getTime();
+
+
                     Cursor cursor = null;
-                    String Query ="SELECT * FROM UserHabitDetail";
+                    String Query ="SELECT * FROM UserHabitDetail user INNER JOIN RepeatOnDays days ON user._id = days.Habit_Id WHERE " +
+                            " days.Day = \""+ (new SimpleDateFormat("EEE")).format(new Date()) + "\"" +
+                            " AND DaySelected = 1" +
+                            " AND StartDate<=" + startDate.getTime()+
+                            " AND EndDate>=" + startDate.getTime() +" ORDER BY Priority";
+
                     cursor = sqldb.rawQuery(Query, null);
                     return cursor;
 

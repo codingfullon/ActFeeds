@@ -2,12 +2,15 @@ package com.example.kavitapc.fitnessreminder.utilities;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -57,9 +60,14 @@ public class AddedGoalsRecyclerViewAdapter extends RecyclerView.Adapter<AddedGoa
         Log.d("id is:", "aaaaaaaaaaaaaaaaaaaaaaa"+id);
         Log.d("id is:", "aaaaaaaaaaaaaaaaaaaaaaa"+name);
         Log.d("id is:", "aaaaaaaaaaaaaaaaaaaaaaa"+averageTime);
-
+        String str = DatabaseUtils.dumpCursorToString(mCursor);
+        Log.d("whole data is :", "aaaaaaaaaaaaaaaaaaaaaaa"+str);
         holder.habitNameView.setText(name);
-        holder.averageTimeView.setText(averageTime);
+       // R.drawable.ic_book_black_24dp;
+
+String imagename = "ic_book_black_24dp";
+        holder.iconImageView.setImageResource(mContext.getResources().getIdentifier(
+                imagename, "drawable", "com.example.kavitapc.fitnessreminder"));
     }
 
     @Override
@@ -88,12 +96,12 @@ public class AddedGoalsRecyclerViewAdapter extends RecyclerView.Adapter<AddedGoa
 
     public class AddGoalsViewHolder extends RecyclerView.ViewHolder{
         TextView habitNameView;
-        TextView averageTimeView;
+        ImageView iconImageView;
 
         public AddGoalsViewHolder(View itemView) {
             super(itemView);
             habitNameView = (TextView)itemView.findViewById(R.id.name_text_view);
-            averageTimeView =(TextView)itemView.findViewById(R.id.averageTime_text_view);
+            iconImageView =(ImageView)itemView.findViewById(R.id.iconImageView);
         }
     }
 }

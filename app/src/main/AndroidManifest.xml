@@ -14,6 +14,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
+            android:label="ActFeed"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,14 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".AddGoals"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".CreateOwn"
-            android:parentActivityName=".MainActivity" />
+
         <activity android:name=".GoalDetails"
-            android:parentActivityName=".AddGoals"></activity>
+            android:label="Add an Activity"
+            android:parentActivityName=".MainActivity"></activity>
+
+        <activity
+        android:name=".CreateOwn"
+        android:parentActivityName=".MainActivity" />
     </application>
 
 //message handling in the foreground
