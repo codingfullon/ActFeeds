@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="56dp"
     android:gravity="center_vertical"
@@ -14,17 +15,26 @@
         android:foregroundGravity="center_horizontal"
         android:scaleType="centerInside"
         android:textColor="@color/colorPrimary"
-        android:tint="@color/colorPrimary"
-        />
+        android:tint="@color/colorPrimary" />
 
 
     <TextView
         android:id="@+id/name_text_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
         android:layout_weight="1"
+        android:layout_marginLeft="16dp"
         android:fontFamily="sans-serif"
-        android:textSize="16sp"
-        android:text="@string/default_activity_name"/>
+        android:text="@string/default_activity_name"
+        android:textSize="16sp" />
+
+
+    <TextView
+        android:id="@+id/ibDone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:paddingLeft="1dp"
+        android:text="Done"
+        android:textColor="@color/colorPrimary" />
 </LinearLayout>

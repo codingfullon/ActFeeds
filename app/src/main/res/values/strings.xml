@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">ActFeed</string>
     <!-- Daily habits list items -->
-    <string name="WaterReminder">Drink Water</string>
+    <string name="WaterReminder">Drink More Water</string>
     <string name="ExerciseReminder">Exercise</string>
     <string name="FruitsReminder">Eat Fruits</string>
     <string name="ExpressGratitude">Express gratitude</string>

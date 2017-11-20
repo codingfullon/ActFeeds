@@ -60,7 +60,7 @@ public class GoalDetails extends AppCompatActivity {
     private int mPriority;
     String title;
     Button save;
-    int icon;
+    String iconName;
     private static final String IMAGE_ICON = "ImageIcon";
     private static final String fileName = "DailyHabitsKeyValue";
 
@@ -82,7 +82,8 @@ public class GoalDetails extends AppCompatActivity {
                 TextView textView = (TextView) view.findViewById(R.id.tvGoalRow);
                 title = textView.getText().toString();
 
-               icon = dailyHabitsArray.get(position).getIcon();
+                iconName = dailyHabitsArray.get(position).getIconName();
+                Log.d("iiiiiiiiii", ""+iconName);
 
             }
 
@@ -141,6 +142,7 @@ public class GoalDetails extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                save.setEnabled(false);
                 saveData();
                 Intent intent = new Intent(GoalDetails.this, MainActivity.class);
                 startActivity(intent);
@@ -197,8 +199,11 @@ public class GoalDetails extends AppCompatActivity {
             contentValues.put(UserHabitDetailEntry.HABIT_PRIVATE, true);
             contentValues.put(UserHabitDetailEntry.DESCRIPTION, title);
             contentValues.put(UserHabitDetailEntry.PRIORITY, mPriority);
+            contentValues.put(UserHabitDetailEntry.ICON_NAME, iconName);
 
+            
             long habitId = sqLiteDatabase.insert(UserHabitDetailEntry.TABLE_NAME, null, contentValues);
+
 
             Log.d("Row is", "Row inserted...................." + habitId);
             contentValues.clear();
@@ -212,6 +217,7 @@ public class GoalDetails extends AppCompatActivity {
                 Log.d("inserted days", "" + daysRowId);
             }
 
+
             return habitId;
         } catch (ParseException e) {
             Log.e("Error adding habit", Log.getStackTraceString(e));
@@ -222,38 +228,38 @@ public class GoalDetails extends AppCompatActivity {
 
     public void addData(ArrayList<ItemAttributes> dailyHabitsArray){
 
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.WaterReminder), R.drawable.ic_drink_water_black_24dp));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.YogaReminder), R.drawable.ic_yoga_black_24dp));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.ExerciseReminder), R.drawable.ic_exercise_black_24dp));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.FruitsReminder), R.drawable.ic_fruits_black_24dp));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.ExpressGratitude), R.drawable.ic_express_grattitude_black_24dp));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.LaughLaughAndLaugh), R.drawable.ic_sentiment_laugh_satisfied_black_24dp));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.Read), R.drawable.ic_read_book_black_24dp));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.WriteSomething), R.drawable.ic_write_black_24dp));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.WorkOnSecretProject), R.drawable.ic_secret_agent_black_24dp));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.Running), R.drawable.ic_directions_run_black_24dp));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.Meditate), R.drawable.ic_meditation_yoga_posture));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.LearnNewWords), R.drawable.ic_book_black_24dp));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.EatBowlSalad), R.drawable.ic_fruits_black_24dp));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.Study), R.drawable.ic_read_book_black_24dp));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.CleanTidy), R.drawable.ic_wiping_swipe_clean_tidy));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.CheckToDo), R.drawable.ic_book_black_24dp));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.Breakfast), R.drawable.ic_fruits_black_24dp));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.Swimming), R.drawable.ic_swim_pool_black_24dp));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.Laundry), R.drawable.ic_local_laundry_wash_black_24dp));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.CheckBills), R.drawable.ic_playlist_add_check_black_24dp));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.MakeToDo), R.drawable.ic_write_black_24dp));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.Networking), R.drawable.ic_people_black_24dp));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.CareLovedOnes), R.drawable.ic_sentiment_laugh_satisfied_black_24dp));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.Socialize), R.drawable.ic_read_book_black_24dp));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.LearnCooking), R.drawable.ic_fruits_black_24dp));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.DeclutterPlace), R.drawable.ic_wiping_swipe_clean_tidy));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.PlanInvestments), R.drawable.ic_attach_money_black_24dp));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.CheckStatement), R.drawable.ic_read_book_black_24dp));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.PlanTravel), R.drawable.ic_travel_car_black_24dp));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.RearrangeSpace), R.drawable.ic_wiping_swipe_clean_tidy));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.PlanOccasions), R.drawable.ic_write_black_24dp));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.WakeUpEarly), R.drawable.ic_wb_sunny_black_24dp));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.WaterReminder), "ic_drink_water_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.YogaReminder), "ic_yoga_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.ExerciseReminder), "ic_exercise_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.FruitsReminder), "ic_fruits_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.ExpressGratitude), "ic_express_grattitude_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.LaughLaughAndLaugh), "ic_sentiment_laugh_satisfied_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.Read), "ic_read_book_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.WriteSomething), "ic_write_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.WorkOnSecretProject), "ic_secret_agent_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.Running), "ic_directions_run_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.Meditate), "ic_meditation_yoga_posture"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.LearnNewWords), "ic_book_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.EatBowlSalad), "ic_fruits_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.Study), "ic_read_book_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.CleanTidy), "ic_wiping_swipe_clean_tidy"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.CheckToDo), "ic_book_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.Breakfast), "ic_fruits_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.Swimming), "ic_swim_pool_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.Laundry), "ic_local_laundry_wash_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.CheckBills), "ic_playlist_add_check_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.MakeToDo), "ic_write_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.Networking), "ic_people_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.CareLovedOnes), "ic_sentiment_laugh_satisfied_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.Socialize), "ic_read_book_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.LearnCooking), "ic_fruits_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.DeclutterPlace), "ic_wiping_swipe_clean_tidy"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.PlanInvestments), "ic_attach_money_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.CheckStatement), "ic_read_book_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.PlanTravel), "ic_travel_car_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.RearrangeSpace), "ic_wiping_swipe_clean_tidy"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.PlanOccasions), "ic_write_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.WakeUpEarly), "ic_wb_sunny_black_24dp"));
 
     }
 

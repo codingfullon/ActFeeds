@@ -1,6 +1,7 @@
 package com.example.kavitapc.fitnessreminder;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -61,10 +62,10 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_added_goals, container, false);
-        tvDate =(TextView)view.findViewById(R.id.tvSetText);
-        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        Date date = new Date();
-        tvDate.setText(date.toString().substring(0,10));
+        //tvDate =(TextView)view.findViewById(R.id.tvSetText);
+        //DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        //Date date = new Date();
+        //tvDate.setText(date.toString().substring(0,10));
 
         recyclerViewAddedGoals =(RecyclerView)view.findViewById(R.id.rvAddedGoals);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -77,7 +78,6 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
         recyclerViewAddedGoals.setAdapter(mAdapter);
 
 
-
         floatingActionButton =(FloatingActionButton)view.findViewById(R.id.fabAddGoals);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +87,8 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
             }
         });
         getActivity().getSupportLoaderManager().initLoader(TASK_LOADER_ID, null, this);
+
+
         return view;
     }
 
@@ -138,7 +140,7 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
             public Cursor loadInBackground() {
                 try {
                     HabitDbHelper mDbHelper = new HabitDbHelper(getActivity().getBaseContext());
-                    SQLiteDatabase sqldb = mDbHelper.getWritableDatabase();
+                    SQLiteDatabase sqldb = mDbHelper.getReadableDatabase();
 
 
                     Calendar utcCalendar = Calendar.getInstance();
@@ -150,13 +152,18 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
 
 
                     Cursor cursor = null;
-                    String Query ="SELECT * FROM UserHabitDetail user INNER JOIN RepeatOnDays days ON user._id = days.Habit_Id WHERE " +
-                            " days.Day = \""+ (new SimpleDateFormat("EEE")).format(new Date()) + "\"" +
+                    String Query ="SELECT * FROM UserHabitDetail user INNER JOIN RepeatOnDays days ON user.UserHabitPK = days.Habit_Id " +
+                            " AND days.Day = \""+ (new SimpleDateFormat("EEE")).format(new Date()) + "\"" +
                             " AND DaySelected = 1" +
                             " AND StartDate<=" + startDate.getTime()+
-                            " AND EndDate>=" + startDate.getTime() +" ORDER BY Priority";
+                            " AND EndDate>=" + startDate.getTime() +
+                            " LEFT JOIN HabitStatus ON user.UserHabitPK = HabitStatus.HABIT_ID "+
+                            " AND DateOfCompletion = " +  startDate.getTime()+
+                            "  ORDER BY Priority";
 
                     cursor = sqldb.rawQuery(Query, null);
+
+
                     return cursor;
 
                 } catch (Exception e) {
@@ -165,6 +172,7 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
                     return null;
                 }
             }
+
 
             // deliverResult sends the result of the load, a Cursor, to the registered listener
             public void deliverResult(Cursor data) {

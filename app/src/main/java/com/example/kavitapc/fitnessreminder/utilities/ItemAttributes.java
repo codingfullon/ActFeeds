@@ -6,16 +6,16 @@ package com.example.kavitapc.fitnessreminder.utilities;
 
 public class ItemAttributes {
     String itemName;
-    int icon;
+    String icon;
 
-    public ItemAttributes(String itemName, int icon){
+    public ItemAttributes(String itemName, String icon){
         this.itemName = itemName;
         this.icon = icon;
     }
     public String getItemName(){
         return itemName;
     }
-    public int getIcon(){
+    public String getIconName(){
         return icon;
     }
 }

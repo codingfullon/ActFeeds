@@ -11,7 +11,7 @@
 
 
     <!-- colors for task priority selection -->
-    <color name="materialRed">#E74C3C</color>
-    <color name="materialOrange">#E67E22</color>
+    <color name="materialRed">@android:color/holo_red_dark</color>
+    <color name="materialOrange">@android:color/holo_orange_dark</color>
     <color name="materialYellow">#F1C40F</color>
 </resources>

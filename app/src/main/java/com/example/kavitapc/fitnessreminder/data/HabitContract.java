@@ -34,6 +34,7 @@ public class HabitContract {
      //   public static final Uri CONTENT_URI =
        //         BASE_CONTENT_URI.buildUpon().appendPath(PATH_USER_HABITS_Detail).build();  // PATH_USER_HABITS_Detail content URI = base content URI + path
         public static final String TABLE_NAME = "UserHabitDetail";
+        public static final String USER_HABIT_PK = "UserHabitPK";
         public static final String HABIT_NAME = "HabitName";
         public static final String START_DATE = "StartDate";
         public static final String AVERAGE_TIME = "AverageTime";
@@ -42,13 +43,24 @@ public class HabitContract {
         public static final String HABIT_PRIVATE = "habit_private";
         public static final String DESCRIPTION = "Description";
         public static final String PRIORITY = "Priority";
+        public static final String ICON_NAME = "IconName";
     }
 
     //Table for each habit's specific repeat on days
     public static final class RepeatOnDaysEntry implements BaseColumns {
         public static final String TABLE_NAME = "RepeatOnDays";
+        public static final String WEEK_DAY_PK = "WeekDayPK";
         public static final String WEEK_DAY = "Day";
         public static final String DAY_SELECTED = "DaySelected";
+        public static final String HABIT_ID = "Habit_Id";
+    }
+
+    //Table for habit's status
+    public static final class HabitStatusEntry implements BaseColumns {
+        public static final String TABLE_NAME = "HabitStatus";
+        public static final String HABIT_STATUS_PK = "HabitStatusPK";
+        public static final String DATE_COMPLETION = "DateOfCompletion";
+        public static final String DONE_FLAG = "DoneFlag";
         public static final String HABIT_ID = "Habit_Id";
     }
 

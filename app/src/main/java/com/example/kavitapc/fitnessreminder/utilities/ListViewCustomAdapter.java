@@ -55,12 +55,19 @@ public class ListViewCustomAdapter extends ArrayAdapter<ItemAttributes> {
         View v = convertView;
         LayoutInflater layoutInflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         v = layoutInflater.inflate(R.layout.dwm_habits_rows, null);
+
+        //Setting textView value
         TextView textView = (TextView) v.findViewById(R.id.tvGoalRow);
         final String itemName = itemList.get(position).getItemName();
         textView.setText(itemName);
-        final int icon = itemList.get(position).getIcon();
+
+        //Drawing image in ImageView
+        final String icon = itemList.get(position).getIconName();
         ImageView iconView = (ImageView) v.findViewById(R.id.tvIcon) ;
-        iconView.setImageResource(icon);
+        iconView.setImageResource(context.getResources().getIdentifier(
+                icon, "drawable", "com.example.kavitapc.fitnessreminder"));
+
+        //iconView.setImageResource(icon);
 
         return v;
     }
@@ -70,12 +77,17 @@ public class ListViewCustomAdapter extends ArrayAdapter<ItemAttributes> {
         View v = convertView;
         LayoutInflater layoutInflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         v = layoutInflater.inflate(R.layout.dwm_habits_rows, null);
+
+        //Setting textView value
         TextView textView = (TextView) v.findViewById(R.id.tvGoalRow);
         final String itemName = itemList.get(position).getItemName();
         textView.setText(itemName);
-        final int icon = itemList.get(position).getIcon();
+
+        //Drawing image in ImageView
+        final String icon = itemList.get(position).getIconName();
         ImageView iconView = (ImageView) v.findViewById(R.id.tvIcon) ;
-        iconView.setImageResource(icon);
+        iconView.setImageResource(context.getResources().getIdentifier(
+                icon, "drawable", "com.example.kavitapc.fitnessreminder"));
 
         //iconView.setCompoundDrawablesWithIntrinsicBounds(icon,0,icon,0);
         return v;

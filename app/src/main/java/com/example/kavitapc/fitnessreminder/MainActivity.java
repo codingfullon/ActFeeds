@@ -1,5 +1,7 @@
 package com.example.kavitapc.fitnessreminder;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -9,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.kavitapc.fitnessreminder.utilities.PagerAdapter;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -53,6 +56,26 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_group_black_24dp);
         tabLayout.getTabAt(2).setIcon(R.drawable.ic_av_timer_black_24dp);
 
+        //setting tab color to RED
+        tabLayout.getTabAt(0).getIcon().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                tab.getIcon().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                tab.getIcon().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                tab.getIcon().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
+            }
+        });
         //get extra data from server
         Bundle extras = getIntent().getExtras();
         if (extras != null && extras.containsKey("test")) {
