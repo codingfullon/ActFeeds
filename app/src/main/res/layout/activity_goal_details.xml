@@ -6,63 +6,67 @@
     android:layout_height="match_parent"
     tools:context="com.example.kavitapc.fitnessreminder.GoalDetails">
 
+    <View
+        android:id="@+id/view2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/colorAccent"
+        android:visibility="visible"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDuration" />
+
     <Spinner
         android:id="@+id/spinnerActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="3dp"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <CheckBox
         android:id="@+id/cbRepeatOn"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
         android:checked="true"
         android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginLeft="16dp"
         android:text="@string/Repeat"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        android:layout_marginEnd="8dp"
-        tools:layout_editor_absoluteY="210dp" />
-
-    <TextView
-        android:id="@+id/tvAddPeople"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="16dp"
-        android:gravity="center"
-        android:text="@string/AddPeople"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        app:layout_constraintTop_toBottomOf="@+id/view2" />
 
     <View
+        android:id="@+id/view3"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@color/colorAccent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:id="@+id/view3"
-        android:layout_marginTop="9dp"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerActivity" />
+        app:layout_constraintTop_toBottomOf="@+id/etCreateOwn" />
 
     <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="32dp"
+        android:background="@color/colorAccent"
+        android:visibility="visible"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvWeekDays" />
+
+    <View
+        android:id="@+id/view4"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@color/colorAccent"
@@ -70,57 +74,53 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:id="@+id/view"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@+id/rvWeekDays" />
+        android:layout_marginTop="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
 
     <Button
         android:id="@+id/bSave"
-        android:layout_width="88dp"
-        android:layout_height="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
         android:drawableLeft="@drawable/ic_arrow_downward_black_24dp"
         android:drawableTint="@color/colorAccent"
         android:text="save"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp" />
+        app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:text="Set Priority"
-        app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/view3"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        android:text="Set Priority"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintHorizontal_bias="0.024"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view3" />
 
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="0dp"
         android:layout_height="47dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4">
 
         <RadioGroup
+            android:id="@+id/rgPriority"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:id="@+id/rgPriority"
             android:orientation="horizontal">
 
             <RadioButton
@@ -129,8 +129,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/materialRed"
-                android:text="High"
-                android:onClick="onPrioritySelected"/>
+                android:onClick="onPrioritySelected"
+                android:text="High" />
 
             <RadioButton
                 android:id="@+id/rbMedium"
@@ -138,9 +138,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/materialOrange"
-                android:text="Medium"
                 android:onClick="onPrioritySelected"
-                />
+                android:text="Medium" />
 
             <RadioButton
                 android:id="@+id/rbLow"
@@ -148,80 +147,126 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/materialYellow"
-                android:text="Low"
-                android:onClick="onPrioritySelected"/>
+                android:onClick="onPrioritySelected"
+                android:text="Low" />
         </RadioGroup>
 
     </FrameLayout>
+
+    <TextView
+        android:id="@+id/tvTimePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="24dp"
+        android:drawableLeft="@drawable/ic_timer_black_24dp"
+        android:gravity="center_vertical"
+        android:onClick="showTimePickerDialog"
+        android:text="Set Time"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+
+    <TextView
+        android:id="@+id/tvDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="32dp"
+        android:drawableLeft="@drawable/ic_timelapse_black_24dp"
+        android:gravity="center_vertical"
+        android:text="Set Duration"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTimePicker" />
+
+    <EditText
+        android:id="@+id/etHours"
+        android:layout_width="44dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="number"
+        android:text="0"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintLeft_toRightOf="@+id/tvDuration"
+        app:layout_constraintTop_toBottomOf="@+id/tvTimePicker" />
+
+    <EditText
+        android:id="@+id/etMins"
+        android:layout_width="44dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="number"
+        android:text="15"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintLeft_toRightOf="@+id/textView9"
+        app:layout_constraintTop_toBottomOf="@+id/tvTimePicker" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="42dp"
+        android:text="HH"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintLeft_toRightOf="@+id/etHours"
+        app:layout_constraintTop_toBottomOf="@+id/tvTimePicker" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="42dp"
+        android:text="MM"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintLeft_toRightOf="@+id/etMins"
+        app:layout_constraintTop_toBottomOf="@+id/tvTimePicker" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvWeekDays"
         android:layout_width="0dp"
         android:layout_height="46dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
         android:scrollbarAlwaysDrawHorizontalTrack="true"
         android:scrollbars="horizontal"
         android:visibility="invisible"
-        app:layout_constraintTop_toBottomOf="@+id/cbRepeatOn"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cbRepeatOn" />
 
     <EditText
-        android:id="@+id/editText2"
-        android:layout_width="115dp"
-        android:layout_height="24dp"
+        android:id="@+id/etCreateOwn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:digits="abcdefghijklmnopqrstuvwxyz1234567890 _-"
         android:ems="10"
-        android:inputType="time"
-        android:layout_marginLeft="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="13dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        android:gravity="center"
+        android:hint="@string/CreateOwn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerActivity" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:text="Set Time"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Choose from dropdown or create your own activity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Duration"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout"
-        android:layout_marginRight="32dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/textView3"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintHorizontal_bias="0.912" />
-
-    <EditText
-        android:id="@+id/editText3"
-        android:layout_width="62dp"
-        android:layout_height="21dp"
-        android:ems="10"
-        android:inputType="number"
-        android:layout_marginTop="13dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
-        tools:layout_editor_absoluteX="297dp" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Mins"
-        android:layout_marginRight="16dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/editText3"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="14dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:layout_constraintHorizontal_bias="0.428" />
 
 </android.support.constraint.ConstraintLayout>

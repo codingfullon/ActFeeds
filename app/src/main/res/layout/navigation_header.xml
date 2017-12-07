@@ -10,7 +10,9 @@
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:gravity="center"
-        android:text="History"
+        android:drawableLeft="@drawable/ic_settings_black_24dp"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:text="@string/Settings"
         android:textAppearance="@android:style/TextAppearance.Holo.Large" />
 </android.support.v7.widget.Toolbar>

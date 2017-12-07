@@ -37,8 +37,10 @@ public class HabitContract {
         public static final String USER_HABIT_PK = "UserHabitPK";
         public static final String HABIT_NAME = "HabitName";
         public static final String START_DATE = "StartDate";
-        public static final String AVERAGE_TIME = "AverageTime";
         public static final String END_DATE = "EndDate";
+        public static final String REMINDER_TIME = "ReminderTime";
+        public static final String ACTIVITY_HOURS = "ActivityHours";
+        public static final String ACTIVITY_MINUTES = "ActivityMinutes";
         public static final String REPEAT_DAILY = "RepeatDaily";
         public static final String HABIT_PRIVATE = "habit_private";
         public static final String DESCRIPTION = "Description";

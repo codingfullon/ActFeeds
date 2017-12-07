@@ -19,6 +19,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +38,7 @@ import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -51,7 +53,8 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
     AddedGoalsRecyclerViewAdapter mAdapter;
     protected RecyclerView.LayoutManager mLayoutManager;
     public static final int TASK_LOADER_ID = 1;
-
+    private TextView textViewEmpty1;
+    private View view;
     public AddedGoals(){
 
     }
@@ -61,12 +64,12 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_added_goals, container, false);
+        view = inflater.inflate(R.layout.fragment_added_goals, container, false);
         //tvDate =(TextView)view.findViewById(R.id.tvSetText);
         //DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         //Date date = new Date();
         //tvDate.setText(date.toString().substring(0,10));
-
+        textViewEmpty1  =(TextView) view.findViewById(R.id.textViewEmpty1);
         recyclerViewAddedGoals =(RecyclerView)view.findViewById(R.id.rvAddedGoals);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerViewAddedGoals.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -77,15 +80,38 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
         mAdapter = new AddedGoalsRecyclerViewAdapter(getActivity());
         recyclerViewAddedGoals.setAdapter(mAdapter);
 
-
-        floatingActionButton =(FloatingActionButton)view.findViewById(R.id.fabAddGoals);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        //Delete item in recycler view when user swipes the item
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), GoalDetails.class);
-                startActivity(intent);
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
             }
-        });
+
+            // Called when a user swipes left or right on a ViewHolder
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                // Here is where you'll implement swipe to delete
+
+                int id = (int) viewHolder.itemView.getTag(); //get id of the item to delete
+                Log.d("id from get tag"," "+id);
+
+                //delete data from db
+                HabitDbHelper mDbHelper = new HabitDbHelper(getContext());
+                SQLiteDatabase sqldb = mDbHelper.getWritableDatabase();
+
+                sqldb.execSQL("DELETE FROM UserHabitDetail WHERE UserHabitPK = "+id+"");
+                sqldb.execSQL("DELETE FROM RepeatOnDays WHERE Habit_Id = "+id+"");
+                sqldb.execSQL("DELETE FROM HabitStatus WHERE Habit_Id = "+id+"");
+                sqldb.close();
+                mDbHelper.close();
+
+
+                // COMPLETED (3) Restart the loader to re-query for all tasks after a deletion
+                getActivity().getSupportLoaderManager().restartLoader(TASK_LOADER_ID, null, AddedGoals.this);
+
+            }
+        }).attachToRecyclerView(recyclerViewAddedGoals);
+
         getActivity().getSupportLoaderManager().initLoader(TASK_LOADER_ID, null, this);
 
 
@@ -149,7 +175,10 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
                     utcCalendar.set(Calendar.SECOND, 0);
                     utcCalendar.set(Calendar.MILLISECOND, 0);
                     Date startDate = utcCalendar.getTime();
-
+                    final SimpleDateFormat DATE_FORMAT_STATUS = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+                    GregorianCalendar GCStatusDate = new GregorianCalendar();
+                    GCStatusDate.setTime(new Date());
+                    Log.d("ssssssssssss",""+ DATE_FORMAT_STATUS.format(GCStatusDate.getTime()));
 
                     Cursor cursor = null;
                     String Query ="SELECT * FROM UserHabitDetail user INNER JOIN RepeatOnDays days ON user.UserHabitPK = days.Habit_Id " +
@@ -157,12 +186,13 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
                             " AND DaySelected = 1" +
                             " AND StartDate<=" + startDate.getTime()+
                             " AND EndDate>=" + startDate.getTime() +
-                            " LEFT JOIN HabitStatus ON user.UserHabitPK = HabitStatus.HABIT_ID "+
-                            " AND DateOfCompletion = " +  startDate.getTime()+
+                            " INNER JOIN HabitStatus ON user.UserHabitPK = HabitStatus.Habit_Id "+
+                            " WHERE DateOfCompletion = \"" + DATE_FORMAT_STATUS.format(GCStatusDate.getTime())+"\""+
                             "  ORDER BY Priority";
 
-                    cursor = sqldb.rawQuery(Query, null);
 
+                    cursor = sqldb.rawQuery(Query, null);
+                    Log.d("ssssssssssss",""+(new SimpleDateFormat("EEE")).format(new Date()));
 
                     return cursor;
 
@@ -177,6 +207,13 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
             // deliverResult sends the result of the load, a Cursor, to the registered listener
             public void deliverResult(Cursor data) {
                 mHabitDetailData = data;
+                if(mHabitDetailData==null || mHabitDetailData.getCount()==0){
+                    textViewEmpty1.setVisibility(view.VISIBLE);
+                    recyclerViewAddedGoals.setVisibility(view.GONE);
+                }else{
+                    textViewEmpty1.setVisibility(view.GONE);
+                    recyclerViewAddedGoals.setVisibility(view.VISIBLE);
+                }
                 super.deliverResult(data);
             }
         };
@@ -190,7 +227,7 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
     }
 
     @Override
-    public void onLoaderReset(Loader<Cursor> loader) {mAdapter.swapCursor(null);    }
+    public void onLoaderReset(Loader<Cursor> loader) {mAdapter.swapCursor(null);   }
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name

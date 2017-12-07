@@ -52,7 +52,7 @@
     <string name="DailyHabits">Daily Habits</string>
     <string name="WeeklyHabits">Weekly Habits</string>
     <string name="MonthlyHabits">Monthly Habits</string>
-    <string name="CreateOwn">Create Your Own Habits</string>
+    <string name="CreateOwn">Create Your Own Activity</string>
 
     <string name="FeedsPage">Feeds Data</string>
 
@@ -69,6 +69,14 @@
     <string name="message_token_format" translatable="false">InstanceID Token: %s</string>
     <string name="default_group_size">1</string>
     <string name="default_activity_name">Name</string>
+    <string name="Report_Page">No Report generated</string>
 
+    <!-- Settings strings-->
+    <string name="LogInLogOut">Login</string>
+    <string name="ShareApp">Share the app</string>
+    <string name="ContactUs">Contact Support</string>
+    <string name="AppTour">App tour</string>
+    <string name="Settings">Settings</string>
+    <string name="UserProfile">User Profile</string>
 
 </resources>

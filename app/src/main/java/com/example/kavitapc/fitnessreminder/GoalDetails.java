@@ -15,16 +15,20 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.kavitapc.fitnessreminder.data.HabitContract;
 import com.example.kavitapc.fitnessreminder.data.HabitDbHelper;
-import com.example.kavitapc.fitnessreminder.utilities.DatePickerFragment;
+
 import com.example.kavitapc.fitnessreminder.utilities.ItemAttributes;
 import com.example.kavitapc.fitnessreminder.utilities.ListViewCustomAdapter;
+import com.example.kavitapc.fitnessreminder.utilities.TimePickerFragment;
 
 import java.text.DateFormat;
 import java.text.FieldPosition;
@@ -35,28 +39,36 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
+
+import static android.provider.Settings.System.DATE_FORMAT;
 import static com.example.kavitapc.fitnessreminder.data.HabitContract.*;
 
 public class GoalDetails extends AppCompatActivity {
 
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MMM, dd yyyy");
-    TextView textViewStartDate;
-    TextView textViewEndDate;
-    String textStartDate;
-    String textEndDate;
 
 
     private RecyclerView rvWeekDays;
     private WeekDaysRecycleViewAdapter weekDaysAdapter;
     private ArrayList<WeekDaysAttributes> addItemArray = new ArrayList<>();
 
-    public static final String START_DATE_TEXT = "Start_Date";
-    public static final String END_DATE_TEXT = "End_date";
+    //Setting time
+    private TextView tvReminderTime;
+    private EditText etHours;
+    private EditText etMinutes;
+    String reminderTime;
+    String mHours;
+    String mMins;
+    public static final String REMINDER_TIME = "Reminder_Time";
+    public static final String ACTIVITY_HOURS = "Hours";
+    public static final String ACTIVITY_MINS= "Mins";
+
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MMM, dd yyyy",Locale.ENGLISH);
+
     CheckBox checkBoxRepeat;
+    private EditText etCreateOwn;
+    private String textCreateOwn;
     private int mPriority;
     String title;
     Button save;
@@ -93,29 +105,34 @@ public class GoalDetails extends AppCompatActivity {
             }
         });
 
+        //Get Text from create your own
+        etCreateOwn = (EditText)findViewById(R.id.etCreateOwn);
+
+
 
         // Initialize to highest mPriority by default (mPriority = 1)
         ((RadioButton) findViewById(R.id.rbHigh)).setChecked(true);
         mPriority = 1;
 
-
-
-
         //Data will persist on screen rotation and on switching between apps
-        textViewStartDate = (TextView) findViewById(R.id.tvStartDate);
-        textViewEndDate = (TextView) findViewById(R.id.tvEndDate);
+        tvReminderTime = (TextView) findViewById(R.id.tvTimePicker);
+        etHours = (EditText) findViewById(R.id.etHours);
+        etMinutes = (EditText) findViewById(R.id.etMins);
         if (savedInstanceState != null) {
-            textStartDate = savedInstanceState.getString(START_DATE_TEXT);
-            textEndDate = savedInstanceState.getString(END_DATE_TEXT);
-            textViewStartDate.setText(textStartDate);
-            textViewEndDate.setText(textEndDate);
+            reminderTime = savedInstanceState.getString(REMINDER_TIME);
+            mHours = savedInstanceState.getString(ACTIVITY_HOURS);
+            mMins = savedInstanceState.getString(ACTIVITY_MINS);
+            tvReminderTime.setText(reminderTime);
+            etHours.setText(mHours);
+            etMinutes.setText(mMins);
         }
+
         ////////////////////Add week days list
         addItemArray.add(new WeekDaysAttributes("Sun", true));
         addItemArray.add(new WeekDaysAttributes("Mon", true));
         addItemArray.add(new WeekDaysAttributes("Tue", true));
         addItemArray.add(new WeekDaysAttributes("Wed", true));
-        addItemArray.add(new WeekDaysAttributes("Thur", true));
+        addItemArray.add(new WeekDaysAttributes("Thu", true));
         addItemArray.add(new WeekDaysAttributes("Fri", true));
         addItemArray.add(new WeekDaysAttributes("Sat", true));
 
@@ -142,88 +159,141 @@ public class GoalDetails extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                save.setEnabled(false);
-                saveData();
-                Intent intent = new Intent(GoalDetails.this, MainActivity.class);
-                startActivity(intent);
+                reminderTime = tvReminderTime.getText().toString();
+                textCreateOwn = etCreateOwn.getText().toString();
+                mHours = etHours.getText().toString();
+                mMins = etMinutes.getText().toString();
+                int hrs = Integer.valueOf(mHours);
+                int mins = Integer.valueOf(mMins);
+                if (hrs==0 && mins ==0 ){
+                    Toast.makeText(getBaseContext(), "Activity duration can't be zero",Toast.LENGTH_LONG).show();
+                }else if(reminderTime.equals("Set Time")){
+                    Toast.makeText(getBaseContext(), "Time can't be left blank",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    save.setEnabled(false);
+                    saveData();
+                    Intent intent = new Intent(GoalDetails.this, MainActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
 
     }
 
-    public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt(DatePickerFragment.TEXT_VIEW_ID, v.getId());
-        newFragment.setArguments(bundle);
-        newFragment.show(getSupportFragmentManager(), "datePicker");
-    }
-
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        textStartDate = textViewStartDate.getText().toString();
-        textEndDate = textViewEndDate.getText().toString();
-        outState.putString(START_DATE_TEXT, textStartDate);
-        outState.putString(END_DATE_TEXT, textEndDate);
+        super.onSaveInstanceState(outState);
+        reminderTime = tvReminderTime.getText().toString();
+        mHours = etHours.getText().toString();
+        mMins = etMinutes.getText().toString();
+        outState.putString(REMINDER_TIME, reminderTime);
+        outState.putString(ACTIVITY_HOURS, mHours);
+        outState.putString(ACTIVITY_MINS, mMins);
+    }
+
+    public void showTimePickerDialog(View v) {
+        DialogFragment newFragment = new TimePickerFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(TimePickerFragment.TEXT_VIEW_ID, v.getId());
+        newFragment.setArguments(bundle);
+        newFragment.show(getSupportFragmentManager(), "TimePicker");
     }
 
     private long saveData() {
         //Activity name = title
         //Priority = mPriority
+        //hours = mHours
+        //Mins = mMins
+        String nullString ="";
 
-        textStartDate = textViewStartDate.getText().toString();
-        textEndDate = textViewEndDate.getText().toString();
+        if(!nullString.equals(textCreateOwn)){
+            title=textCreateOwn;
+            iconName = "ic_express_grattitude_black_24dp";
+        }
+        Log.d("qqqqqqqqqqqqq",""+title);
+        Log.d("qqqqqqqqqqqqq",""+iconName);
+
+        String  textStartDate = DATE_FORMAT.format(new Date());
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(new Date());
+        cal.add(Calendar.DATE, 365);
+        String textEndDate = DATE_FORMAT.format(cal.getTime());
+
+
 
         boolean isCheckRepeatOn = checkBoxRepeat.isChecked();
-        if (textStartDate.equals("Start Date")) {
-            textStartDate = DATE_FORMAT.format(new Date());
-
-        }
-        if (textEndDate.equals("End Date")) {
-            GregorianCalendar cal = new GregorianCalendar();
-            cal.setTime(new Date());
-            cal.add(Calendar.DATE, 30);
-            textEndDate = DATE_FORMAT.format(cal.getTime());
-
-        }
 
         HabitDbHelper mDbHelper = new HabitDbHelper(getBaseContext());
         ContentValues contentValues = new ContentValues();
-        try (SQLiteDatabase sqLiteDatabase = mDbHelper.getWritableDatabase()) {
-
-            contentValues.put(UserHabitDetailEntry.HABIT_NAME, title);
-            contentValues.put(UserHabitDetailEntry.START_DATE, DATE_FORMAT.parse(textStartDate).getTime());
-            contentValues.put(UserHabitDetailEntry.END_DATE, DATE_FORMAT.parse(textEndDate).getTime());
-            contentValues.put(UserHabitDetailEntry.AVERAGE_TIME, 45);
-            contentValues.put(UserHabitDetailEntry.REPEAT_DAILY, isCheckRepeatOn);
-            contentValues.put(UserHabitDetailEntry.HABIT_PRIVATE, true);
-            contentValues.put(UserHabitDetailEntry.DESCRIPTION, title);
-            contentValues.put(UserHabitDetailEntry.PRIORITY, mPriority);
-            contentValues.put(UserHabitDetailEntry.ICON_NAME, iconName);
-
-            
-            long habitId = sqLiteDatabase.insert(UserHabitDetailEntry.TABLE_NAME, null, contentValues);
+       // SQLiteDatabase sqLiteDatabase = mDbHelper.getWritableDatabase();
+        long habitId = 0;
+            try(SQLiteDatabase sqLiteDatabase = mDbHelper.getWritableDatabase()) {
 
 
-            Log.d("Row is", "Row inserted...................." + habitId);
-            contentValues.clear();
-            contentValues = new ContentValues();
+                contentValues.put(UserHabitDetailEntry.HABIT_NAME, title);
+                contentValues.put(UserHabitDetailEntry.START_DATE, DATE_FORMAT.parse(textStartDate).getTime());
+                contentValues.put(UserHabitDetailEntry.END_DATE, DATE_FORMAT.parse(textEndDate).getTime());
+                contentValues.put(UserHabitDetailEntry.REMINDER_TIME, reminderTime);
+                contentValues.put(UserHabitDetailEntry.ACTIVITY_HOURS, mHours);
+                contentValues.put(UserHabitDetailEntry.ACTIVITY_MINUTES, mMins);
+                contentValues.put(UserHabitDetailEntry.REPEAT_DAILY, isCheckRepeatOn);
+                contentValues.put(UserHabitDetailEntry.HABIT_PRIVATE, true);
+                contentValues.put(UserHabitDetailEntry.DESCRIPTION, title);
+                contentValues.put(UserHabitDetailEntry.PRIORITY, mPriority);
+                contentValues.put(UserHabitDetailEntry.ICON_NAME, iconName);
 
-            for (int i = 0; i < 7; i++) {
-                contentValues.put(RepeatOnDaysEntry.WEEK_DAY, weekDaysAdapter.itemList.get(i).itemName);
-                contentValues.put(RepeatOnDaysEntry.DAY_SELECTED, weekDaysAdapter.itemList.get(i).aBoolean);
-                contentValues.put(RepeatOnDaysEntry.HABIT_ID, habitId);
-                long daysRowId = sqLiteDatabase.insert(RepeatOnDaysEntry.TABLE_NAME, null, contentValues);
-                Log.d("inserted days", "" + daysRowId);
+
+                habitId = sqLiteDatabase.insert(UserHabitDetailEntry.TABLE_NAME, null, contentValues);
+
+
+                Log.d("Row is", "Row inserted...................." + habitId);
+                contentValues.clear();
+                contentValues = new ContentValues();
+
+                for (int i = 0; i < 7; i++) {
+                    contentValues.put(RepeatOnDaysEntry.WEEK_DAY, weekDaysAdapter.itemList.get(i).itemName);
+                    contentValues.put(RepeatOnDaysEntry.DAY_SELECTED, weekDaysAdapter.itemList.get(i).aBoolean);
+                    contentValues.put(RepeatOnDaysEntry.HABIT_ID, habitId);
+                    long daysRowId = sqLiteDatabase.insert(RepeatOnDaysEntry.TABLE_NAME, null, contentValues);
+                    Log.d("inserted days", "" + daysRowId);
+                }
+                Log.d("Row is", "Row inserted...................." + habitId);
+
+
+
+
+                //inserting data into status table
+                final SimpleDateFormat DATE_FORMAT_STATUS = new SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH);
+                contentValues.clear();
+                contentValues = new ContentValues();
+
+                GregorianCalendar GCStatusDate = new GregorianCalendar();
+
+                for (int i = 0; i < 90; i++) {
+                    if(i==0){
+                        GCStatusDate.add(Calendar.DATE,0);
+                    }else{
+                        GCStatusDate.add(Calendar.DATE,1);
+                    }
+                    contentValues.put(HabitContract.HabitStatusEntry.DONE_FLAG, 0);
+                    contentValues.put(HabitContract.HabitStatusEntry.DATE_COMPLETION, DATE_FORMAT_STATUS.format(GCStatusDate.getTime()));
+                    contentValues.put(HabitContract.HabitStatusEntry.HABIT_ID, habitId);
+                    long statusID = sqLiteDatabase.insert(HabitStatusEntry.TABLE_NAME, null, contentValues);
+                    Log.d("inserted status data", "" + DATE_FORMAT_STATUS.format(GCStatusDate.getTime())+"  "
+                            +habitId+"   "+statusID);
+                }
+
+
+
+                mDbHelper.close();
+
             }
-
-
-            return habitId;
-        } catch (ParseException e) {
-            Log.e("Error adding habit", Log.getStackTraceString(e));
-        }
-        mDbHelper.close();
-        return -1;
+            catch (ParseException e){
+                e.printStackTrace();
+            }
+        return habitId;
     }
 
     public void addData(ArrayList<ItemAttributes> dailyHabitsArray){

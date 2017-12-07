@@ -43,16 +43,18 @@ public class NotificationUtils {
         String reminderBody = "I am reminding for an activity "+activityName;
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
                 .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
-                .setSmallIcon(R.drawable.ic_drink_water_black_24dp)
                 .setLargeIcon(largeIcon(context))
-                .setContentTitle(reminderTitle)
-                .setContentText(reminderBody)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(reminderBody))
                 .setDefaults(Notification.DEFAULT_SOUND)
                 .setContentIntent(contentIntent(context))
                 .addAction(performActivityAction(context))
                 .addAction(ignoreReminderAction(context))
                 .setAutoCancel(true);
+
+
+        notificationBuilder.setSmallIcon(R.drawable.ic_drink_water_black_24dp)
+                .setContentTitle(reminderTitle)
+                .setContentText(reminderBody);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             notificationBuilder.setPriority(Notification.PRIORITY_HIGH);
@@ -71,7 +73,7 @@ public class NotificationUtils {
                 ACTION_IGNORE_PENDING_INTENT_ID,
                 ignoreReminderIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
-        NotificationCompat.Action ignoreReminderAction = new NotificationCompat.Action(R.drawable.ic_express_grattitude_black_24dp,
+        NotificationCompat.Action ignoreReminderAction = new NotificationCompat.Action(R.drawable.ic_close_black_24dp,
                 "No, thanks.",
                 ignoreReminderPendingIntent);
         return ignoreReminderAction;
@@ -85,7 +87,7 @@ public class NotificationUtils {
                 ACTION_PEROFORM_ACTIVITY_PENDING_INTENT_ID,
                 completeActivityIntent,
                 PendingIntent.FLAG_CANCEL_CURRENT);
-        NotificationCompat.Action completeActivityAction = new NotificationCompat.Action(R.drawable.ic_drink_water_black_24dp,
+        NotificationCompat.Action completeActivityAction = new NotificationCompat.Action(R.drawable.ic_done_black_24dp,
                 "I did it!",
                 performActivityPendingIntent);
         return completeActivityAction;
@@ -102,7 +104,7 @@ public class NotificationUtils {
 
     private static Bitmap largeIcon(Context context) {
         Resources res = context.getResources();
-        Bitmap largeIcon = BitmapFactory.decodeResource(res, R.drawable.ic_drink_water_black_24dp);
+        Bitmap largeIcon = BitmapFactory.decodeResource(res, R.drawable.ic_sentiment_laugh_satisfied_black_24dp);
         return largeIcon;
     }
 

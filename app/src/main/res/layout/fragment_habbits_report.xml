@@ -1,32 +1,46 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.kavitapc.fitnessreminder.HabitsReport">
 
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="395dp"
-        android:layout_height="50dp"
-        android:textSize="40sp"
-        android:text="Report's Page"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.0" />
-
-    <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        android:gravity="center"
+        android:text="My Activities Progress"
+        android:textSize="15sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
-</android.support.constraint.ConstraintLayout>
+  <!--  <View
+        android:id="@+id/view3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="9dp"
+        android:background="@color/colorAccent" /> -->
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvActivityPercentage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/textViewEmpty3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="No activity progress data, click on plus button on top to add activities"
+        android:gravity="center_horizontal"
+        android:paddingTop="80dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="@color/colorGreen"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        android:visibility="visible" />
+
+</LinearLayout>

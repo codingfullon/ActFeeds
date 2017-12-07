@@ -4,21 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingBottom="2dp"
+    android:paddingTop="2dp">
 
 
     <ImageView
         android:id="@+id/tvIcon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_gravity="center"
-        android:foregroundGravity="center_horizontal"
+        android:layout_marginLeft="8dp"
         android:background="@drawable/circle"
         android:fontFamily="sans-serif"
-        android:tint="@color/colorPrimary"
+        android:foregroundGravity="center_horizontal"
         android:scaleType="centerInside"
         android:textColor="@android:color/holo_red_dark"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:tint="@color/colorPrimary" />
 
 
     <TextView
@@ -26,7 +29,7 @@
         style="@style/TextViewStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="8dp"
         android:layout_weight="1"
         android:fontFamily="sans-serif"
         android:gravity="center_horizontal"

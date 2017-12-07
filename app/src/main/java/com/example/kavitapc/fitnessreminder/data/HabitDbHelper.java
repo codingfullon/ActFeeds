@@ -34,9 +34,11 @@ public class HabitDbHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_USER_HABIT_DETAIL_ENTRY = "CREATE TABLE "+ HabitContract.UserHabitDetailEntry.TABLE_NAME +"("+
                 HabitContract.UserHabitDetailEntry.USER_HABIT_PK +" INTEGER PRIMARY KEY AUTOINCREMENT," +
                 HabitContract.UserHabitDetailEntry.HABIT_NAME + " TEXT NOT NULL,"+
-                HabitContract.UserHabitDetailEntry.START_DATE + " INTEGER, " +
-                HabitContract.UserHabitDetailEntry.END_DATE + " INTEGER,"+
-                HabitContract.UserHabitDetailEntry.AVERAGE_TIME +" INTEGER NOT NULL,"+
+                HabitContract.UserHabitDetailEntry.START_DATE + " INTEGER NOT NULL, " +
+                HabitContract.UserHabitDetailEntry.END_DATE + " INTEGER NOT NULL,"+
+                HabitContract.UserHabitDetailEntry.REMINDER_TIME + " INTEGER, " +
+                HabitContract.UserHabitDetailEntry.ACTIVITY_HOURS + " INTEGER,"+
+                HabitContract.UserHabitDetailEntry.ACTIVITY_MINUTES +" INTEGER NOT NULL,"+
                 HabitContract.UserHabitDetailEntry.REPEAT_DAILY + " BOOLEAN NOT NULL," +
                 HabitContract.UserHabitDetailEntry.PRIORITY + " INTEGER NOT NULL," +
                 HabitContract.UserHabitDetailEntry.ICON_NAME + " TEXT NOT NULL," +
@@ -59,7 +61,7 @@ public class HabitDbHelper extends SQLiteOpenHelper {
         //Table for habit's status
         final String SQL_CREATE_HABIT_STATUS_ENTRY = "CREATE TABLE "+ HabitContract.HabitStatusEntry.TABLE_NAME +"("+
                 HabitContract.HabitStatusEntry.HABIT_STATUS_PK +" INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                HabitContract.HabitStatusEntry.DATE_COMPLETION + " INTEGER, "+
+                HabitContract.HabitStatusEntry.DATE_COMPLETION + " TEXT , "+
                 HabitContract.HabitStatusEntry.DONE_FLAG + " BOOLEAN NOT NULL, "+
                 HabitContract.HabitStatusEntry.HABIT_ID + " INTEGER NOT NULL "+
                 ", FOREIGN KEY ("+HabitContract.RepeatOnDaysEntry.HABIT_ID+ ") REFERENCES "+

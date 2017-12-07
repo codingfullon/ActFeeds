@@ -1,8 +1,10 @@
 package com.example.kavitapc.fitnessreminder;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -10,14 +12,21 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.evernote.android.job.JobCreator;
+import com.evernote.android.job.JobManager;
+import com.example.kavitapc.fitnessreminder.reminder.MainApp;
+import com.example.kavitapc.fitnessreminder.reminder.NotificationJobCreator;
+import com.example.kavitapc.fitnessreminder.reminder.NotificationSyncJob;
 import com.example.kavitapc.fitnessreminder.utilities.PagerAdapter;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 public class MainActivity extends AppCompatActivity implements AddedGoals.OnFragmentInteractionListener,
-        FeedsPage.OnFragmentInteractionListener, HabitsReport.OnFragmentInteractionListener {
+        FeedsPage.OnFragmentInteractionListener, HabitsReport.OnFragmentInteractionListener{
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mActionToggle;
@@ -53,8 +62,8 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_home_black_24dp);
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_group_black_24dp);
-        tabLayout.getTabAt(2).setIcon(R.drawable.ic_av_timer_black_24dp);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_av_timer_black_24dp);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_show_chart_black_24dp);
 
         //setting tab color to RED
         tabLayout.getTabAt(0).getIcon().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
@@ -76,6 +85,8 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
                 tab.getIcon().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
             }
         });
+
+
         //get extra data from server
         Bundle extras = getIntent().getExtras();
         if (extras != null && extras.containsKey("test")) {
@@ -83,6 +94,12 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
         }else {
             Log.d(LOG_TAG, "Contains: Nothing");
         }
+
+        //ScheduleReminder.scheduleActivityReminder(this);
+        //Calling job scheduler
+        JobManager.create(this).addJobCreator(new NotificationJobCreator());
+        //NotificationSyncJob.scheduleJob();
+        NotificationSyncJob.schedule();
 
         String token = FirebaseInstanceId.getInstance().getToken();
         String msg = getString(R.string.message_token_format, token);
@@ -100,5 +117,24 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.add_button, menu);
+        MenuItem item = menu.getItem(0);
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent intent = new Intent(getApplicationContext(), GoalDetails.class);
+                startActivity(intent);
+                return true;
+            }
+        });
+        return true;
+    }
+
+
+
 }
 
