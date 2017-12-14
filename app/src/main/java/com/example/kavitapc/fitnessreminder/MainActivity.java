@@ -237,15 +237,18 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
                     Intent intent = new Intent(Intent.ACTION_SEND);
                     intent.setType("text/plain");
                     intent.putExtra(Intent.EXTRA_SUBJECT, "ActFeed");
-                    intent.putExtra(Intent.EXTRA_TEXT, "Act to develop new habits and to achieve goals" +
+                    intent.putExtra(Intent.EXTRA_TEXT, "Act to develop new habits and to achieve goals " +
                             "market://play.google.com/store/apps/details?id=Orion.Soft"); //TODO:change the id to your app id
                     startActivity(Intent.createChooser(intent, "Choose one to share app"));
                 }catch (Exception e){
                     e.printStackTrace();
                 }
+                break;
             }
             case R.id.navAppTour:{
-                //Intent intent = new Intent(this,AppTour.class);
+                Intent intent = new Intent(this,AppTour.class);
+                startActivity(intent);
+                break;
             }
             case 0:{
                 break;

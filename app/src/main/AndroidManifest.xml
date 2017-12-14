@@ -47,11 +47,17 @@
         <activity
             android:name=".EditActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".ContactUS" />
+        <activity android:name=".ContactUS"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".OnboardingActivity"
             android:label="@string/title_activity_onboarding"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".AppTour"
+            android:label="@string/title_app_tour"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>

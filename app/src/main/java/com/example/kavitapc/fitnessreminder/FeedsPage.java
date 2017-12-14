@@ -40,6 +40,8 @@ public class FeedsPage extends Fragment implements LoaderManager.LoaderCallbacks
     private TextView textViewEmpty2;
     View view;
     boolean isDataLoaded = false,isVisibleToUser;
+    private HabitDbHelper mDbHelper;
+    private SQLiteDatabase sqldb;
 
     public FeedsPage() {
         // Required empty public constructor
@@ -105,10 +107,11 @@ public class FeedsPage extends Fragment implements LoaderManager.LoaderCallbacks
             public Cursor loadInBackground() {
                 try {
 
-                    HabitDbHelper mDbHelper = new HabitDbHelper(getActivity().getBaseContext());
-                    SQLiteDatabase sqldb1 = mDbHelper.getReadableDatabase();
+                     mDbHelper = new HabitDbHelper(getActivity().getBaseContext());
+                     sqldb = mDbHelper.getReadableDatabase();
 
                     Calendar utcCalendar = Calendar.getInstance();
+                   // utcCalendar.add(Calendar.DATE, -1);
                     utcCalendar.set(Calendar.HOUR_OF_DAY, 0);
                     utcCalendar.set(Calendar.MINUTE, 0);
                     utcCalendar.set(Calendar.SECOND, 0);
@@ -118,31 +121,31 @@ public class FeedsPage extends Fragment implements LoaderManager.LoaderCallbacks
                     final SimpleDateFormat DATE_FORMAT_STATUS = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
                     GregorianCalendar GCStatusDate = new GregorianCalendar();
                     GCStatusDate.setTime(new Date());
-                    Log.d("dddddddd",""+ DATE_FORMAT_STATUS.format(GCStatusDate.getTime()));
+                    Log.d("dddddddddd",""+ startDate.getTime());
 
 
                     Cursor cursorReport = null;
                     String Query = " select a.DateOfCompletion, c.UserHabitPK, HabitName,IconName, a.DoneFlag "+
-                           "  from UserHabitDetail c inner join HabitStatus a  "+
-                           " on c.UserHabitPK = a.Habit_ID "+
-                           " AND StartDate<=" + startDate.getTime()+
-                           " AND EndDate>=" + startDate.getTime() +
-                           " inner join RepeatOnDays d "+
-                           " on c.UserHabitPK = d.Habit_Id "+
-                           " and d.Day =(case cast (strftime('%w', a.DateOfCompletion) as integer) "+
-                           " when 0 then 'Sun' "+
-                           " when 1 then 'Mon' "+
-                           " when 2 then 'Tue' "+
-                           " when 3 then 'Wedn' "+
-                           " when 4 then 'Thu' "+
-                           " when 5 then 'Fri' "+
-                           " else 'Sat' end) "+
-                           " and d.DaySelected = 1 "+
-                            " and DateOfCompletion <= \"" + DATE_FORMAT_STATUS.format(GCStatusDate.getTime())+"\""+
-                           " order by a.DateOfCompletion desc";
+                            " from UserHabitDetail c inner join HabitStatus a "+
+                            " on c.UserHabitPK = a.Habit_Id "+
+                            " inner join RepeatOnDays d "+
+                            " on c.UserHabitPK = d.Habit_Id "+
+                            " and d.Day =(case cast (strftime('%w', a.DateOfCompletion) as integer) "+
+                            " when 0 then 'Sun' "+
+                            " when 1 then 'Mon' "+
+                            " when 2 then 'Tue' "+
+                            " when 3 then 'Wed' "+
+                            " when 4 then 'Thu' "+
+                            " when 5 then 'Fri' "+
+                            " else 'Sat' end) "+
+                            " and d.DaySelected = 1 "+
+                            " and DateOfCompletion <= \"" +  DATE_FORMAT_STATUS.format(GCStatusDate.getTime())+"\""+
+                            " AND StartDate <= " + startDate.getTime()+
+                            " AND EndDate >= " + startDate.getTime() +
+                            " order by a.DateOfCompletion desc";
 
 
-                    cursorReport = sqldb1.rawQuery(Query, null);
+                    cursorReport = sqldb.rawQuery(Query, null);
 
 
 
@@ -170,7 +173,12 @@ public class FeedsPage extends Fragment implements LoaderManager.LoaderCallbacks
         };
 
     }
-
+    @Override
+    protected void finalize() throws Throwable {
+        mDbHelper.close();
+        sqldb.close();
+        super.finalize();
+    }
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         activityCountAdapter.swapCursor(data);
@@ -179,10 +187,12 @@ public class FeedsPage extends Fragment implements LoaderManager.LoaderCallbacks
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         activityCountAdapter.swapCursor(null);
+        mDbHelper.close();
+        sqldb.close();
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+
         void onFragmentInteraction(Uri uri);
     }
 

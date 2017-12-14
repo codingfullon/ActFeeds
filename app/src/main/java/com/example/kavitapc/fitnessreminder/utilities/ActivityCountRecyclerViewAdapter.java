@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.kavitapc.fitnessreminder.R;
 import com.example.kavitapc.fitnessreminder.data.HabitContract;
 import com.example.kavitapc.fitnessreminder.data.HabitDbHelper;
+import com.google.android.gms.measurement.AppMeasurement;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -55,6 +56,7 @@ public class ActivityCountRecyclerViewAdapter extends RecyclerView.Adapter<Activ
         Log.d("AC whole data is:", ""+DatabaseUtils.dumpCursorToString(mCursor2));
 
         mCursor2.moveToPosition(position);
+       // holder.itemView.setVisibility(View.VISIBLE);
 
         //get column Index
         int dateCompIndex = mCursor2.getColumnIndex(HabitContract.HabitStatusEntry.DATE_COMPLETION);
@@ -66,104 +68,86 @@ public class ActivityCountRecyclerViewAdapter extends RecyclerView.Adapter<Activ
         //get column values
         String dateValue = mCursor2.getString(dateCompIndex);
         int idPKValue = mCursor2.getInt(idPKIndex);
-        String idV = String.valueOf(idPKValue);
-        String name = mCursor2.getString(nameIndex);
+       // String name = mCursor2.getString(nameIndex);
         String icon = mCursor2.getString(iconIndex);
         int doneFlag = mCursor2.getInt(doneFlagIndex);
-        String ss = String.valueOf(doneFlag);
+
+
+
+        if(doneFlag==1){
+            completedActivities = completedActivities+ ", "+mCursor2.getString(nameIndex);
+            countComp++;
+        }else{
+            notCompletedActivities=notCompletedActivities+", "+mCursor2.getString(nameIndex);
+            countNotComp++;
+        }
 
         //checking if currDate is equal to next date value
-        int dateCompIndex2=0;
         String dateValue2="";
         if(!mCursor2.isLast()) {
             mCursor2.moveToPosition(position + 1);
-             dateCompIndex2 = mCursor2.getColumnIndex(HabitContract.HabitStatusEntry.DATE_COMPLETION);
-             dateValue2 = mCursor2.getString(dateCompIndex2);
-            if(mCursor2.isLast()){
+             dateValue2 = mCursor2.getString(dateCompIndex);
+        //    if(mCursor2.isLast()){
                 mCursor2.moveToPosition(position-1);
-            }
+          //  }
         }
 
 
             if( mCursor2.isLast() || !dateValue.equals(dateValue2)  ){
-                Log.d("position after",""+mCursor2.getPosition());
-                if(doneFlag==0){
-                    notCompletedActivities= notCompletedActivities+", "+ mCursor2.getString(nameIndex);
-                    countNotComp++;
-                }
-                else{
-                    completedActivities= completedActivities+", "+ mCursor2.getString(nameIndex);
-                    countComp++;
-                }
-                //set data on screen
-                String countAll = countComp+"/"+(countComp+countNotComp)+" Completed";
+                    Log.d("position after",""+mCursor2.getPosition());
+                holder.itemView.setVisibility(View.VISIBLE);
+                holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,  ViewGroup.LayoutParams.WRAP_CONTENT));
+                    //set data on screen
+                    String countAll = countComp+"/"+(countComp+countNotComp)+" Completed";
 
-                if((countComp+countNotComp)==0){
-                    notCompletedActivities = "";
-                    countNotComp=0;
-                    completedActivities="";
-                    countComp=0;
-                }else {
-                    final SimpleDateFormat DATE_FORMAT_STATUS = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-                    GregorianCalendar GCStatusDate = new GregorianCalendar();
-                    GCStatusDate.setTime(new Date());
-                    GregorianCalendar GCStatusDate2 = new GregorianCalendar();
-                    GCStatusDate2.add(Calendar.DATE,-1);
+                                final SimpleDateFormat DATE_FORMAT_STATUS = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+                                GregorianCalendar GCStatusDate = new GregorianCalendar();
+                                GCStatusDate.setTime(new Date());
+                                GregorianCalendar GCStatusDate2 = new GregorianCalendar();
+                                GCStatusDate2.add(Calendar.DATE,-1);
 
-                    if(dateValue.equals(DATE_FORMAT_STATUS.format(GCStatusDate.getTime()))){
-                        holder.tvReportDate.setText("Today");
-                    }
-                    else if(dateValue.equals(DATE_FORMAT_STATUS.format(GCStatusDate2.getTime()))){
-                        holder.tvReportDate.setText("Yesterday");
-                    }else{
-                        holder.tvReportDate.setText(dateValue);
-                    }
+                                        if(dateValue.equals(DATE_FORMAT_STATUS.format(GCStatusDate.getTime()))){
+                                            holder.tvReportDate.setText("Today");
+                                        }
+                                        else if(dateValue.equals(DATE_FORMAT_STATUS.format(GCStatusDate2.getTime()))){
+                                            holder.tvReportDate.setText("Yesterday");
+                                        }else{
+                                            holder.tvReportDate.setText(dateValue);
+                                        }
 
-                    holder.tvCountCompleted.setText(countAll);
-                   if(countComp==0){
-                        holder.tvCompleted.setText("No Activity Completed");
-                    }else{
-                       String compStr = completedActivities;
-                       if(compStr.startsWith(",")){
-                           compStr =compStr.substring(1, compStr.length());
-                       }
-                        holder.tvCompleted.setText(compStr);
-                    }
-                    if(countNotComp==0){
-                        holder.tvNotCompleted.setText("No Activity Incomplete");
-                    }else{
-                        String NotCompStr = notCompletedActivities;
-                        if(NotCompStr.startsWith(",")){
-                            NotCompStr =NotCompStr.substring(1, NotCompStr.length());
-                        }
-                        holder.tvNotCompleted.setText(NotCompStr);
-                    }
+                            holder.tvCountCompleted.setText(countAll);
+                                    if(countComp==0){
+                                        holder.tvCompleted.setText("No Activity Completed");
+                                    }else{
+                                       String compStr = completedActivities;
+                                       if(compStr.startsWith(",")){
+                                           compStr =compStr.substring(1, compStr.length());
+                                       }
+                                        holder.tvCompleted.setText(compStr);
+                                    }
+                                    if(countNotComp==0){
+                                        holder.tvNotCompleted.setText("No Activity Incomplete");
+                                    }else{
+                                        String NotCompStr = notCompletedActivities;
+                                        if(NotCompStr.startsWith(",")){
+                                            NotCompStr =NotCompStr.substring(1, NotCompStr.length());
+                                        }
+                                        holder.tvNotCompleted.setText(NotCompStr);
+                                    }
 
-                    notCompletedActivities = "";
-                    countNotComp = 0;
-                    completedActivities = "";
-                    countComp = 0;
-                }
-            }else {
-                if (doneFlag == 0) {
-                    if(notCompletedActivities.equals("")){
-                        notCompletedActivities = name;
-                    }else {
-                        notCompletedActivities = notCompletedActivities + ", " + name;
-                    }
-                    countNotComp++;
-                } else {
-                    if(completedActivities.equals("")){
-                        completedActivities = name;
-                    }else {
-                        completedActivities = completedActivities + ", " +name;
-                    }
-                    countComp++;
-                }
+                            notCompletedActivities = "";
+                            countNotComp = 0;
+                            completedActivities = "";
+                            countComp = 0;
+
+
+
+            }else{
 
                 holder.itemView.setVisibility(View.GONE);
                 holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
             }
+
     }
 
 
@@ -179,7 +163,7 @@ public class ActivityCountRecyclerViewAdapter extends RecyclerView.Adapter<Activ
     public Cursor swapCursor(Cursor c) {
         // check if this cursor is the same as the previous cursor (mCursor2)
         if (mCursor2 == c) {
-            return null; // bc nothing has changed
+            return null; //  nothing has changed
         }
         Cursor temp = mCursor2;
         this.mCursor2 = c; // new cursor value assigned

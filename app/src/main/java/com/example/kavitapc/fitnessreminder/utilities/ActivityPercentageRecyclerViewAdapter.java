@@ -50,7 +50,7 @@ public class ActivityPercentageRecyclerViewAdapter extends RecyclerView.Adapter<
 
     @Override
     public void onBindViewHolder(ActivityPercentageViewHolder holder, int position) {
-        Log.d("percentage data is :", "aaaaaaaaaaaaaaaaaaaaaaa"+DatabaseUtils.dumpCursorToString(mCursor1));
+     //   Log.d("percentage data is :", "aaaaaaaaaaaaaaaaaaaaaaa"+DatabaseUtils.dumpCursorToString(mCursor1));
         mCursor1.moveToPosition(position);
         //get column names
 
@@ -92,7 +92,7 @@ public class ActivityPercentageRecyclerViewAdapter extends RecyclerView.Adapter<
             activityName=name1;
             iconName=icon1;
         }
-        Log.d("icon is","iiiiiiiiiii"+iconName);
+       // Log.d("icon is","iiiiiiiiiii"+iconName);
 
         holder.ivIcon.setImageResource(mContext.getResources().getIdentifier(
                 iconName, "drawable", "com.example.kavitapc.fitnessreminder"));

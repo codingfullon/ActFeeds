@@ -14,5 +14,5 @@
         android:drawableTint="@color/materialOrange"
         android:gravity="center_vertical"
         android:text="@string/settingsHeader"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 </android.support.v7.widget.Toolbar>

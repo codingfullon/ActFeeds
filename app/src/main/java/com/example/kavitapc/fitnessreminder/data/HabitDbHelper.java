@@ -61,7 +61,7 @@ public class HabitDbHelper extends SQLiteOpenHelper {
         //Table for habit's status
         final String SQL_CREATE_HABIT_STATUS_ENTRY = "CREATE TABLE "+ HabitContract.HabitStatusEntry.TABLE_NAME +"("+
                 HabitContract.HabitStatusEntry.HABIT_STATUS_PK +" INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                HabitContract.HabitStatusEntry.DATE_COMPLETION + " TEXT , "+
+                HabitContract.HabitStatusEntry.DATE_COMPLETION + " DATE , "+
                 HabitContract.HabitStatusEntry.DONE_FLAG + " BOOLEAN NOT NULL, "+
                 HabitContract.HabitStatusEntry.HABIT_ID + " INTEGER NOT NULL "+
                 ", FOREIGN KEY ("+HabitContract.RepeatOnDaysEntry.HABIT_ID+ ") REFERENCES "+

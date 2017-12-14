@@ -23,6 +23,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.kavitapc.fitnessreminder.AddedGoals;
+import com.example.kavitapc.fitnessreminder.MainActivity;
 import com.example.kavitapc.fitnessreminder.R;
 import com.example.kavitapc.fitnessreminder.WeekDaysAttributes;
 import com.example.kavitapc.fitnessreminder.WeekDaysRecycleViewAdapter;
@@ -62,7 +64,7 @@ public class AddedGoalsRecyclerViewAdapter extends RecyclerView.Adapter<AddedGoa
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(final AddGoalsViewHolder holder, final int position) {
-        Log.d("AddGoal whole data is :", "aaaaaaaaaaaaaaaaaaaaaaa"+DatabaseUtils.dumpCursorToString(mCursor));
+       // Log.d("AddGoal whole data is :", "aaaaaaaaaaaaaaaaaaaaaaa"+DatabaseUtils.dumpCursorToString(mCursor));
         int idIndex = mCursor.getColumnIndex(HabitContract.UserHabitDetailEntry.USER_HABIT_PK);
         int nameIndex = mCursor.getColumnIndex(HabitContract.UserHabitDetailEntry.HABIT_NAME);
         int reminderTime = mCursor.getColumnIndex(HabitContract.UserHabitDetailEntry.REMINDER_TIME);
@@ -78,7 +80,7 @@ public class AddedGoalsRecyclerViewAdapter extends RecyclerView.Adapter<AddedGoa
         int habitStatusPKIndex = mCursor.getColumnIndex(HabitContract.HabitStatusEntry.HABIT_STATUS_PK);
         mCursor.moveToPosition(position);
 
-        Log.d("id index:", "aaaaaaaaaaaaaaaaaaaaaaa"+idIndex);
+       // Log.d("id index:", "aaaaaaaaaaaaaaaaaaaaaaa"+idIndex);
 
         final int id = mCursor.getInt(idIndex);
         String name = mCursor.getString(nameIndex);
@@ -168,8 +170,12 @@ public class AddedGoalsRecyclerViewAdapter extends RecyclerView.Adapter<AddedGoa
 
             holder.doneCheckBox.setEnabled(false);
             notifyDataSetChanged();
+
            // holder.doneCheckBox.setBackgroundColor(Color.GREEN);
             Toast.makeText(mContext, "Activity completed, check reports for detail",Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(mContext, MainActivity.class);
+            mContext.startActivity(intent);
+            notifyDataSetChanged();
 
         }
     });

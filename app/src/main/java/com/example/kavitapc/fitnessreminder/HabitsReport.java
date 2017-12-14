@@ -36,6 +36,8 @@ public class HabitsReport extends Fragment implements LoaderManager.LoaderCallba
     public static final int TASK_LOADER_ID = 3;
     private TextView textViewEmpty3;
     private View view;
+    private HabitDbHelper mDbHelper;
+    private SQLiteDatabase sqldb;
 
     public HabitsReport() {
         // Required empty public constructor
@@ -92,8 +94,8 @@ public class HabitsReport extends Fragment implements LoaderManager.LoaderCallba
             public Cursor loadInBackground() {
                 try {
                     Log.d("in on load", "sddddddddddddddddddddddd");
-                    HabitDbHelper mDbHelper = new HabitDbHelper(getActivity().getBaseContext());
-                    SQLiteDatabase sqldb = mDbHelper.getReadableDatabase();
+                    mDbHelper = new HabitDbHelper(getActivity().getBaseContext());
+                     sqldb = mDbHelper.getReadableDatabase();
 
                     Calendar utcCalendar = Calendar.getInstance();
                     utcCalendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -224,22 +226,34 @@ public class HabitsReport extends Fragment implements LoaderManager.LoaderCallba
                 }
                 super.deliverResult(data);
             }
+
+
         };
 
+
+
     }
+
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         activityPercentageAdapter.swapCursor(data);
+
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         activityPercentageAdapter.swapCursor(null);
     }
+    @Override
+    protected void finalize() throws Throwable {
+        mDbHelper.close();
+        sqldb.close();
+        super.finalize();
+    }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+
         void onFragmentInteraction(Uri uri);
     }
 

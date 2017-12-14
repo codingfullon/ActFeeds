@@ -65,7 +65,8 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
     private View view;
     private TextView textViewGone;
     private  TourGuide  mTourHandler;
-
+    private HabitDbHelper mDbHelper;
+    private SQLiteDatabase sqldb;
 
     public AddedGoals(){}
 
@@ -117,7 +118,10 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
                 mDbHelper.close();
 
                                 // COMPLETED (3) Restart the loader to re-query for all tasks after a deletion
-                getActivity().getSupportLoaderManager().restartLoader(TASK_LOADER_ID, null, AddedGoals.this);
+                //getActivity().getSupportLoaderManager().restartLoader(TASK_LOADER_ID, null, AddedGoals.this);
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+                getActivity().getSupportLoaderManager().initLoader(TASK_LOADER_ID, null, AddedGoals.this);
                 recyclerViewAddedGoals.getAdapter().notifyDataSetChanged();
 
             }
@@ -196,8 +200,8 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
             @Override
             public Cursor loadInBackground() {
                 try {
-                    HabitDbHelper mDbHelper = new HabitDbHelper(getActivity().getBaseContext());
-                    SQLiteDatabase sqldb = mDbHelper.getReadableDatabase();
+                     mDbHelper = new HabitDbHelper(getActivity().getBaseContext());
+                     sqldb = mDbHelper.getReadableDatabase();
 
 
                     Calendar utcCalendar = Calendar.getInstance();
@@ -259,10 +263,18 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
     }
 
     @Override
-    public void onLoaderReset(Loader<Cursor> loader) {mAdapter.swapCursor(null);   }
+    public void onLoaderReset(Loader<Cursor> loader) {
+        mAdapter.swapCursor(null);
+    }
+    @Override
+    protected void finalize() throws Throwable {
+        mDbHelper.close();
+        sqldb.close();
+        super.finalize();
+    }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+
         void onFragmentInteraction(Uri uri);
     }
 }
