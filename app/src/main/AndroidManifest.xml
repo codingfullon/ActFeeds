@@ -44,16 +44,14 @@
             android:name=".reminder.ActivityReminderIntentService"
             android:exported="false" />
 
-        <!-- This is the Service declaration used in conjunction with FirebaseJobDispatcher -->
-        <service
-            android:name=".reminder.ActivityReminderFirebaseJobService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
-            </intent-filter>
-        </service>
-
-        <activity android:name=".EditActivity"></activity>
+        <activity
+            android:name=".EditActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".ContactUS" />
+        <activity
+            android:name=".OnboardingActivity"
+            android:label="@string/title_activity_onboarding"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

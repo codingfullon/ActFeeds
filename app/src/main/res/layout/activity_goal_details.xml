@@ -54,18 +54,6 @@
         app:layout_constraintTop_toBottomOf="@+id/etCreateOwn" />
 
     <View
-        android:id="@+id/view"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="32dp"
-        android:background="@color/colorAccent"
-        android:visibility="visible"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvWeekDays" />
-
-    <View
         android:id="@+id/view4"
         android:layout_width="0dp"
         android:layout_height="1dp"
@@ -232,14 +220,18 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvWeekDays"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="46dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:scrollbarAlwaysDrawHorizontalTrack="true"
         android:scrollbars="horizontal"
         android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cbRepeatOn" />
 
     <EditText

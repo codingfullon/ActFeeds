@@ -106,7 +106,13 @@ public class ActivityPercentageRecyclerViewAdapter extends RecyclerView.Adapter<
         double CntFinal =  (double)doneCount/(double)total*100;
         cnt = (int)CntFinal;
     }
-    holder.textViewCount.setText(doneCount+"/"+total+" Days");
+        String dayValue = "";
+        if(total>1){
+            dayValue = "Days";
+        }else {
+            dayValue ="Day";
+        }
+    holder.textViewCount.setText(doneCount+"/"+total+" "+dayValue);
     holder.progressBar.setProgress(cnt);
 
 

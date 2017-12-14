@@ -22,7 +22,12 @@ allprojects {
         }
         maven { url "https://jitpack.io" }
         google()
+        mavenCentral()
+        maven(){
+            url "https://oss.sonatype.org/content/repositories/snapshots"
+        }
     }
+
 }
 
 task clean(type: Delete) {

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -20,7 +21,9 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.Layout;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +45,11 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import tourguide.tourguide.Overlay;
+import tourguide.tourguide.Pointer;
+import tourguide.tourguide.ToolTip;
+import tourguide.tourguide.TourGuide;
+
 public class AddedGoals extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
 
@@ -55,10 +63,11 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
     public static final int TASK_LOADER_ID = 1;
     private TextView textViewEmpty1;
     private View view;
-    public AddedGoals(){
+    private TextView textViewGone;
+    private  TourGuide  mTourHandler;
 
-    }
 
+    public AddedGoals(){}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -79,6 +88,8 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
 
         mAdapter = new AddedGoalsRecyclerViewAdapter(getActivity());
         recyclerViewAddedGoals.setAdapter(mAdapter);
+
+
 
         //Delete item in recycler view when user swipes the item
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
@@ -105,14 +116,33 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
                 sqldb.close();
                 mDbHelper.close();
 
-
-                // COMPLETED (3) Restart the loader to re-query for all tasks after a deletion
+                                // COMPLETED (3) Restart the loader to re-query for all tasks after a deletion
                 getActivity().getSupportLoaderManager().restartLoader(TASK_LOADER_ID, null, AddedGoals.this);
+                recyclerViewAddedGoals.getAdapter().notifyDataSetChanged();
 
             }
         }).attachToRecyclerView(recyclerViewAddedGoals);
 
+        //Open edit activity when user clicks on recycler view's item
+
         getActivity().getSupportLoaderManager().initLoader(TASK_LOADER_ID, null, this);
+
+        //adding tour guide
+       /* textViewGone  =(TextView) view.findViewById(R.id.textView8);
+        mTourHandler = TourGuide.init(getActivity()).with(TourGuide.Technique.Click)
+                .setPointer(new Pointer().setGravity(Gravity.BOTTOM))
+                .setToolTip( new ToolTip().setDescription("Tap to view details or edit/swipe right to delete")
+                        .setBackgroundColor(Color.parseColor("#e54d26"))
+                        .setShadow(true))
+                .setOverlay(new Overlay()).playOn(((textViewGone)));
+
+
+        textViewGone.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                mTourHandler.cleanUp();
+            }
+        });*/
 
 
         return view;
@@ -135,6 +165,7 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
         super.onResume();
         getActivity().getSupportLoaderManager().restartLoader(TASK_LOADER_ID, null, this);
     }
+
 
     @Override
     public void onDetach() {
@@ -224,6 +255,7 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         // Update the data that the adapter uses to create ViewHolders
         mAdapter.swapCursor(data);
+
     }
 
     @Override

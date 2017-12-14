@@ -79,4 +79,22 @@
     <string name="Settings">Settings</string>
     <string name="UserProfile">User Profile</string>
 
+    <string name="ContactUSMessage">Write here to send us email. We will reply you within 24 hours."</string>
+    <string name="Send">Send</string>
+    <string name="getting_started">Getting Started</string>
+    <string name="getting_started_text1">To develop new habits!</string>
+    <string name="getting_started_text2">To make you fabulous!</string>
+    <string name="getting_started_text3">To track your daily progress!</string>
+    <string name="buttonToStart">"LET\'S GET STARTED"</string>
+    <string name="title_activity_onboarding">OnboardingActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="act_and_progress">Act and Progress</string>
+    <string name="skip">Skip</string>
+    <string name="o">o</string>
+    <string name="done">Done</string>
+    <string name="next">Next</string>
+    <string name="settingsHeader">"Hi\, There!"</string>
+    <string name="add_button">Add Button</string>
+
 </resources>

@@ -1,8 +1,12 @@
 package com.example.kavitapc.fitnessreminder;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +30,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
+
 
 public class EditActivity extends AppCompatActivity {
 
@@ -44,30 +50,80 @@ public class EditActivity extends AppCompatActivity {
 
     //set week days
     CheckBox checkBoxRepeat;
+    boolean checkboxValue;
     private RecyclerView rvWeekDays;
     private WeekDaysRecycleViewAdapter weekDaysAdapter;
     private ArrayList<WeekDaysAttributes> addItemArray = new ArrayList<>();
 
-    String title;
     Button update;
-    String iconName;
     private static final String IMAGE_ICON = "ImageIcon";
     private static final String fileName = "DailyHabitsKeyValue";
+    private int  idFromIntent;
+    private String name;
+    private String iconName;
+    private int priority;
+    private String reminderTimeStr;
+    private int durationHoursValue=0;
+    private int  durationMinutesValue=0;
+    private int repeatDaily;
+    int idFromSP;
+    boolean Sun;
+    boolean Mon;
+    boolean Tue;
+    boolean Wed;
+    boolean Thu;
+    boolean Fri;
+    boolean Sat;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
+        SharedPreferences sharedPref = this.getSharedPreferences(fileName, Context.MODE_PRIVATE);
+        boolean defaultValue = true;
+        int defaultValueID = 1000;
+        if(sharedPref.contains("ID")) {
+             idFromSP = sharedPref.getInt("ID", defaultValueID);
+             Sun = sharedPref.getBoolean("Sun", defaultValue);
+             Mon = sharedPref.getBoolean("Mon", defaultValue);
+             Tue = sharedPref.getBoolean("Tue", defaultValue);
+             Wed = sharedPref.getBoolean("Wed", defaultValue);
+             Thu = sharedPref.getBoolean("Thu", defaultValue);
+             Fri = sharedPref.getBoolean("Fri", defaultValue);
+             Sat = sharedPref.getBoolean("Sat", defaultValue);
+            Log.d("valueeeee",""+idFromSP+" "+Sun+" "+ Mon);
+        }
+
+        Bundle bundle=getIntent().getExtras();
+        if(bundle!=null && bundle.containsKey("UserHabitPK")){
+            Log.d("datafrom goal detail",""+bundle.getString("UserHabitPK"));
+            idFromIntent = bundle.getInt("UserHabitPK");
+            name= bundle.getString("TitleName");
+            iconName= bundle.getString("IconName");
+            priority= bundle.getInt("Priority");
+            reminderTimeStr= bundle.getString("TimeField");
+            durationHoursValue= bundle.getInt("DurationHours");
+            durationMinutesValue= bundle.getInt("DurationMins");
+            repeatDaily= bundle.getInt("RepeatDaily");
+            if(repeatDaily==0){
+                checkboxValue=false;
+            }else {
+                checkboxValue=true;
+            }
+
+        }
 
         // Initialize to highest mPriority by default (mPriority = 1)
         ((RadioButton) findViewById(R.id.rbHigh)).setChecked(true);
-         mPriority = 1;
+         mPriority = priority;
 
-        //Data will persist on screen rotation and on switching between apps
         tvReminderTime = (TextView) findViewById(R.id.tvTimePicker);
         etHours = (EditText) findViewById(R.id.etHours);
         etMinutes = (EditText) findViewById(R.id.etMins);
+
+        //Data will persist on screen rotation and on switching between apps
         if (savedInstanceState != null) {
             reminderTime = savedInstanceState.getString(REMINDER_TIME);
             mHours = savedInstanceState.getString(ACTIVITY_HOURS);
@@ -78,13 +134,13 @@ public class EditActivity extends AppCompatActivity {
         }
 
         ////////////////////Add week days list
-        addItemArray.add(new WeekDaysAttributes("Sun", true));
-        addItemArray.add(new WeekDaysAttributes("Mon", true));
-        addItemArray.add(new WeekDaysAttributes("Tue", true));
-        addItemArray.add(new WeekDaysAttributes("Wed", true));
-        addItemArray.add(new WeekDaysAttributes("Thu", true));
-        addItemArray.add(new WeekDaysAttributes("Fri", true));
-        addItemArray.add(new WeekDaysAttributes("Sat", true));
+        addItemArray.add(new WeekDaysAttributes("Sun", Sun));
+        addItemArray.add(new WeekDaysAttributes("Mon", Mon));
+        addItemArray.add(new WeekDaysAttributes("Tue", Tue));
+        addItemArray.add(new WeekDaysAttributes("Wed", Wed));
+        addItemArray.add(new WeekDaysAttributes("Thu", Thu));
+        addItemArray.add(new WeekDaysAttributes("Fri", Fri));
+        addItemArray.add(new WeekDaysAttributes("Sat", Sat));
 
         rvWeekDays = (RecyclerView) findViewById(R.id.rvWeekDays);
         LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -128,8 +184,39 @@ public class EditActivity extends AppCompatActivity {
 
             }
         });
-
+        TextView tvName = (TextView)findViewById(R.id.tvTitle);
+        ImageView imageViewIcon =(ImageView)findViewById(R.id.imageViewIcon);
+        tvName.setText(name);
+        imageViewIcon.setImageResource(getResources().getIdentifier(
+                iconName, "drawable", "com.example.kavitapc.fitnessreminder"));
+        tvReminderTime.setText(reminderTimeStr);
+        //etHours.setText(durationHoursValue);
+       // etMinutes.setText(durationMinutesValue);
+        checkBoxRepeat.setChecked(checkboxValue);
+        if (mPriority ==1) {
+            ((RadioButton) findViewById(R.id.rbHigh)).setChecked(true);
+            imageViewIcon.setColorFilter(getResources().getColor(R.color.materialRed, null));
+        } else if (mPriority == 2) {
+            ((RadioButton) findViewById(R.id.rbMedium)).setChecked(true);
+            imageViewIcon.setColorFilter(getResources().getColor(R.color.materialOrange, null));
+        } else if (mPriority ==3) {
+            ((RadioButton) findViewById(R.id.rbLow)).setChecked(true);
+            imageViewIcon.setColorFilter(getResources().getColor(R.color.materialYellow, null));
+        }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("in resume", ""+idFromIntent);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("in restart", ""+idFromIntent);
+    }
+
     private long updateData() {
         //Priority = mPriority
         //hours = mHours

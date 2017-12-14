@@ -9,7 +9,7 @@
            android:elevation="5dp"
            android:icon="@android:drawable/ic_input_add"
            android:tint="@color/colorAccent"
-           android:title="Add Button"
+           android:title="@string/add_button"
            app:showAsAction="always" />
 
 </menu>

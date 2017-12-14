@@ -1,7 +1,9 @@
 package com.example.kavitapc.fitnessreminder;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.DialogFragment;
@@ -40,6 +42,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.Set;
 
 
 import static android.provider.Settings.System.DATE_FORMAT;
@@ -52,7 +55,6 @@ public class GoalDetails extends AppCompatActivity {
     private RecyclerView rvWeekDays;
     private WeekDaysRecycleViewAdapter weekDaysAdapter;
     private ArrayList<WeekDaysAttributes> addItemArray = new ArrayList<>();
-
     //Setting time
     private TextView tvReminderTime;
     private EditText etHours;
@@ -63,9 +65,7 @@ public class GoalDetails extends AppCompatActivity {
     public static final String REMINDER_TIME = "Reminder_Time";
     public static final String ACTIVITY_HOURS = "Hours";
     public static final String ACTIVITY_MINS= "Mins";
-
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MMM, dd yyyy",Locale.ENGLISH);
-
     CheckBox checkBoxRepeat;
     private EditText etCreateOwn;
     private String textCreateOwn;
@@ -74,7 +74,8 @@ public class GoalDetails extends AppCompatActivity {
     Button save;
     String iconName;
     private static final String IMAGE_ICON = "ImageIcon";
-    private static final String fileName = "DailyHabitsKeyValue";
+    public static final String fileName = "DailyHabitsKeyValue";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,103 +83,101 @@ public class GoalDetails extends AppCompatActivity {
         setContentView(R.layout.activity_goal_details);
 
 
-        Spinner mySpinner = (Spinner)findViewById(R.id.spinnerActivity);
-        final ArrayList<ItemAttributes> dailyHabitsArray = new ArrayList<>();
-        addData(dailyHabitsArray);
-        ListViewCustomAdapter customAdapter = new ListViewCustomAdapter(this, R.layout.dwm_habits_rows, dailyHabitsArray, fileName);
-        mySpinner.setAdapter(customAdapter);
+            Spinner mySpinner = (Spinner)findViewById(R.id.spinnerActivity);
+            final ArrayList<ItemAttributes> dailyHabitsArray = new ArrayList<>();
+            addData(dailyHabitsArray);
+            ListViewCustomAdapter customAdapter = new ListViewCustomAdapter(this, R.layout.dwm_habits_rows, dailyHabitsArray, fileName);
+            mySpinner.setAdapter(customAdapter);
+            mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    TextView textView = (TextView) view.findViewById(R.id.tvGoalRow);
+                    title = textView.getText().toString();
 
-        mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                TextView textView = (TextView) view.findViewById(R.id.tvGoalRow);
-                title = textView.getText().toString();
+                    iconName = dailyHabitsArray.get(position).getIconName();
+                    Log.d("iiiiiiiiii", ""+iconName);
 
-                iconName = dailyHabitsArray.get(position).getIconName();
-                Log.d("iiiiiiiiii", ""+iconName);
+                }
 
-            }
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
 
-            }
-        });
+            //Get Text from create your own
+            etCreateOwn = (EditText)findViewById(R.id.etCreateOwn);
 
-        //Get Text from create your own
-        etCreateOwn = (EditText)findViewById(R.id.etCreateOwn);
-
-
-
-        // Initialize to highest mPriority by default (mPriority = 1)
-        ((RadioButton) findViewById(R.id.rbHigh)).setChecked(true);
-        mPriority = 1;
+            // Initialize to highest mPriority by default (mPriority = 1)
+            ((RadioButton) findViewById(R.id.rbHigh)).setChecked(true);
+            mPriority = 1;
 
         //Data will persist on screen rotation and on switching between apps
-        tvReminderTime = (TextView) findViewById(R.id.tvTimePicker);
-        etHours = (EditText) findViewById(R.id.etHours);
-        etMinutes = (EditText) findViewById(R.id.etMins);
-        if (savedInstanceState != null) {
-            reminderTime = savedInstanceState.getString(REMINDER_TIME);
-            mHours = savedInstanceState.getString(ACTIVITY_HOURS);
-            mMins = savedInstanceState.getString(ACTIVITY_MINS);
-            tvReminderTime.setText(reminderTime);
-            etHours.setText(mHours);
-            etMinutes.setText(mMins);
-        }
+            tvReminderTime = (TextView) findViewById(R.id.tvTimePicker);
+            etHours = (EditText) findViewById(R.id.etHours);
+            etMinutes = (EditText) findViewById(R.id.etMins);
+            if (savedInstanceState != null) {
+                reminderTime = savedInstanceState.getString(REMINDER_TIME);
+                mHours = savedInstanceState.getString(ACTIVITY_HOURS);
+                mMins = savedInstanceState.getString(ACTIVITY_MINS);
+                tvReminderTime.setText(reminderTime);
+                etHours.setText(mHours);
+                etMinutes.setText(mMins);
+            }
 
         ////////////////////Add week days list
-        addItemArray.add(new WeekDaysAttributes("Sun", true));
-        addItemArray.add(new WeekDaysAttributes("Mon", true));
-        addItemArray.add(new WeekDaysAttributes("Tue", true));
-        addItemArray.add(new WeekDaysAttributes("Wed", true));
-        addItemArray.add(new WeekDaysAttributes("Thu", true));
-        addItemArray.add(new WeekDaysAttributes("Fri", true));
-        addItemArray.add(new WeekDaysAttributes("Sat", true));
+                addItemArray.add(new WeekDaysAttributes("Sun", true));
+                addItemArray.add(new WeekDaysAttributes("Mon", true));
+                addItemArray.add(new WeekDaysAttributes("Tue", true));
+                addItemArray.add(new WeekDaysAttributes("Wed", true));
+                addItemArray.add(new WeekDaysAttributes("Thu", true));
+                addItemArray.add(new WeekDaysAttributes("Fri", true));
+                addItemArray.add(new WeekDaysAttributes("Sat", true));
 
-        rvWeekDays = (RecyclerView) findViewById(R.id.rvWeekDays);
-        LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        rvWeekDays.setLayoutManager(horizontalLayoutManagaer);
+                rvWeekDays = (RecyclerView) findViewById(R.id.rvWeekDays);
+                LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+                rvWeekDays.setLayoutManager(horizontalLayoutManagaer);
 
-        checkBoxRepeat = (CheckBox) findViewById(R.id.cbRepeatOn);
-        checkBoxRepeat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (checkBoxRepeat.isChecked()) {
-                    rvWeekDays.setVisibility(rvWeekDays.INVISIBLE);
-                } else {
-                    rvWeekDays.setVisibility(rvWeekDays.VISIBLE);
-                }
-            }
-        });
-        weekDaysAdapter = new WeekDaysRecycleViewAdapter(this, addItemArray);
-        rvWeekDays.setAdapter(weekDaysAdapter);
+                checkBoxRepeat = (CheckBox) findViewById(R.id.cbRepeatOn);
+                checkBoxRepeat.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (checkBoxRepeat.isChecked()) {
+                            rvWeekDays.setVisibility(rvWeekDays.INVISIBLE);
+                        } else {
+                            rvWeekDays.setVisibility(rvWeekDays.VISIBLE);
+                        }
+                    }
+                });
+                weekDaysAdapter = new WeekDaysRecycleViewAdapter(this, addItemArray);
+                rvWeekDays.setAdapter(weekDaysAdapter);
         ///////////////////////////////////////
 
-        save = (Button) findViewById(R.id.bSave);
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                reminderTime = tvReminderTime.getText().toString();
-                textCreateOwn = etCreateOwn.getText().toString();
-                mHours = etHours.getText().toString();
-                mMins = etMinutes.getText().toString();
-                int hrs = Integer.valueOf(mHours);
-                int mins = Integer.valueOf(mMins);
-                if (hrs==0 && mins ==0 ){
-                    Toast.makeText(getBaseContext(), "Activity duration can't be zero",Toast.LENGTH_LONG).show();
-                }else if(reminderTime.equals("Set Time")){
-                    Toast.makeText(getBaseContext(), "Time can't be left blank",Toast.LENGTH_LONG).show();
-                }
-                else {
-                    save.setEnabled(false);
-                    saveData();
-                    Intent intent = new Intent(GoalDetails.this, MainActivity.class);
-                    startActivity(intent);
-                }
+                save = (Button) findViewById(R.id.bSave);
+                save.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        reminderTime = tvReminderTime.getText().toString();
+                        textCreateOwn = etCreateOwn.getText().toString();
+                        mHours = etHours.getText().toString();
+                        mMins = etMinutes.getText().toString();
+                        int hrs = Integer.valueOf(mHours);
+                        int mins = Integer.valueOf(mMins);
+                        if (hrs==0 && mins ==0 ){
+                            Toast.makeText(getBaseContext(), "Activity duration can't be zero",Toast.LENGTH_LONG).show();
+                        }else if(reminderTime.equals("Set Time")){
+                            Toast.makeText(getBaseContext(), "Time can't be left blank",Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            save.setEnabled(false);
+                            saveData();
+                            Toast.makeText(getBaseContext(), "Activity saved for 90 days",Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(GoalDetails.this, MainActivity.class);
+                            startActivity(intent);
+                        }
 
-            }
-        });
+                    }
+                });
 
     }
 
@@ -220,10 +219,8 @@ public class GoalDetails extends AppCompatActivity {
         cal.setTime(new Date());
         cal.add(Calendar.DATE, 365);
         String textEndDate = DATE_FORMAT.format(cal.getTime());
-
-
-
         boolean isCheckRepeatOn = checkBoxRepeat.isChecked();
+
 
         HabitDbHelper mDbHelper = new HabitDbHelper(getBaseContext());
         ContentValues contentValues = new ContentValues();
@@ -246,11 +243,12 @@ public class GoalDetails extends AppCompatActivity {
 
 
                 habitId = sqLiteDatabase.insert(UserHabitDetailEntry.TABLE_NAME, null, contentValues);
-
+                int id = (int)habitId;
 
                 Log.d("Row is", "Row inserted...................." + habitId);
                 contentValues.clear();
                 contentValues = new ContentValues();
+
 
                 for (int i = 0; i < 7; i++) {
                     contentValues.put(RepeatOnDaysEntry.WEEK_DAY, weekDaysAdapter.itemList.get(i).itemName);
@@ -258,8 +256,11 @@ public class GoalDetails extends AppCompatActivity {
                     contentValues.put(RepeatOnDaysEntry.HABIT_ID, habitId);
                     long daysRowId = sqLiteDatabase.insert(RepeatOnDaysEntry.TABLE_NAME, null, contentValues);
                     Log.d("inserted days", "" + daysRowId);
+
                 }
-                Log.d("Row is", "Row inserted...................." + habitId);
+
+
+               // Log.d("Row is", "Row inserted...................." + habitId);
 
 
 

@@ -3,6 +3,7 @@ package com.example.kavitapc.fitnessreminder.utilities;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,13 +29,13 @@ import java.util.Locale;
  */
 
 public class ActivityCountRecyclerViewAdapter extends RecyclerView.Adapter<ActivityCountRecyclerViewAdapter.ActivityCountViewHolder>{
-    private Cursor mCursor1;
+    private Cursor mCursor2;
     private Context mContext;
     HabitDbHelper mDbHelper1;
-    String completedActivities ="";
-    String notCompletedActivities ="";
-    int countComp =0;
-    int countNotComp =0;
+    private String completedActivities ="";
+    private String notCompletedActivities ="";
+    private int countComp =0;
+    private int countNotComp =0;
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MMM, dd yyyy", Locale.ENGLISH);
 
 
@@ -51,47 +52,47 @@ public class ActivityCountRecyclerViewAdapter extends RecyclerView.Adapter<Activ
     @Override
     public void onBindViewHolder(ActivityCountViewHolder holder, int position) {
 
-        Log.d("AC whole data is:", ""+DatabaseUtils.dumpCursorToString(mCursor1));
+        Log.d("AC whole data is:", ""+DatabaseUtils.dumpCursorToString(mCursor2));
 
-        mCursor1.moveToPosition(position);
+        mCursor2.moveToPosition(position);
 
         //get column Index
-        int dateCompIndex = mCursor1.getColumnIndex(HabitContract.HabitStatusEntry.DATE_COMPLETION);
-        int idPKIndex = mCursor1.getColumnIndex(HabitContract.UserHabitDetailEntry.USER_HABIT_PK);
-        int nameIndex = mCursor1.getColumnIndex(HabitContract.UserHabitDetailEntry.HABIT_NAME);
-        int iconIndex = mCursor1.getColumnIndex(HabitContract.UserHabitDetailEntry.ICON_NAME);
-        int doneFlagIndex = mCursor1.getColumnIndex(HabitContract.HabitStatusEntry.DONE_FLAG);
+        int dateCompIndex = mCursor2.getColumnIndex(HabitContract.HabitStatusEntry.DATE_COMPLETION);
+        int idPKIndex = mCursor2.getColumnIndex(HabitContract.UserHabitDetailEntry.USER_HABIT_PK);
+        int nameIndex = mCursor2.getColumnIndex(HabitContract.UserHabitDetailEntry.HABIT_NAME);
+        int iconIndex = mCursor2.getColumnIndex(HabitContract.UserHabitDetailEntry.ICON_NAME);
+        int doneFlagIndex = mCursor2.getColumnIndex(HabitContract.HabitStatusEntry.DONE_FLAG);
 
         //get column values
-        String dateValue = mCursor1.getString(dateCompIndex);
-        int idPKValue = mCursor1.getInt(idPKIndex);
+        String dateValue = mCursor2.getString(dateCompIndex);
+        int idPKValue = mCursor2.getInt(idPKIndex);
         String idV = String.valueOf(idPKValue);
-        String name = mCursor1.getString(nameIndex);
-        String icon = mCursor1.getString(iconIndex);
-        int doneFlag = mCursor1.getInt(doneFlagIndex);
+        String name = mCursor2.getString(nameIndex);
+        String icon = mCursor2.getString(iconIndex);
+        int doneFlag = mCursor2.getInt(doneFlagIndex);
         String ss = String.valueOf(doneFlag);
 
         //checking if currDate is equal to next date value
         int dateCompIndex2=0;
         String dateValue2="";
-        if(!mCursor1.isLast()) {
-            mCursor1.moveToPosition(position + 1);
-             dateCompIndex2 = mCursor1.getColumnIndex(HabitContract.HabitStatusEntry.DATE_COMPLETION);
-             dateValue2 = mCursor1.getString(dateCompIndex2);
-            if(mCursor1.isLast()){
-                mCursor1.moveToPosition(position-1);
+        if(!mCursor2.isLast()) {
+            mCursor2.moveToPosition(position + 1);
+             dateCompIndex2 = mCursor2.getColumnIndex(HabitContract.HabitStatusEntry.DATE_COMPLETION);
+             dateValue2 = mCursor2.getString(dateCompIndex2);
+            if(mCursor2.isLast()){
+                mCursor2.moveToPosition(position-1);
             }
         }
 
 
-            if( mCursor1.isLast() || !dateValue.equals(dateValue2)  ){
-                Log.d("position after",""+mCursor1.getPosition());
+            if( mCursor2.isLast() || !dateValue.equals(dateValue2)  ){
+                Log.d("position after",""+mCursor2.getPosition());
                 if(doneFlag==0){
-                    notCompletedActivities= notCompletedActivities+", "+ mCursor1.getString(nameIndex);
+                    notCompletedActivities= notCompletedActivities+", "+ mCursor2.getString(nameIndex);
                     countNotComp++;
                 }
                 else{
-                    completedActivities= completedActivities+", "+ mCursor1.getString(nameIndex);
+                    completedActivities= completedActivities+", "+ mCursor2.getString(nameIndex);
                     countComp++;
                 }
                 //set data on screen
@@ -122,12 +123,20 @@ public class ActivityCountRecyclerViewAdapter extends RecyclerView.Adapter<Activ
                    if(countComp==0){
                         holder.tvCompleted.setText("No Activity Completed");
                     }else{
-                        holder.tvCompleted.setText(completedActivities);
+                       String compStr = completedActivities;
+                       if(compStr.startsWith(",")){
+                           compStr =compStr.substring(1, compStr.length());
+                       }
+                        holder.tvCompleted.setText(compStr);
                     }
                     if(countNotComp==0){
                         holder.tvNotCompleted.setText("No Activity Incomplete");
                     }else{
-                        holder.tvNotCompleted.setText(notCompletedActivities);
+                        String NotCompStr = notCompletedActivities;
+                        if(NotCompStr.startsWith(",")){
+                            NotCompStr =NotCompStr.substring(1, NotCompStr.length());
+                        }
+                        holder.tvNotCompleted.setText(NotCompStr);
                     }
 
                     notCompletedActivities = "";
@@ -160,20 +169,20 @@ public class ActivityCountRecyclerViewAdapter extends RecyclerView.Adapter<Activ
 
     @Override
     public int getItemCount() {
-        if(mCursor1 == null){
+        if(mCursor2 == null){
             return 0;
 
         }
-        return mCursor1.getCount();
+        return mCursor2.getCount();
     }
 
     public Cursor swapCursor(Cursor c) {
-        // check if this cursor is the same as the previous cursor (mCursor1)
-        if (mCursor1 == c) {
+        // check if this cursor is the same as the previous cursor (mCursor2)
+        if (mCursor2 == c) {
             return null; // bc nothing has changed
         }
-        Cursor temp = mCursor1;
-        this.mCursor1 = c; // new cursor value assigned
+        Cursor temp = mCursor2;
+        this.mCursor2 = c; // new cursor value assigned
 
         //check if this is a valid cursor, then update the cursor
         if (c != null) {
@@ -183,6 +192,7 @@ public class ActivityCountRecyclerViewAdapter extends RecyclerView.Adapter<Activ
     }
 
     public class ActivityCountViewHolder extends RecyclerView.ViewHolder{
+        CardView cvCountPage;
         TextView tvReportDate;
         TextView tvCountCompleted;
         ImageView ivCompleted;
@@ -193,6 +203,7 @@ public class ActivityCountRecyclerViewAdapter extends RecyclerView.Adapter<Activ
 
         public ActivityCountViewHolder(View view){
             super(view);
+            cvCountPage = (CardView)itemView.findViewById(R.id.cvCountPage);
             tvReportDate = (TextView)itemView.findViewById(R.id.tvReportDate);
             tvCountCompleted = (TextView)itemView.findViewById(R.id.tvCountCompleted);
             //ivCompleted =(ImageView)itemView.findViewById(R.id.ivCompleted);

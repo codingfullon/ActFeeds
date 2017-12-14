@@ -7,9 +7,15 @@
     android:weightSum="1">
 
 
-    <Switch
-        android:id="@+id/bWeekDays"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button" />
+    <TextView
+        android:id="@+id/tvWeekDays"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_margin="4dp"
+        android:background="@drawable/sun"
+        android:text="Sun"
+
+        android:gravity="center" />
+
+
 </LinearLayout>

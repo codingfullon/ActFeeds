@@ -45,7 +45,7 @@ public class NotificationSyncJob extends DailyJob {
 
     public static void schedule() {
         DailyJob.schedule(new JobRequest.Builder(TAG)
-                , TimeUnit.HOURS.toMillis(9), TimeUnit.HOURS.toMillis(9)+TimeUnit.SECONDS.toMillis(30));
+                , TimeUnit.MINUTES.toMillis(1), TimeUnit.HOURS.toMillis(0)+TimeUnit.SECONDS.toMillis(30));
     }
 
 }

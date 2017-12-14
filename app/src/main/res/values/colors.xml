@@ -9,10 +9,12 @@
     <color name="colorAccentLight">#2962ff</color>
     <color name="colorWhite">#e8ebf6</color>
     <color name="colorGreen">#64dd17</color>
+    <color name="buttonGray">#9E9E9E</color>
 
 
     <!-- colors for task priority selection -->
     <color name="materialRed">@android:color/holo_red_dark</color>
     <color name="materialOrange">@android:color/holo_orange_dark</color>
     <color name="materialYellow">#F1C40F</color>
+    <color name="toolTipColor">#B2EBF2</color>
 </resources>

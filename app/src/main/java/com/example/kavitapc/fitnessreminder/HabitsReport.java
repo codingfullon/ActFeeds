@@ -60,6 +60,7 @@ public class HabitsReport extends Fragment implements LoaderManager.LoaderCallba
         activityPercentageAdapter = new ActivityPercentageRecyclerViewAdapter(getActivity());
         activityPercentageRecyclerView.setAdapter(activityPercentageAdapter);
         getActivity().getSupportLoaderManager().initLoader(TASK_LOADER_ID, null, this);
+
         return view;
     }
 
@@ -189,6 +190,7 @@ public class HabitsReport extends Fragment implements LoaderManager.LoaderCallba
 
 
                         cursorReport = sqldb.rawQuery(Query, null);
+
                    // Log.d("ssssssssssss",""+(new SimpleDateFormat("EEE")).format(new Date()));
 
                     /*TextView tvEmptyReport =(TextView) view.findViewById(R.id.tvEmptyReport);

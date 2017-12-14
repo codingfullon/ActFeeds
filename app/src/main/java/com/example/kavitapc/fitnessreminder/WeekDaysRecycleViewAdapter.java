@@ -52,8 +52,14 @@ public class WeekDaysRecycleViewAdapter extends RecyclerView.Adapter<WeekDaysRec
         String itemName = itemList.get(position).getItemName();
         flagWeekDays = itemList.get(position).getBoolean();
         holder.button.setText(itemName);
-        //holder.button.setBackgroundColor(Color.BLUE);
-        holder.button.setChecked(flagWeekDays);
+        if(flagWeekDays){
+            holder.button.setBackgroundResource(R.drawable.sun);
+        }else{
+            holder.button.setBackgroundResource(R.drawable.circle);
+        }
+
+
+       // holder.button.setChecked(flagWeekDays);
 
     }
 
@@ -65,11 +71,11 @@ public class WeekDaysRecycleViewAdapter extends RecyclerView.Adapter<WeekDaysRec
 ////////////////////////////////////////////////////////////////////////////
 
     public class WeekDaysViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        Switch button;
+        TextView button;
 
         public WeekDaysViewHolder(View itemView) {
             super(itemView);
-            button = (Switch) itemView.findViewById(R.id.bWeekDays);
+            button = (TextView) itemView.findViewById(R.id.tvWeekDays);
             button.setOnClickListener(this);
         }
 
@@ -77,18 +83,19 @@ public class WeekDaysRecycleViewAdapter extends RecyclerView.Adapter<WeekDaysRec
         public void onClick(View view) {
             if(itemList.get(getAdapterPosition()).getBoolean()){
                 itemList.get(getAdapterPosition()).aBoolean = false;
-                Log.d("enabled 0", "true"+button.getText());
+                Log.d("enabled 0", "false"+button.getText());
 
-               // button.setBackgroundColor(Color.WHITE);
-                button.setChecked(false);
+                button.setBackgroundResource(R.drawable.circle);
+
 
             }
             else{
                 itemList.get(getAdapterPosition()).aBoolean = true;
-                Log.d("enabled 0", "false");
+                Log.d("enabled 0", "true");
                 //button.setSelected(true);
                 //button.setBackgroundColor(Color.BLUE);
-                button.setChecked(true);
+                button.setBackgroundResource(R.drawable.sun);
+
 
             }
         }

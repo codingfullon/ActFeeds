@@ -94,9 +94,6 @@ public class AddedGoalsRecyclerViewAdapter extends RecyclerView.Adapter<AddedGoa
         int durationHoursValue = mCursor.getInt(durationHours);
         int durationMinutesValue = mCursor.getInt(durationMinutes);
 
-        //Imp set tag value to get in fragment
-        holder.itemView.setTag(id);
-
         String durationValue = "";
         if(durationMinutesValue==0){
             durationValue = durationMinutesValue+" Min";
@@ -113,6 +110,10 @@ public class AddedGoalsRecyclerViewAdapter extends RecyclerView.Adapter<AddedGoa
         }else if(durationHoursValue>1){
             durationValue = durationHoursValue+" Hrs,"+durationValue;
         }
+        ////////////////////////////
+        //set tag for swipe
+        holder.itemView.setTag(id);
+        //////////////////////////////
 
        // Log.d("whole data is :", "aaaaaaaaaaaaaaaaaaaaaaa"+DatabaseUtils.dumpCursorToString(mCursor));
         //Log.d("id is", "aaaaaaaaaaaaaaaaaaaaaaa"+id);
@@ -136,14 +137,7 @@ public class AddedGoalsRecyclerViewAdapter extends RecyclerView.Adapter<AddedGoa
 
         //Changing the habit status
         mDbHelper = new HabitDbHelper(mContext.getApplicationContext());
-        Calendar utcCalendar = Calendar.getInstance();
-        utcCalendar.set(Calendar.HOUR_OF_DAY, 0);
-        utcCalendar.set(Calendar.MINUTE, 0);
-        utcCalendar.set(Calendar.SECOND, 0);
-        utcCalendar.set(Calendar.MILLISECOND, 0);
-        final Date currentDate = utcCalendar.getTime();
 
-        //get current date
         final SimpleDateFormat DATE_FORMAT_STATUS = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
         GregorianCalendar GCalendar = new GregorianCalendar();
         GCalendar.setTime(new Date());
@@ -173,6 +167,7 @@ public class AddedGoalsRecyclerViewAdapter extends RecyclerView.Adapter<AddedGoa
 
 
             holder.doneCheckBox.setEnabled(false);
+            notifyDataSetChanged();
            // holder.doneCheckBox.setBackgroundColor(Color.GREEN);
             Toast.makeText(mContext, "Activity completed, check reports for detail",Toast.LENGTH_SHORT).show();
 
@@ -221,6 +216,7 @@ public class AddedGoalsRecyclerViewAdapter extends RecyclerView.Adapter<AddedGoa
             groupImageView =(ImageView)itemView.findViewById(R.id.ivGroup);
             tvActivityTime = (TextView)itemView.findViewById(R.id.tvActivityTime);
             getTvActivityDuration = (TextView)itemView.findViewById(R.id.tvActivityDuration);
+
 
         }
     }

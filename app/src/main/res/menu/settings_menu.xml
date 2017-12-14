@@ -3,13 +3,13 @@
     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
     >
 
-    <item android:id="@+id/navUserProfile"
+   <!-- <item android:id="@+id/navUserProfile"
         android:title="@string/UserProfile"
         android:icon="@drawable/ic_person_black_24dp"/>
 
     <item android:id="@+id/navLoginLogout"
         android:title="@string/LogInLogOut"
-        android:icon="@drawable/ic_login_open_black_24dp"/>
+        android:icon="@drawable/ic_login_open_black_24dp"/>-->
 
     <item android:id="@+id/navContactUs"
         android:title="@string/ContactUs"
@@ -18,7 +18,6 @@
     <item android:id="@+id/navShareApp"
         android:title="@string/ShareApp"
         android:icon="@drawable/ic_share_black_24dp"/>
-
 
     <item android:id="@+id/navAppTour"
         android:title="@string/AppTour"

@@ -1,5 +1,6 @@
 package com.example.kavitapc.fitnessreminder;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -32,13 +33,13 @@ import java.util.Locale;
 
 public class FeedsPage extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    private Toast mToast;
     private OnFragmentInteractionListener mListener;
+    RecyclerView activityCountRecyclerView;
     ActivityCountRecyclerViewAdapter activityCountAdapter;
     public static final int TASK_LOADER_ID = 2;
-    View view;
     private TextView textViewEmpty2;
-    RecyclerView activityCountRecyclerView;
+    View view;
+    boolean isDataLoaded = false,isVisibleToUser;
 
     public FeedsPage() {
         // Required empty public constructor
@@ -51,6 +52,8 @@ public class FeedsPage extends Fragment implements LoaderManager.LoaderCallbacks
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_activity_count, container, false);
 
@@ -58,15 +61,16 @@ public class FeedsPage extends Fragment implements LoaderManager.LoaderCallbacks
 
         activityCountRecyclerView = (RecyclerView)view.findViewById(R.id.rvActivityCount);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        activityCountRecyclerView.setLayoutManager(linearLayoutManager);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        activityCountRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
        // DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(activityCountRecyclerView.getContext(),
                // linearLayoutManager.getOrientation());
        // activityCountRecyclerView.addItemDecoration(dividerItemDecoration);
 
-        activityCountAdapter = new ActivityCountRecyclerViewAdapter(getContext());
+        activityCountAdapter = new ActivityCountRecyclerViewAdapter(getActivity());
         activityCountRecyclerView.setAdapter(activityCountAdapter);
+
         getActivity().getSupportLoaderManager().initLoader(TASK_LOADER_ID, null, this);
         return view;
     }
@@ -74,15 +78,13 @@ public class FeedsPage extends Fragment implements LoaderManager.LoaderCallbacks
     @Override
     public void onResume() {
         super.onResume();
-        getLoaderManager().restartLoader(TASK_LOADER_ID, null, this);
-        //getActivity().getSupportLoaderManager().restartLoader(TASK_LOADER_ID, null, this);
+        //getLoaderManager().restartLoader(TASK_LOADER_ID, null, this);
+        getActivity().getSupportLoaderManager().restartLoader(TASK_LOADER_ID, null, this);
     }
 
 
 
-
-
-
+    @SuppressLint("StaticFieldLeak")
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new AsyncTaskLoader<Cursor>(getContext()) {
@@ -103,8 +105,8 @@ public class FeedsPage extends Fragment implements LoaderManager.LoaderCallbacks
             public Cursor loadInBackground() {
                 try {
 
-                    HabitDbHelper mDbHelper1 = new HabitDbHelper(getActivity().getBaseContext());
-                    SQLiteDatabase sqldb1 = mDbHelper1.getReadableDatabase();
+                    HabitDbHelper mDbHelper = new HabitDbHelper(getActivity().getBaseContext());
+                    SQLiteDatabase sqldb1 = mDbHelper.getReadableDatabase();
 
                     Calendar utcCalendar = Calendar.getInstance();
                     utcCalendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -116,6 +118,8 @@ public class FeedsPage extends Fragment implements LoaderManager.LoaderCallbacks
                     final SimpleDateFormat DATE_FORMAT_STATUS = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
                     GregorianCalendar GCStatusDate = new GregorianCalendar();
                     GCStatusDate.setTime(new Date());
+                    Log.d("dddddddd",""+ DATE_FORMAT_STATUS.format(GCStatusDate.getTime()));
+
 
                     Cursor cursorReport = null;
                     String Query = " select a.DateOfCompletion, c.UserHabitPK, HabitName,IconName, a.DoneFlag "+
@@ -134,7 +138,7 @@ public class FeedsPage extends Fragment implements LoaderManager.LoaderCallbacks
                            " when 5 then 'Fri' "+
                            " else 'Sat' end) "+
                            " and d.DaySelected = 1 "+
-                           " and DateOfCompletion <=\"" +  DATE_FORMAT_STATUS.format(GCStatusDate.getTime())+"\""+
+                            " and DateOfCompletion <= \"" + DATE_FORMAT_STATUS.format(GCStatusDate.getTime())+"\""+
                            " order by a.DateOfCompletion desc";
 
 
