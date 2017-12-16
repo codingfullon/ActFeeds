@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="My Daily Progress"
+        android:text="@string/my_daily_progress"
         android:textSize="15sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
@@ -29,12 +29,11 @@
         android:id="@+id/textViewEmpty2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
-        android:text="No daily progress data, click on plus button to add activities"
         android:gravity="center_horizontal"
         android:paddingTop="80dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textColor="@color/colorGreen"
+        android:text="@string/no_daily_progress_data_click_on_plus_button_to_add_activities"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/materialOrange"
         android:textSize="20sp"
-        android:textStyle="italic" />
+        android:visibility="visible" />
 </LinearLayout>

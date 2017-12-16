@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ActFeed</string>
+    <string name="app_name">ActFeeds</string>
     <!-- Daily habits list items -->
     <string name="WaterReminder">Drink More Water</string>
     <string name="ExerciseReminder">Exercise</string>
@@ -98,5 +98,38 @@
     <string name="add_button">Add Button</string>
     <string name="title_activity_app_tour">AppTour</string>
     <string name="title_app_tour">App Tour</string>
+    <string name="title_edit_activity">Edit Activity</string>
+    <string name="add_activity">Add an Activity</string>
+    <string name="update">UPDATE</string>
+    <string name="save">save</string>
+    <string name="subject">Mail from ActZiv</string>
+    <string name="email">kavitaagrawal001@gmail.com</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="start_text">No activities added, click on plus button on top to add activities and swipe left to complete.</string>
+    <string name="complete_text">Congratulations! You have completed all activities today.</string>
+    <string name="empty_actvity_count">No activity progress data, click on plus button on top to add activities</string>
+    <string name="my_activities_progress">My Activities Progress</string>
+    <string name="today">Today</string>
+    <string name="my_daily_progress">My Daily Progress</string>
+    <string name="no_daily_progress_data_click_on_plus_button_to_add_activities">No daily progress data, click on plus button to add activities</string>
+    <string name="icon_default_text">A</string>
+    <string name="item_option">⋮</string>
+    <string name="time">Time</string>
+    <string name="duration">Duration</string>
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="NoActivityCompleted">No Activity Completed</string>
+    <string name="NoActivityIncomplete">No Activity Incomplete</string>
+    <string name="set_time">Set Time</string>
+    <string name="medium">Medium</string>
+    <string name="low">Low</string>
+    <string name="set_priority">Set Priority</string>
+    <string name="high">High</string>
+    <string name="set_duration">Set Duration</string>
+    <string name="mm">MM</string>
+    <string name="hh">HH</string>
+    <string name="create_your_own_activity">Choose from dropdown or create your own activity</string>
+
 
 </resources>

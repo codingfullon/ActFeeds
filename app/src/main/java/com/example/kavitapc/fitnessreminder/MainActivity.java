@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
     private TabLayout tabLayout;
     private static String LOG_TAG = MainActivity.class.getSimpleName();
     private int position;
-    List<Fragment> fragments = new ArrayList<Fragment>();
+    List<Fragment> fragments = new ArrayList<>();
     private  TourGuide  mTourHandler;
 
 
@@ -83,10 +83,10 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
         Bundle bundle = getIntent().getExtras();
 
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout = findViewById(R.id.tabs);
 
         //Open drawer when clicked on Action bar
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        mDrawerLayout = findViewById(R.id.drawerLayout);
         mActionToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.Open, R.string.Close);
         mDrawerLayout.addDrawerListener(mActionToggle);
         mActionToggle.syncState();
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
         pagerItems.add(new PagerItem("Fragment3", new HabitsReport()));
 */
         //setting up view pager
-        viewPager =(ViewPager)findViewById(R.id.pager);
+        viewPager = findViewById(R.id.pager);
         pagerAdapter = new MyPageAdapter(getSupportFragmentManager(),fragments);
        // pagerAdapter.addFragment(new AddedGoals(), "");
        // pagerAdapter.addFragment(new FeedsPage(),"");
@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
 
 
         //Creating tour guide
-        /*ImageView addButton = (ImageView) item.getActionView();
+        /*final ImageView addButton = (ImageView) item.getActionView();
         addButton.setImageDrawable(getResources().getDrawable(android.R.drawable.ic_input_add));
         mTourHandler = TourGuide.init(this).with(TourGuide.Technique.Click)
                 .motionType(TourGuide.MotionType.ClickOnly)
@@ -198,9 +198,10 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
             @Override
             public void onClick(View view) {
                 mTourHandler.cleanUp();
+                addButton.setClickable(true);
             }
-        });*/
-
+        });
+*/
 
         item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
@@ -214,7 +215,7 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
     }
 
     private void setNavigationViewListner() {
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigationID);
+        NavigationView navigationView = findViewById(R.id.navigationID);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -236,7 +237,7 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
                 try {
                     Intent intent = new Intent(Intent.ACTION_SEND);
                     intent.setType("text/plain");
-                    intent.putExtra(Intent.EXTRA_SUBJECT, "ActFeed");
+                    intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
                     intent.putExtra(Intent.EXTRA_TEXT, "Act to develop new habits and to achieve goals " +
                             "market://play.google.com/store/apps/details?id=Orion.Soft"); //TODO:change the id to your app id
                     startActivity(Intent.createChooser(intent, "Choose one to share app"));

@@ -3,8 +3,8 @@
     package="com.example.kavitapc.fitnessreminder">
 
     <!-- To access Google+ APIs: -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET" /> <!--TODO is working fine without this permission-->
+
 
     <application
         android:allowBackup="true"
@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="ActFeed"
+            android:label="@string/app_name"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,12 +23,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ContactUS"
+            android:parentActivityName=".MainActivity"
+            />
+
         <activity
             android:name=".GoalDetails"
-            android:label="Add an Activity"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".CreateOwn"
+            android:label="@string/add_activity"
             android:parentActivityName=".MainActivity" />
 
         <service
@@ -46,9 +47,12 @@
 
         <activity
             android:name=".EditActivity"
+            android:label="@string/title_edit_activity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".ContactUS"
-            android:parentActivityName=".MainActivity"/>
+
+
+
+
         <activity
             android:name=".OnboardingActivity"
             android:label="@string/title_activity_onboarding"

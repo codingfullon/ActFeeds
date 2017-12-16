@@ -70,10 +70,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:layout_marginRight="16dp"
-        android:drawableLeft="@drawable/ic_arrow_downward_black_24dp"
-        android:drawableTint="@color/colorAccent"
-        android:text="save"
+        android:layout_marginEnd="16dp"
+        android:drawableStart="@drawable/ic_arrow_downward_black_24dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:elevation="24dp"
+        android:text="@string/save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
@@ -84,7 +85,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:text="Set Priority"
+        android:text="@string/set_priority"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintHorizontal_bias="0.024"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -118,7 +119,7 @@
                 android:layout_weight="1"
                 android:background="@color/materialRed"
                 android:onClick="onPrioritySelected"
-                android:text="High" />
+                android:text="@string/high" />
 
             <RadioButton
                 android:id="@+id/rbMedium"
@@ -127,7 +128,7 @@
                 android:layout_weight="1"
                 android:background="@color/materialOrange"
                 android:onClick="onPrioritySelected"
-                android:text="Medium" />
+                android:text="@string/medium" />
 
             <RadioButton
                 android:id="@+id/rbLow"
@@ -136,7 +137,7 @@
                 android:layout_weight="1"
                 android:background="@color/materialYellow"
                 android:onClick="onPrioritySelected"
-                android:text="Low" />
+                android:text="@string/low" />
         </RadioGroup>
 
     </FrameLayout>
@@ -150,7 +151,7 @@
         android:drawableLeft="@drawable/ic_timer_black_24dp"
         android:gravity="center_vertical"
         android:onClick="showTimePickerDialog"
-        android:text="Set Time"
+        android:text="@string/set_time"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -164,7 +165,7 @@
         android:layout_marginTop="32dp"
         android:drawableLeft="@drawable/ic_timelapse_black_24dp"
         android:gravity="center_vertical"
-        android:text="Set Duration"
+        android:text="@string/set_duration"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -203,7 +204,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="42dp"
-        android:text="HH"
+        android:text="@string/hh"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintLeft_toRightOf="@+id/etHours"
         app:layout_constraintTop_toBottomOf="@+id/tvTimePicker" />
@@ -213,7 +214,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="42dp"
-        android:text="MM"
+        android:text="@string/mm"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintLeft_toRightOf="@+id/etMins"
         app:layout_constraintTop_toBottomOf="@+id/tvTimePicker" />
@@ -228,7 +229,6 @@
         android:layout_marginTop="16dp"
         android:scrollbarAlwaysDrawHorizontalTrack="true"
         android:scrollbars="horizontal"
-        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -255,7 +255,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="Choose from dropdown or create your own activity"
+        android:text="@string/create_your_own_activity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

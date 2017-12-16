@@ -27,6 +27,7 @@ import java.util.Locale;
 
 /**
  * Created by KavitaPC on 11/22/2017.
+ * Adapter to show daily data
  */
 
 public class ActivityCountRecyclerViewAdapter extends RecyclerView.Adapter<ActivityCountRecyclerViewAdapter.ActivityCountViewHolder>{
@@ -53,7 +54,7 @@ public class ActivityCountRecyclerViewAdapter extends RecyclerView.Adapter<Activ
     @Override
     public void onBindViewHolder(ActivityCountViewHolder holder, int position) {
 
-        Log.d("AC whole data is:", ""+DatabaseUtils.dumpCursorToString(mCursor2));
+       // Log.d("AC whole data is:", ""+DatabaseUtils.dumpCursorToString(mCursor2));
 
         mCursor2.moveToPosition(position);
        // holder.itemView.setVisibility(View.VISIBLE);
@@ -107,17 +108,17 @@ public class ActivityCountRecyclerViewAdapter extends RecyclerView.Adapter<Activ
                                 GCStatusDate2.add(Calendar.DATE,-1);
 
                                         if(dateValue.equals(DATE_FORMAT_STATUS.format(GCStatusDate.getTime()))){
-                                            holder.tvReportDate.setText("Today");
+                                            holder.tvReportDate.setText(R.string.today);
                                         }
                                         else if(dateValue.equals(DATE_FORMAT_STATUS.format(GCStatusDate2.getTime()))){
-                                            holder.tvReportDate.setText("Yesterday");
+                                            holder.tvReportDate.setText(R.string.yesterday);
                                         }else{
                                             holder.tvReportDate.setText(dateValue);
                                         }
 
                             holder.tvCountCompleted.setText(countAll);
                                     if(countComp==0){
-                                        holder.tvCompleted.setText("No Activity Completed");
+                                        holder.tvCompleted.setText(R.string.NoActivityCompleted);
                                     }else{
                                        String compStr = completedActivities;
                                        if(compStr.startsWith(",")){
@@ -126,7 +127,7 @@ public class ActivityCountRecyclerViewAdapter extends RecyclerView.Adapter<Activ
                                         holder.tvCompleted.setText(compStr);
                                     }
                                     if(countNotComp==0){
-                                        holder.tvNotCompleted.setText("No Activity Incomplete");
+                                        holder.tvNotCompleted.setText(R.string.NoActivityIncomplete);
                                     }else{
                                         String NotCompStr = notCompletedActivities;
                                         if(NotCompStr.startsWith(",")){
@@ -187,13 +188,13 @@ public class ActivityCountRecyclerViewAdapter extends RecyclerView.Adapter<Activ
 
         public ActivityCountViewHolder(View view){
             super(view);
-            cvCountPage = (CardView)itemView.findViewById(R.id.cvCountPage);
-            tvReportDate = (TextView)itemView.findViewById(R.id.tvReportDate);
-            tvCountCompleted = (TextView)itemView.findViewById(R.id.tvCountCompleted);
+            cvCountPage = itemView.findViewById(R.id.cvCountPage);
+            tvReportDate = itemView.findViewById(R.id.tvReportDate);
+            tvCountCompleted = itemView.findViewById(R.id.tvCountCompleted);
             //ivCompleted =(ImageView)itemView.findViewById(R.id.ivCompleted);
-            tvCompleted = (TextView)itemView.findViewById(R.id.tvCompleted);
+            tvCompleted = itemView.findViewById(R.id.tvCompleted);
             //ivNotCompleted =(ImageView)itemView.findViewById(R.id.ivNotCompleted);
-            tvNotCompleted = (TextView)itemView.findViewById(R.id.tvNotCompleted);
+            tvNotCompleted = itemView.findViewById(R.id.tvNotCompleted);
 
         }
 
