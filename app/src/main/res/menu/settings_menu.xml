@@ -22,4 +22,12 @@
     <item android:id="@+id/navAppTour"
         android:title="@string/AppTour"
         android:icon="@drawable/ic_help_outline_black_24dp"/>
+
+    <item android:id="@+id/navPrivacyPolicy"
+        android:title="@string/PrivacyPolicy"
+        android:icon="@drawable/ic_privacy_lock_black_24dp"/>
+
+    <item android:id="@+id/navTerms"
+        android:title="@string/Terms"
+        android:icon="@drawable/ic_linear_scale_black_24dp"/>
 </menu>

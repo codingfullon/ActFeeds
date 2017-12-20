@@ -2,7 +2,6 @@ package com.example.myapp.actfeeds.reminder;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 
 import com.evernote.android.job.DailyJob;
@@ -32,7 +31,6 @@ public class NotificationSyncJob extends DailyJob {
     protected DailyJobResult onRunDailyJob(@NonNull Params params) {
         Context context = getContext();
         ReminderTask.executeTask(context, ReminderTask.ACTION_SHOW_REMINDER);
-        Log.d("ReminderTask", "Reminder showing");
         return DailyJobResult.SUCCESS;
     }
 

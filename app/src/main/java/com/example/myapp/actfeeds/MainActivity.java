@@ -16,7 +16,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -40,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mActionToggle;
+    private static final String PAGE_NAME= "PageName";
 
     private ViewPager viewPager;
     private MyPageAdapter pagerAdapter;
@@ -107,7 +107,6 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
             public void onTabSelected(TabLayout.Tab tab) {
                 tab.getIcon().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
                 position = tabLayout.getSelectedTabPosition();
-                Log.d("position","ppppppp"+position);
                 viewPager.setCurrentItem(position);
                 // viewPager.getAdapter().notifyDataSetChanged();
 
@@ -127,12 +126,12 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
 
 
         //get extra data from server
-        Bundle extras = getIntent().getExtras();
+       /* Bundle extras = getIntent().getExtras();
         if (extras != null && extras.containsKey("test")) {
             Log.d(LOG_TAG, "Contains: " + extras.getString("test"));
         }else {
             Log.d(LOG_TAG, "Contains: Nothing");
-        }
+        }*/
 
         //ScheduleReminder.scheduleActivityReminder(this);
         //Calling job scheduler
@@ -142,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
 
         String token = FirebaseInstanceId.getInstance().getToken();
         String msg = getString(R.string.message_token_format, token);
-        Log.d(LOG_TAG, msg);
+       // Log.d(LOG_TAG, msg);
 
         //calling navigation view item on click listener
         setNavigationViewListner();
@@ -234,6 +233,18 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
             }
             case R.id.navAppTour:{
                 Intent intent = new Intent(this,AppTour.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.navPrivacyPolicy:{
+                Intent intent = new Intent(this,PrivacyPolicy.class);
+                intent.putExtra(PAGE_NAME,"PrivacyPolicy");
+                startActivity(intent);
+                break;
+            }
+            case R.id.navTerms:{
+                Intent intent = new Intent(this,PrivacyPolicy.class);
+                intent.putExtra(PAGE_NAME,"Terms");
                 startActivity(intent);
                 break;
             }

@@ -12,7 +12,6 @@ import android.support.v4.content.Loader;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,7 +94,6 @@ public class HabitsReport extends Fragment implements LoaderManager.LoaderCallba
             @Override
             public Cursor loadInBackground() {
                 try {
-                    Log.d("in on load", "sddddddddddddddddddddddd");
                     mDbHelper = new HabitDbHelper(getActivity().getBaseContext());
                      sqldb = mDbHelper.getReadableDatabase();
 
@@ -195,23 +193,9 @@ public class HabitsReport extends Fragment implements LoaderManager.LoaderCallba
 
                         cursorReport = sqldb.rawQuery(Query, null);
 
-                   // Log.d("ssssssssssss",""+(new SimpleDateFormat("EEE")).format(new Date()));
-
-                    /*TextView tvEmptyReport =(TextView) view.findViewById(R.id.tvEmptyReport);
-                    if(cursor==null){
-                        tvEmptyReport.setVisibility(View.VISIBLE);
-                        activityCountRecyclerView.setVisibility(view.INVISIBLE);
-                    }else{
-
-
-                        tvEmptyReport.setVisibility(View.INVISIBLE);
-                        activityCountRecyclerView.setVisibility(view.VISIBLE);
-                    }*/
-
                     return cursorReport;
 
                 } catch (Exception e) {
-                    Log.e("Failed", "Failed to asynchronously load data.");
                     e.printStackTrace();
                     return null;
                 }

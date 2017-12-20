@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.AdapterView;
@@ -325,7 +324,6 @@ public class GoalDetails extends AppCompatActivity {
                 habitId = sqLiteDatabase.insert(UserHabitDetailEntry.TABLE_NAME, null, contentValues);
                 int id = (int)habitId;
 
-                Log.d("Row is", "Row inserted...................." + habitId);
                 contentValues.clear();
                 contentValues = new ContentValues();
 
@@ -340,12 +338,9 @@ public class GoalDetails extends AppCompatActivity {
 
                     contentValues.put(RepeatOnDaysEntry.HABIT_ID, habitId);
                     long daysRowId = sqLiteDatabase.insert(RepeatOnDaysEntry.TABLE_NAME, null, contentValues);
-                    Log.d("inserted days", "" + daysRowId);
+
 
                 }
-
-
-               // Log.d("Row is", "Row inserted...................." + habitId);
 
 
 
@@ -368,8 +363,7 @@ public class GoalDetails extends AppCompatActivity {
                     contentValues.put(HabitContract.HabitStatusEntry.DATE_COMPLETION, DATE_FORMAT_STATUS.format(GCStatusDate.getTime()));
                     contentValues.put(HabitContract.HabitStatusEntry.HABIT_ID, habitId);
                     long statusID = sqLiteDatabase.insert(HabitStatusEntry.TABLE_NAME, null, contentValues);
-                    Log.d("inserted status data", "" + DATE_FORMAT_STATUS.format(GCStatusDate.getTime())+"  "
-                            +habitId+"   "+statusID);
+
                 }
 
 

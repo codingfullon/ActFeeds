@@ -1,7 +1,6 @@
 package com.example.myapp.actfeeds.reminder;
 
 import android.content.Context;
-import android.util.Log;
 
 /**
  * Created by KavitaPC on 11/20/2017.
@@ -27,12 +26,12 @@ public class ReminderTask {
     }
     public static void showReminder(Context context){
         NotificationUtils.reminderUserPendingActivity(context);
-        Log.d("ReminderTask", "Reminder showing");
+
     }
 
     public static void setActivityCompleted(Context context){
        // NotificationUtils.reminderUserPendingActivity(context);
         NotificationUtils.clearAllPreviousNotifications(context);
-        Log.d("ReminderTask", "activity completed");
+
     }
 }

@@ -63,6 +63,8 @@
     <string name="ShareApp">Share the app</string>
     <string name="ContactUs">Contact Support</string>
     <string name="AppTour">App tour</string>
+    <string name="PrivacyPolicy">Privacy policy</string>
+    <string name="Terms">Terms of service</string>
 
     <string name="ContactUSMessage">Write here to send us email. We will reply you within 24 hours."</string>
     <string name="Send">Send</string>
@@ -106,6 +108,8 @@
     <string name="mm">MM</string>
     <string name="hh">HH</string>
     <string name="create_your_own_activity">Choose from dropdown or create your own activity</string>
+
+
 
 
 </resources>

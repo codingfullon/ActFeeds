@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -94,7 +93,6 @@ public class EditActivity extends AppCompatActivity {
         //Get data from Intent
         Intent intent = getIntent();
         if(intent!=null && intent.hasExtra("UserHabitPK")){
-            Log.d("datafrom added goal",""+intent.getIntExtra("UserHabitPK",0));
             idFromIntent = intent.getIntExtra("UserHabitPK",0);
             name= intent.getStringExtra("TitleName");
             iconName= intent.getStringExtra("IconName");
@@ -253,7 +251,7 @@ public class EditActivity extends AppCompatActivity {
             String arg1 = " UserHabitPK="+ idFromIntent;
             long habitId = sqLiteDatabase.update(HabitContract.UserHabitDetailEntry.TABLE_NAME, contentValues,arg1,null);
 
-            Log.d("Row is", "Row updated...................." + habitId);
+
 
 
             contentValues.clear();
@@ -267,10 +265,10 @@ public class EditActivity extends AppCompatActivity {
 
                 String arg2 = " Habit_Id="+ idFromIntent +" and Day= \""+ week+"\"";
                 long daysRowId = sqLiteDatabase.update(HabitContract.RepeatOnDaysEntry.TABLE_NAME,contentValues, arg2, null);
-                Log.d("inserted days", "" + daysRowId);
+
                 i++;
             }
-            Log.d("Row is", "Row updated...................." + habitId);
+
 
 
             mDbHelper.close();

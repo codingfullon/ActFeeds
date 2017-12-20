@@ -2,7 +2,6 @@ package com.example.myapp.actfeeds;
 
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,15 +74,12 @@ public class WeekDaysRecycleViewAdapter extends RecyclerView.Adapter<WeekDaysRec
         public void onClick(View view) {
             if(itemList.get(getAdapterPosition()).getBoolean()){
                 itemList.get(getAdapterPosition()).aBoolean = false;
-                Log.d("enabled 0", "false"+button.getText());
-
                 button.setBackgroundResource(R.drawable.circle);
 
 
             }
             else{
                 itemList.get(getAdapterPosition()).aBoolean = true;
-                Log.d("enabled 0", "true");
                 //button.setSelected(true);
                 //button.setBackgroundColor(Color.BLUE);
                 button.setBackgroundResource(R.drawable.sun);

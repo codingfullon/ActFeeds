@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,7 +71,6 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
         utcCalendar.set(Calendar.MINUTE, 0);
         utcCalendar.set(Calendar.SECOND, 0);
         utcCalendar.set(Calendar.MILLISECOND, 0);
-        //utcCalendar.set(Calendar.DAY_OF_MONTH,-1);
          startDate = utcCalendar.getTime();
 
          GCStatusDate = new GregorianCalendar();
@@ -93,7 +90,6 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
         mAdapter = new AddedGoalsRecyclerViewAdapter(getActivity());
         recyclerViewAddedGoals.setAdapter(mAdapter);
 
-        testData();
 
         //Delete item in recycler view when user swipes the item
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
@@ -110,8 +106,6 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
                 MyObject tagValue = (MyObject) viewHolder.itemView.getTag(); //get id of the item to complete
                int id = tagValue.getIdUserHabit();
                int habitStatusPK = tagValue.getIdHabitStatus();
-                Log.d("id from get tag"," "+tagValue.getIdUserHabit());
-                Log.d("habit id from get tag"," "+tagValue.getIdHabitStatus());
 
                 //delete data from db
                  mDbHelper = new HabitDbHelper(getContext());
@@ -122,7 +116,7 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
 
                 String arg = " Habit_Id="+ id + " AND HabitStatusPK=" +habitStatusPK+"";
                 long habitId = sqldb.update(HabitContract.HabitStatusEntry.TABLE_NAME, contentValues,arg,null);
-                Log.d("updated ID is", ""+habitId);
+
                 Toast.makeText(getActivity(), "Activity completed, check reports for detail",Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(getActivity(), MainActivity.class);
@@ -172,16 +166,7 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
                        ,
                 null);
     }
-public Cursor testData(){
-    HabitDbHelper mDbHelper = new HabitDbHelper(getActivity().getBaseContext());
-    SQLiteDatabase sqldb = mDbHelper.getReadableDatabase();
-    Cursor mCursor = sqldb.rawQuery(
-            " SELECT * from HabitStatus "
-            ,
-            null);
-    Log.d("result is",DatabaseUtils.dumpCursorToString(mCursor));
-    return mCursor;
-}
+
 
     @Override
     public void onAttach(Context context) {
@@ -235,8 +220,6 @@ public Cursor testData(){
 
 
 
-                   // Log.d("ssssssssssss",""+ DATE_FORMAT_STATUS.format(GCStatusDate.getTime()));
-
                     Cursor cursor = null;
                     String Query ="SELECT * FROM UserHabitDetail user INNER JOIN RepeatOnDays days ON user.UserHabitPK = days.Habit_Id " +
                             " AND days.Day = \""+ (new SimpleDateFormat("EEE")).format(new Date()) + "\"" +
@@ -250,12 +233,11 @@ public Cursor testData(){
 
 
                     cursor = sqldb.rawQuery(Query, null);
-                    Log.d("ssssssssssss",""+(new SimpleDateFormat("EEE")).format(new Date()));
+
 
                     return cursor;
 
                 } catch (Exception e) {
-                    Log.e("Failed", "Failed to asynchronously load data.");
                     e.printStackTrace();
                     return null;
                 }

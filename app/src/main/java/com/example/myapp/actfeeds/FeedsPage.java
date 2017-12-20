@@ -12,7 +12,6 @@ import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -120,7 +119,6 @@ public class FeedsPage extends Fragment implements LoaderManager.LoaderCallbacks
                     final SimpleDateFormat DATE_FORMAT_STATUS = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
                     GregorianCalendar GCStatusDate = new GregorianCalendar();
                     GCStatusDate.setTime(new Date());
-                    Log.d("dddddddddd",""+ startDate.getTime());
 
 
                     Cursor cursorReport = null;
@@ -152,7 +150,6 @@ public class FeedsPage extends Fragment implements LoaderManager.LoaderCallbacks
                     return cursorReport;
 
                 } catch (Exception e) {
-                    Log.e("Failed", "Failed to asynchronously load data.");
                     e.printStackTrace();
                     return null;
                 }

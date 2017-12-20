@@ -100,14 +100,9 @@ public class NotificationUtils {
 
     private static Bitmap largeIcon(Context context) {
         Resources res = context.getResources();
-        Bitmap largeIcon = BitmapFactory.decodeResource(res, R.drawable.ic_sentiment_laugh_satisfied_black_24dp);
+        Bitmap largeIcon = BitmapFactory.decodeResource(res, R.mipmap.ic_launcher);
         return largeIcon;
     }
 
-    public void getDataForReminder(Context context){
-        HabitDbHelper dbHelper = new HabitDbHelper(context);
-        SQLiteDatabase sqldb = dbHelper.getReadableDatabase();
-        String query = " SELECT * FROM ";
 
-    }
 }
