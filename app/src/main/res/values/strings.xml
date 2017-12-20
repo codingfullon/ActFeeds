@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">ActFeeds</string>
+    <string name="app_tag_line">Plan, Act and Progress</string>
     <!-- Daily habits list items -->
     <string name="WaterReminder">Drink More Water</string>
     <string name="ExerciseReminder">Exercise</string>
@@ -38,10 +39,6 @@
 
 
     <!--List of habit's strings -->
-    <string name="HeaderDailyActivities">Add Daily Habits</string>
-    <string name="WaterReport">Water Report</string>
-    <string name="ExerciseReport">Exercise Report</string>
-    <string name="FruitsReport">Fruits Report</string>
     <string name="YogaReminder">Yoga Reminder</string>
 
 
@@ -49,64 +46,44 @@
     <string name="Close">Close</string>
 
     <!--main activity items -->
-    <string name="DailyHabits">Daily Habits</string>
-    <string name="WeeklyHabits">Weekly Habits</string>
-    <string name="MonthlyHabits">Monthly Habits</string>
     <string name="CreateOwn">Create Your Own Activity</string>
-
-    <string name="FeedsPage">Feeds Data</string>
 
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="HabitList">Select an activity</string>
 
     <!--Goal details-->
     <string name="StartDate">Start Date</string>
     <string name="EndDate">End Date</string>
     <string name="Repeat">Repeat Daily</string>
-    <string name="AddPeople">Add People</string>
     <string name="WakeUpEarly">Wake up early</string>
     <string name="message_token_format" translatable="false">InstanceID Token: %s</string>
-    <string name="default_group_size">1</string>
     <string name="default_activity_name">Name</string>
-    <string name="Report_Page">No Report generated</string>
 
     <!-- Settings strings-->
-    <string name="LogInLogOut">Login</string>
     <string name="ShareApp">Share the app</string>
     <string name="ContactUs">Contact Support</string>
     <string name="AppTour">App tour</string>
-    <string name="Settings">Settings</string>
-    <string name="UserProfile">User Profile</string>
 
     <string name="ContactUSMessage">Write here to send us email. We will reply you within 24 hours."</string>
     <string name="Send">Send</string>
-    <string name="getting_started">Getting Started</string>
     <string name="getting_started_text1">To develop new habits!</string>
     <string name="getting_started_text2">To make you fabulous!</string>
-    <string name="getting_started_text3">To track your daily progress!</string>
-    <string name="buttonToStart">"LET\'S GET STARTED"</string>
+    <string name="getting_started_text3">To plan activities and track progress!</string>
     <string name="title_activity_onboarding">OnboardingActivity</string>
-    <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-    <string name="act_and_progress">Act and Progress</string>
+
     <string name="skip">Skip</string>
     <string name="o">o</string>
     <string name="done">Done</string>
     <string name="next">Next</string>
     <string name="settingsHeader">"Hi\, There!"</string>
     <string name="add_button">Add Button</string>
-    <string name="title_activity_app_tour">AppTour</string>
     <string name="title_app_tour">App Tour</string>
     <string name="title_edit_activity">Edit Activity</string>
     <string name="add_activity">Add an Activity</string>
     <string name="update">UPDATE</string>
     <string name="save">save</string>
-    <string name="subject">Mail from ActZiv</string>
-    <string name="email">kavitaagrawal001@gmail.com</string>
-    <string name="edit">Edit</string>
     <string name="delete">Delete</string>
-    <string name="start_text">No activities added, click on plus button on top to add activities and swipe left to complete.</string>
+    <string name="start_text">No activities added, click on plus button on top to add activities and swipe right to complete.</string>
     <string name="complete_text">Congratulations! You have completed all activities today.</string>
     <string name="empty_actvity_count">No activity progress data, click on plus button on top to add activities</string>
     <string name="my_activities_progress">My Activities Progress</string>
@@ -117,7 +94,6 @@
     <string name="item_option">⋮</string>
     <string name="time">Time</string>
     <string name="duration">Duration</string>
-    <string name="today">Today</string>
     <string name="yesterday">Yesterday</string>
     <string name="NoActivityCompleted">No Activity Completed</string>
     <string name="NoActivityIncomplete">No Activity Incomplete</string>

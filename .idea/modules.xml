@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Fitness-Reminder.iml" filepath="$PROJECT_DIR$/Fitness-Reminder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ActFeeds.iml" filepath="$PROJECT_DIR$/ActFeeds.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

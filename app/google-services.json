@@ -1,7 +1,7 @@
 {
   "project_info": {
     "project_number": "186403755213",
-    "firebase_url": "https://actfeed-7c2a9.firebaseio.com",
+    "firebase_url": "https://fitness-reminder-7c2a9.firebaseio.com",
     "project_id": "actfeed-7c2a9",
     "storage_bucket": "actfeed-7c2a9.appspot.com"
   },
@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:186403755213:android:bf8aecfbfc2c3a07",
         "android_client_info": {
-          "package_name": "com.example.kavitapc.fitnessreminder"
+          "package_name": "com.example.myapp.actfeeds"
         }
       },
       "oauth_client": [

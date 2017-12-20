@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:elevation="8dp"
-    tools:context="com.example.kavitapc.fitnessreminder.ContactUS">
+    tools:context="com.example.myapp.actfeeds.ContactUS">
 
     <EditText
         android:id="@+id/editTextEmailBody"

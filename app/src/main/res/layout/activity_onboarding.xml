@@ -9,7 +9,7 @@
     android:fitsSystemWindows="true"
     android:scaleType="centerCrop"
     android:background="@mipmap/ic_aa1front"
-    tools:context="com.example.kavitapc.fitnessreminder.OnboardingActivity">
+    tools:context="com.example.myapp.actfeeds.OnboardingActivity">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/container"
