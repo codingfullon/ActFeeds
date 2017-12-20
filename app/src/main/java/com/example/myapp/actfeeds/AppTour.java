@@ -66,7 +66,7 @@ public class AppTour extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_app_tour, container, false);
-            int[] id = {R.mipmap.page1, R.mipmap.page3, R.mipmap.page4, R.mipmap.page5};
+            int[] id = {R.mipmap.page1, R.mipmap.page2, R.mipmap.page4, R.mipmap.page5};
             ImageView ivAppTourPage = (ImageView) rootView.findViewById(R.id.ivAppTourPage);
             ivAppTourPage.setBackgroundResource(id[getArguments().getInt(ARG_SECTION_NUMBER)-1]);
             return rootView;

@@ -357,7 +357,7 @@ public class GoalDetails extends AppCompatActivity {
 
                 GregorianCalendar GCStatusDate = new GregorianCalendar();
                 long diffMiliSec = (DATE_FORMAT.parse(textEndDate).getTime()-DATE_FORMAT.parse(textStartDate).getTime());
-                long diffDays = TimeUnit.DAYS.convert(diffMiliSec,TimeUnit.MILLISECONDS);
+                long diffDays = TimeUnit.DAYS.convert(diffMiliSec,TimeUnit.MILLISECONDS)+1;
                 for (int i = 0; i < diffDays; i++) {
                     if(i==0){
                         GCStatusDate.add(Calendar.DATE,0);

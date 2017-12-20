@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
@@ -72,7 +73,9 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
         utcCalendar.set(Calendar.MINUTE, 0);
         utcCalendar.set(Calendar.SECOND, 0);
         utcCalendar.set(Calendar.MILLISECOND, 0);
+        //utcCalendar.set(Calendar.DAY_OF_MONTH,-1);
          startDate = utcCalendar.getTime();
+
          GCStatusDate = new GregorianCalendar();
         GCStatusDate.setTime(new Date());
 
@@ -90,7 +93,7 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
         mAdapter = new AddedGoalsRecyclerViewAdapter(getActivity());
         recyclerViewAddedGoals.setAdapter(mAdapter);
 
-
+        testData();
 
         //Delete item in recycler view when user swipes the item
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
@@ -169,7 +172,16 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
                        ,
                 null);
     }
-
+public Cursor testData(){
+    HabitDbHelper mDbHelper = new HabitDbHelper(getActivity().getBaseContext());
+    SQLiteDatabase sqldb = mDbHelper.getReadableDatabase();
+    Cursor mCursor = sqldb.rawQuery(
+            " SELECT * from HabitStatus "
+            ,
+            null);
+    Log.d("result is",DatabaseUtils.dumpCursorToString(mCursor));
+    return mCursor;
+}
 
     @Override
     public void onAttach(Context context) {
