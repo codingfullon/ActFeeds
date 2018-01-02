@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:186403755213:android:bf8aecfbfc2c3a07",
         "android_client_info": {
-          "package_name": "com.example.myapp.actfeeds"
+          "package_name": "com.myapp.actfeeds"
         }
       },
       "oauth_client": [

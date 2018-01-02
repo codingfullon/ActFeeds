@@ -22,7 +22,6 @@
     <item android:id="@+id/navAppTour"
         android:title="@string/AppTour"
         android:icon="@drawable/ic_help_outline_black_24dp"/>
-
     <item android:id="@+id/navPrivacyPolicy"
         android:title="@string/PrivacyPolicy"
         android:icon="@drawable/ic_privacy_lock_black_24dp"/>
