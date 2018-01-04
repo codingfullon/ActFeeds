@@ -198,6 +198,7 @@
         android:gravity="center"
         android:inputType="number"
         android:text="0"
+        android:maxLength="2"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintLeft_toRightOf="@+id/tvDuration"
         app:layout_constraintTop_toBottomOf="@+id/tvTimePicker" />
@@ -212,6 +213,7 @@
         android:gravity="center"
         android:inputType="number"
         android:text="15"
+        android:maxLength="2"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintLeft_toRightOf="@+id/textView9"
         app:layout_constraintTop_toBottomOf="@+id/tvTimePicker" />

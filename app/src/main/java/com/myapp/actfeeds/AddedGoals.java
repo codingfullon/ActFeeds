@@ -91,6 +91,15 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
         recyclerViewAddedGoals.setAdapter(mAdapter);
 
 
+            TextView tvOverall = view.findViewById(R.id.tvOverall);
+                tvOverall.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getActivity(), AllActivities.class);
+                        startActivity(intent);
+                    }
+                });
+
         //Delete item in recycler view when user swipes the item
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             @Override
@@ -192,6 +201,8 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
         mListener = null;
     }
 
+
+
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new AsyncTaskLoader<Cursor>(getActivity()) {
@@ -279,6 +290,7 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
     public void onLoaderReset(Loader<Cursor> loader) {
         mAdapter.swapCursor(null);
     }
+
 
 
     public interface OnFragmentInteractionListener {

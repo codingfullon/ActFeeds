@@ -223,8 +223,8 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
                     Intent intent = new Intent(Intent.ACTION_SEND);
                     intent.setType("text/plain");
                     intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
-                    intent.putExtra(Intent.EXTRA_TEXT, "Act to develop new habits and to achieve goals " +
-                            "market://play.google.com/store/apps/details?id=actfeeds"); //TODO:change the id to your app id
+                    intent.putExtra(Intent.EXTRA_TEXT, "Plan, Act and progress with ActFeeds " +
+                            "https://play.google.com/store/apps/details?id=com.myapp.actfeeds");
                     startActivity(Intent.createChooser(intent, "Choose one to share app"));
                 }catch (Exception e){
                     e.printStackTrace();

@@ -109,6 +109,9 @@
     <string name="hh">HH</string>
     <string name="create_your_own_activity">Choose from dropdown or create your own activity</string>
     <string name="Legal">Legal</string>
+    <string name="overall">Overall</string>
+    <string name="all_added_activities">All added activities</string>
+    <string name="no_activities_added">No activities added</string>
 
 
 </resources>

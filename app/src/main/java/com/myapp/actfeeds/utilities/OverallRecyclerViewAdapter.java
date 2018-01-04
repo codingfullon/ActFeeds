@@ -8,7 +8,6 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,10 +19,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.myapp.actfeeds.AllActivities;
 import com.myapp.actfeeds.EditActivity;
 import com.myapp.actfeeds.MainActivity;
 import com.myapp.actfeeds.R;
-
 import com.myapp.actfeeds.data.HabitContract;
 import com.myapp.actfeeds.data.HabitDbHelper;
 
@@ -32,12 +31,11 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-
 /**
- * Created by KavitaPC on 11/3/2017.
+ * Created by KavitaPC on 1/3/2018.
  */
 
-public class AddedGoalsRecyclerViewAdapter extends RecyclerView.Adapter<AddedGoalsRecyclerViewAdapter.AddGoalsViewHolder> {
+public class OverallRecyclerViewAdapter extends RecyclerView.Adapter<OverallRecyclerViewAdapter.OverallViewHolder> {
 
     private Cursor mCursor;
     private Context mContext;
@@ -55,23 +53,23 @@ public class AddedGoalsRecyclerViewAdapter extends RecyclerView.Adapter<AddedGoa
     private String END_DATE="EndDate";
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH);
 
-    public AddedGoalsRecyclerViewAdapter(Context mContext){
+
+    public  OverallRecyclerViewAdapter(Context mContext){
         this.mContext = mContext;
-
     }
 
     @Override
-    public AddGoalsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public OverallViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.added_goals_rows, parent, false);
-        return new AddGoalsViewHolder(view);
+        return new OverallRecyclerViewAdapter.OverallViewHolder(view);
     }
 
-
     @Override
-    public void onBindViewHolder(final AddGoalsViewHolder holder, final int position) {
-      /*  if(position==0) {
-            Log.d("AddGoal whole data is :", "aaaaaaaaaaaaaaaaaaaaaaa" + DatabaseUtils.dumpCursorToString(mCursor));
-        }*/
+    public void onBindViewHolder(final OverallViewHolder holder, int position) {
+        if(position==0) {
+            Log.d("Overall data is :", "aaaaaaaaaaaaaaaaaaaaaaa" + DatabaseUtils.dumpCursorToString(mCursor));
+        }
+        mCursor.moveToPosition(position);
         int idIndex = mCursor.getColumnIndex(HabitContract.UserHabitDetailEntry.USER_HABIT_PK);
         int nameIndex = mCursor.getColumnIndex(HabitContract.UserHabitDetailEntry.HABIT_NAME);
         int startDateIndex = mCursor.getColumnIndex(HabitContract.UserHabitDetailEntry.START_DATE);
@@ -83,13 +81,6 @@ public class AddedGoalsRecyclerViewAdapter extends RecyclerView.Adapter<AddedGoa
         final int repeatDailyIndex = mCursor.getColumnIndex(HabitContract.UserHabitDetailEntry.REPEAT_DAILY);
         final int priorityIndex = mCursor.getColumnIndex(HabitContract.UserHabitDetailEntry.PRIORITY);
 
-        final int doneFlagIndex = mCursor.getColumnIndex(HabitContract.HabitStatusEntry.DONE_FLAG);
-        final int dateCompletionIndex = mCursor.getColumnIndex(HabitContract.HabitStatusEntry.DATE_COMPLETION);
-        final int habitStatusIDIndex = mCursor.getColumnIndex(HabitContract.HabitStatusEntry.HABIT_ID);
-        final int habitStatusPKIndex = mCursor.getColumnIndex(HabitContract.HabitStatusEntry.HABIT_STATUS_PK);
-        mCursor.moveToPosition(position);
-
-       // Log.d("id index:", "aaaaaaaaaaaaaaaaaaaaaaa"+idIndex);
 
         final int id = mCursor.getInt(idIndex);
         final String name = mCursor.getString(nameIndex);
@@ -98,11 +89,6 @@ public class AddedGoalsRecyclerViewAdapter extends RecyclerView.Adapter<AddedGoa
         final String endDate = mCursor.getString(endDateIndex);
         final int repeatDaily = mCursor.getInt(repeatDailyIndex);
         final int priority = mCursor.getInt(priorityIndex);
-        int doneFlagValue = mCursor.getInt(doneFlagIndex);
-        String dateOFCompletion = mCursor.getString(dateCompletionIndex);
-        int habitStatusID = mCursor.getInt(habitStatusIDIndex);
-        final int habitStatusPK = mCursor.getInt(habitStatusPKIndex);
-
         final String reminderTimeStr = mCursor.getString(reminderTime);
         final int durationHoursValue = mCursor.getInt(durationHours);
         final int durationMinutesValue = mCursor.getInt(durationMinutes);
@@ -123,11 +109,8 @@ public class AddedGoalsRecyclerViewAdapter extends RecyclerView.Adapter<AddedGoa
         }else if(durationHoursValue>1){
             durationValue = durationHoursValue+" Hrs,"+durationValue;
         }
-        ////////////////////////////
-        //set tag for swipe
-            MyObject tagValue = new MyObject(id,habitStatusPK );
-            holder.itemView.setTag(tagValue);
-        //////////////////////////////
+
+
         holder.habitNameView.setText(name);
         holder.tvActivityTime.setText(reminderTimeStr);
         holder.getTvActivityDuration.setText(durationValue);
@@ -151,55 +134,42 @@ public class AddedGoalsRecyclerViewAdapter extends RecyclerView.Adapter<AddedGoa
 
         //Open option for each item
         holder.textViewOptions.setOnClickListener(new View.OnClickListener() {
-        @SuppressLint("RestrictedApi")
-        @Override
-        public void onClick(View v) {
+            @SuppressLint("RestrictedApi")
+            @Override
+            public void onClick(View v) {
 
-            PopupMenu popup = new PopupMenu(mContext, holder.textViewOptions);
-            popup.inflate(R.menu.edit_delete);
+                PopupMenu popup = new PopupMenu(mContext, holder.textViewOptions);
+                popup.inflate(R.menu.edit_delete);
 
-            //adding click listener
-            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    switch (item.getItemId()) {
-                       /* case R.id.edit:
-                            //handle menu1 click
-                            Intent intent = new Intent(mContext, EditActivity.class)
-                                    .putExtra(HABIT_PK, id)
-                                    .putExtra(TITLE_NAME, name)
-                                    .putExtra(ICON_NAME, iconName)
-                                    .putExtra(PRIORITY, priority)
-                                    .putExtra(TIME_VALUE, reminderTimeStr)
-                                    .putExtra(DURATION_HOURS, durationHoursValue)
-                                    .putExtra(DURATION_MINS, durationMinutesValue)
-                                    .putExtra(REPEAT_DAILY, repeatDaily);
-                            mContext.startActivity(intent);
-                            break;*/
+                //adding click listener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
 
-                    case R.id.delete:
-                            //handle menu2 click
-                            sqldb.execSQL("DELETE FROM UserHabitDetail WHERE UserHabitPK = "+id+"");
-                            sqldb.execSQL("DELETE FROM RepeatOnDays WHERE Habit_Id = "+id+"");
-                            sqldb.execSQL("DELETE FROM HabitStatus WHERE Habit_Id = "+id+"");
-                            sqldb.close();
-                            mDbHelper.close();
-                            Toast.makeText(mContext, "Activity deleted, check reports for detail",Toast.LENGTH_SHORT).show();
+                            case R.id.delete:
+                                //handle menu2 click
+                                sqldb.execSQL("DELETE FROM UserHabitDetail WHERE UserHabitPK = "+id+"");
+                                sqldb.execSQL("DELETE FROM RepeatOnDays WHERE Habit_Id = "+id+"");
+                                sqldb.execSQL("DELETE FROM HabitStatus WHERE Habit_Id = "+id+"");
+                                sqldb.close();
+                                mDbHelper.close();
+                                Toast.makeText(mContext, "Activity deleted, check reports for detail",Toast.LENGTH_SHORT).show();
 
-                            Intent intentRestart = new Intent(mContext, MainActivity.class);
-                            mContext.startActivity(intentRestart);
-                            notifyDataSetChanged();
-                            break;
+                                Intent intentRestart = new Intent(mContext, AllActivities.class);
+                                mContext.startActivity(intentRestart);
+                                notifyDataSetChanged();
+                                break;
+                        }
+
+                        return false;
                     }
 
-                    return false;
-                }
-
-            });
-            //displaying the popup
-            popup.show();
-        }
-    });
+                });
+                //displaying the popup
+                popup.show();
+            }
+        });
 
 
 
@@ -248,14 +218,16 @@ public class AddedGoalsRecyclerViewAdapter extends RecyclerView.Adapter<AddedGoa
         return temp;
     }
 
-    public class AddGoalsViewHolder extends RecyclerView.ViewHolder{
+    public class OverallViewHolder extends RecyclerView.ViewHolder{
+
         TextView habitNameView;
         ImageView iconImageView;
         TextView tvActivityTime;
         TextView getTvActivityDuration;
         TextView textViewOptions;
 
-        public AddGoalsViewHolder(View itemView) {
+
+        public OverallViewHolder(View itemView) {
             super(itemView);
             habitNameView = itemView.findViewById(R.id.name_text_view);
             iconImageView = itemView.findViewById(R.id.iconImageView);
@@ -265,4 +237,5 @@ public class AddedGoalsRecyclerViewAdapter extends RecyclerView.Adapter<AddedGoa
 
         }
     }
+
 }
