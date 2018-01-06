@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.myapp.actfeeds">
+    package="com.inkeep.actfeeds">
 
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -21,6 +21,18 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="actfeeds.wordpress.com"
+                    android:pathPrefix="/about"
+                     />
             </intent-filter>
         </activity>
         <activity
@@ -59,10 +71,10 @@
         <activity
             android:name=".PrivacyPolicy"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".AllActivities"
+        <activity
+            android:name=".AllActivities"
             android:label="All Activities"
-            android:parentActivityName=".MainActivity"
-            />
+            android:parentActivityName=".MainActivity" />
 
     </application>
 
