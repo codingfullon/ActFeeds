@@ -1,8 +1,10 @@
 package com.inkeep.actfeeds;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -46,6 +48,7 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
     AddedGoalsRecyclerViewAdapter mAdapter;
     public static final int TASK_LOADER_ID = 1;
     private TextView textViewEmpty1;
+    private TextView tvSwipeRight;
     private TextView textViewCompleted;
     private View view;
     private TextView textViewGone;
@@ -79,6 +82,7 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
 
         textViewEmpty1  = view.findViewById(R.id.textViewEmpty1);
         textViewCompleted  = view.findViewById(R.id.textViewCompleted);
+        tvSwipeRight = view.findViewById(R.id.tvSwipeRight);
 
         recyclerViewAddedGoals = view.findViewById(R.id.rvAddedGoals);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -203,6 +207,7 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
 
 
 
+    @SuppressLint("StaticFieldLeak")
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new AsyncTaskLoader<Cursor>(getActivity()) {
@@ -264,14 +269,18 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
                     recyclerViewAddedGoals.setVisibility(View.VISIBLE);
                     textViewCompleted.setVisibility(View.GONE);
                     textViewEmpty1.setVisibility(View.GONE);
+                    tvSwipeRight.setVisibility(View.VISIBLE);
+
                 }else if(cursor==null || cursor.getCount()==0){
                     recyclerViewAddedGoals.setVisibility(View.GONE);
                     textViewEmpty1.setVisibility(View.VISIBLE);
                     textViewCompleted.setVisibility(View.GONE);
+                    tvSwipeRight.setVisibility(View.GONE);
                 }else{
                     recyclerViewAddedGoals.setVisibility(View.GONE);
                     textViewEmpty1.setVisibility(View.GONE);
                     textViewCompleted.setVisibility(View.VISIBLE);
+                    tvSwipeRight.setVisibility(View.GONE);
                 }
                 super.deliverResult(data);
             }

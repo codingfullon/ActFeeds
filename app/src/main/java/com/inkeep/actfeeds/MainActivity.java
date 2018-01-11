@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
     private ViewPager viewPager;
     private MyPageAdapter pagerAdapter;
     private TabLayout tabLayout;
-    private static String LOG_TAG = MainActivity.class.getSimpleName();
     private int position;
     List<Fragment> fragments = new ArrayList<>();
     private  TourGuide  mTourHandler;

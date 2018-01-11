@@ -1,27 +1,35 @@
 {
   "project_info": {
-    "project_number": "186403755213",
-    "firebase_url": "https://fitness-reminder-7c2a9.firebaseio.com",
-    "project_id": "actfeed-7c2a9",
-    "storage_bucket": "actfeed-7c2a9.appspot.com"
+    "project_number": "1003861985318",
+    "firebase_url": "https://actfeeds-20c06.firebaseio.com",
+    "project_id": "actfeeds-20c06",
+    "storage_bucket": "actfeeds-20c06.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:186403755213:android:bf8aecfbfc2c3a07",
+        "mobilesdk_app_id": "1:1003861985318:android:d97d779cc172b16e",
         "android_client_info": {
           "package_name": "com.inkeep.actfeeds"
         }
       },
       "oauth_client": [
         {
-          "client_id": "186403755213-cc2loo9pmnqc7dp3bp1nkkqu5lr3d85m.apps.googleusercontent.com",
+          "client_id": "1003861985318-nbc0rk7fd1c2g342tiums6dtcgh7aeq2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.inkeep.actfeeds",
+            "certificate_hash": "53939fddda1291156d81ccdea08f233b31826a01"
+          }
+        },
+        {
+          "client_id": "1003861985318-i8fh3r23rhjd53q5fs9c2fk8do4o5f7t.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAEP0_O6FnG6c4kbAUmG8mWkNBYq6iuR44"
+          "current_key": "AIzaSyBlMhJHox03Z3CWfoXtNU79KfnVWAdX91U"
         }
       ],
       "services": {
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1003861985318-i8fh3r23rhjd53q5fs9c2fk8do4o5f7t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

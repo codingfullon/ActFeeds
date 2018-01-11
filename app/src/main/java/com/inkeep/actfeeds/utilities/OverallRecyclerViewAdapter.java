@@ -57,15 +57,15 @@ public class OverallRecyclerViewAdapter extends RecyclerView.Adapter<OverallRecy
 
     @Override
     public OverallViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.added_goals_rows, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.overall_rows, parent, false);
         return new OverallRecyclerViewAdapter.OverallViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final OverallViewHolder holder, int position) {
-        if(position==0) {
+      /*  if(position==0) {
             Log.d("Overall data is :", "aaaaaaaaaaaaaaaaaaaaaaa" + DatabaseUtils.dumpCursorToString(mCursor));
-        }
+        }*/
         mCursor.moveToPosition(position);
         int idIndex = mCursor.getColumnIndex(HabitContract.UserHabitDetailEntry.USER_HABIT_PK);
         int nameIndex = mCursor.getColumnIndex(HabitContract.UserHabitDetailEntry.HABIT_NAME);
@@ -226,11 +226,11 @@ public class OverallRecyclerViewAdapter extends RecyclerView.Adapter<OverallRecy
 
         public OverallViewHolder(View itemView) {
             super(itemView);
-            habitNameView = itemView.findViewById(R.id.name_text_view);
-            iconImageView = itemView.findViewById(R.id.iconImageView);
-            tvActivityTime = itemView.findViewById(R.id.tvActivityTime);
-            getTvActivityDuration = itemView.findViewById(R.id.tvActivityDuration);
-            textViewOptions = itemView.findViewById(R.id.textViewOptions);
+            habitNameView = itemView.findViewById(R.id.nameO_text_view);
+            iconImageView = itemView.findViewById(R.id.iconOImageView);
+            tvActivityTime = itemView.findViewById(R.id.tvOActivityTime);
+            getTvActivityDuration = itemView.findViewById(R.id.tvOActivityDuration);
+            textViewOptions = itemView.findViewById(R.id.textViewOOptions);
 
         }
     }

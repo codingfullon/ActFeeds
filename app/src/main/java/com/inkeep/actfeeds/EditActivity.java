@@ -28,6 +28,7 @@ import com.inkeep.actfeeds.data.HabitDbHelper;
 import com.inkeep.actfeeds.utilities.DatePickerFragment;
 import com.inkeep.actfeeds.utilities.TimePickerFragment;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -247,6 +248,13 @@ public class EditActivity extends AppCompatActivity {
             contentValues.put(HabitContract.UserHabitDetailEntry.ACTIVITY_MINUTES, mMins);
             contentValues.put(HabitContract.UserHabitDetailEntry.REPEAT_DAILY, isCheckRepeatOn);
             contentValues.put(HabitContract.UserHabitDetailEntry.PRIORITY, mPriority);
+            try {
+                contentValues.put(HabitContract.UserHabitDetailEntry.START_DATE, DATE_FORMAT.parse(textStartDate).getTime());
+                contentValues.put(HabitContract.UserHabitDetailEntry.END_DATE, DATE_FORMAT.parse(textEndDate).getTime());
+            }
+            catch (ParseException e){
+                e.printStackTrace();
+            }
 
             String arg1 = " UserHabitPK="+ idFromIntent;
             long habitId = sqLiteDatabase.update(HabitContract.UserHabitDetailEntry.TABLE_NAME, contentValues,arg1,null);

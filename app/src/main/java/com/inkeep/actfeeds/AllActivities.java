@@ -25,10 +25,9 @@ import java.util.Locale;
 
 public class AllActivities extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MMM, dd yyyy", Locale.ENGLISH);
     private RecyclerView recyclerViewAllActivities;
     OverallRecyclerViewAdapter mAdapter;
-    public static final int TASK_LOADER_ID = 5;
+    public static final int TASK_LOADER_ID = 15;
 
     private TextView textViewEmptyAll;
     private HabitDbHelper mDbHelper;

@@ -326,16 +326,18 @@ public class GoalDetails extends AppCompatActivity {
 
     public void addData(ArrayList<ItemAttributes> dailyHabitsArray){
 
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.WorkOnSecretProject), "ic_secret_agent_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.ExerciseReminder), "ic_exercise_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.DeclutterPlace), "ic_wiping_swipe_clean_tidy"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.Running), "ic_directions_run_black_24dp"));
+        dailyHabitsArray.add(new ItemAttributes(getString(R.string.Networking), "ic_people_black_24dp"));
         dailyHabitsArray.add(new ItemAttributes(getString(R.string.WaterReminder), "ic_drink_water_black_24dp"));
         dailyHabitsArray.add(new ItemAttributes(getString(R.string.YogaReminder), "ic_yoga_black_24dp"));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.ExerciseReminder), "ic_exercise_black_24dp"));
         dailyHabitsArray.add(new ItemAttributes(getString(R.string.FruitsReminder), "ic_fruits_black_24dp"));
         dailyHabitsArray.add(new ItemAttributes(getString(R.string.ExpressGratitude), "ic_express_grattitude_black_24dp"));
         dailyHabitsArray.add(new ItemAttributes(getString(R.string.LaughLaughAndLaugh), "ic_sentiment_laugh_satisfied_black_24dp"));
         dailyHabitsArray.add(new ItemAttributes(getString(R.string.Read), "ic_read_book_black_24dp"));
         dailyHabitsArray.add(new ItemAttributes(getString(R.string.WriteSomething), "ic_write_black_24dp"));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.WorkOnSecretProject), "ic_secret_agent_black_24dp"));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.Running), "ic_directions_run_black_24dp"));
         dailyHabitsArray.add(new ItemAttributes(getString(R.string.Meditate), "ic_meditation_yoga_posture"));
         dailyHabitsArray.add(new ItemAttributes(getString(R.string.LearnNewWords), "ic_book_black_24dp"));
         dailyHabitsArray.add(new ItemAttributes(getString(R.string.EatBowlSalad), "ic_fruits_black_24dp"));
@@ -347,11 +349,9 @@ public class GoalDetails extends AppCompatActivity {
         dailyHabitsArray.add(new ItemAttributes(getString(R.string.Laundry), "ic_local_laundry_wash_black_24dp"));
         dailyHabitsArray.add(new ItemAttributes(getString(R.string.CheckBills), "ic_playlist_add_check_black_24dp"));
         dailyHabitsArray.add(new ItemAttributes(getString(R.string.MakeToDo), "ic_write_black_24dp"));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.Networking), "ic_people_black_24dp"));
         dailyHabitsArray.add(new ItemAttributes(getString(R.string.CareLovedOnes), "ic_sentiment_laugh_satisfied_black_24dp"));
         dailyHabitsArray.add(new ItemAttributes(getString(R.string.Socialize), "ic_read_book_black_24dp"));
         dailyHabitsArray.add(new ItemAttributes(getString(R.string.LearnCooking), "ic_fruits_black_24dp"));
-        dailyHabitsArray.add(new ItemAttributes(getString(R.string.DeclutterPlace), "ic_wiping_swipe_clean_tidy"));
         dailyHabitsArray.add(new ItemAttributes(getString(R.string.PlanInvestments), "ic_attach_money_black_24dp"));
         dailyHabitsArray.add(new ItemAttributes(getString(R.string.CheckStatement), "ic_read_book_black_24dp"));
         dailyHabitsArray.add(new ItemAttributes(getString(R.string.PlanTravel), "ic_travel_car_black_24dp"));
