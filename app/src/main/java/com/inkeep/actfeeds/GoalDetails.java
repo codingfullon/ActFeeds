@@ -88,12 +88,13 @@ public class GoalDetails extends AppCompatActivity {
             Spinner mySpinner = findViewById(R.id.spinnerActivity);
             final ArrayList<ItemAttributes> dailyHabitsArray = new ArrayList<>();
             addData(dailyHabitsArray);
-            ListViewCustomAdapter customAdapter = new ListViewCustomAdapter(this, R.layout.dwm_habits_rows, dailyHabitsArray, fileName);
+
+            ListViewCustomAdapter customAdapter = new ListViewCustomAdapter(this, R.layout.dwm_habits_rows, dailyHabitsArray);
             mySpinner.setAdapter(customAdapter);
             mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    TextView textView = view.findViewById(R.id.tvGoalRow);
+                    TextView textView = findViewById(R.id.tvGoalRow);
                     title = textView.getText().toString();
 
                     iconName = dailyHabitsArray.get(position).getIconName();

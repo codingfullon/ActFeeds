@@ -22,14 +22,12 @@ import java.util.ArrayList;
 public class ListViewCustomAdapter extends ArrayAdapter<ItemAttributes> {
     private final AppCompatActivity context;
     ArrayList<ItemAttributes> itemList = new ArrayList<>();
-    String fileName;
 
 
-    public ListViewCustomAdapter(AppCompatActivity context, int resource, ArrayList<ItemAttributes> objects, String fileName) {
+    public ListViewCustomAdapter(AppCompatActivity context, int resource, ArrayList<ItemAttributes> objects) {
         super(context, resource, objects);
         this.context = context;
         itemList = objects;
-        this.fileName = fileName;
     }
 
     @Override
