@@ -11,7 +11,7 @@ public class HabitContract {
 
     private HabitContract(){}
 
-    public static final String AUTHORITY = "com.myapp.actfeeds";
+    public static final String AUTHORITY = "com.inkeep.actfeeds";
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);   // The base content URI = "content://" + <authority>
 
     // Define the possible paths for accessing data in this contract

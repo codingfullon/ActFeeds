@@ -16,11 +16,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.evernote.android.job.JobManager;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.inkeep.actfeeds.R;
 
 import com.inkeep.actfeeds.reminder.NotificationJobCreator;
@@ -47,21 +51,48 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
     private int position;
     List<Fragment> fragments = new ArrayList<>();
     private  TourGuide  mTourHandler;
+    private FirebaseAuth mAuth;
+    private TextView tvName;
+    String name;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Onboarding
+        //On boarding
 
-        SharedPreferences preferences = getSharedPreferences("my_preferences", MODE_PRIVATE);
+       /* SharedPreferences preferences = getSharedPreferences("my_preferences", MODE_PRIVATE);
         if (!preferences.getBoolean("onboarding_complete", false)) {
 
             Intent onboarding = new Intent(this, OnboardingActivity.class);
             startActivity(onboarding);
             finish();
             //return;
+        }*/
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if(user==null){
+            Intent onboarding = new Intent(this, OnboardingActivity.class);
+            startActivity(onboarding);
+            finish();
+        }
+        tvName = (TextView) findViewById(R.id.textViewName);
+        if (user != null) {
+            // Name, email address, and profile photo Url
+            name = user.getDisplayName();
+            String email = user.getEmail();
+            //Uri photoUrl = user.getPhotoUrl();
+
+            // Check if user's email is verified
+            boolean emailVerified = user.isEmailVerified();
+
+            // The user's ID, unique to the Firebase project. Do NOT use this value to
+            // authenticate with your backend server, if you have one. Use
+            // FirebaseUser.getToken() instead.
+            String uid = user.getUid();
+
+
         }
 
         setContentView(R.layout.activity_main);
@@ -87,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
 */
         //setting up view pager
         viewPager = findViewById(R.id.pager);
+
         pagerAdapter = new MyPageAdapter(getSupportFragmentManager(), fragments);
         // pagerAdapter.addFragment(new AddedGoals(), "");
         // pagerAdapter.addFragment(new FeedsPage(),"");
@@ -121,7 +153,9 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
                 tab.getIcon().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
             }
         });
+       // tvName.setText(name);
 
+        Log.d("name", "success"+name);
 
         //get extra data from server
        /* Bundle extras = getIntent().getExtras();

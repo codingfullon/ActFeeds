@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
@@ -62,6 +63,8 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
 
 
     public AddedGoals(){}
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -210,7 +213,7 @@ public class AddedGoals extends Fragment implements LoaderManager.LoaderCallback
     @SuppressLint("StaticFieldLeak")
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new AsyncTaskLoader<Cursor>(getActivity()) {
+        return new AsyncTaskLoader<Cursor>(getActivity()) { //anonymous class extending AsyncTaskLoader class
 
             // Initialize a Cursor, this will hold all the task data
             Cursor mHabitDetailData = null;

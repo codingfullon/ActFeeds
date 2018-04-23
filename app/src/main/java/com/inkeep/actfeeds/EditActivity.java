@@ -330,6 +330,7 @@ public class EditActivity extends AppCompatActivity {
         bundle.putInt(DatePickerFragment.TEXT_VIEW_ID, v.getId());
         newFragment.setArguments(bundle);
         newFragment.show(getSupportFragmentManager(), "datePicker");
+
     }
 
     public void setPriority(int mPriority ){

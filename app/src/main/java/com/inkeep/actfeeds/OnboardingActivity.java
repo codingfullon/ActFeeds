@@ -19,17 +19,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.inkeep.actfeeds.R;
+import com.inkeep.actfeeds.signinsignup.LoginActivity;
+import com.inkeep.actfeeds.signinsignup.SignUp;
 
 public class OnboardingActivity extends AppCompatActivity {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
+
     private SectionsPagerAdapter mSectionsPagerAdapter;
     ImageView intro_indicator_0;
     ImageView intro_indicator_1;
@@ -109,14 +104,12 @@ public class OnboardingActivity extends AppCompatActivity {
     }
 
     private void finishOnboarding() {
-        SharedPreferences preferences =
-                getSharedPreferences("my_preferences", MODE_PRIVATE);
+       // SharedPreferences preferences =                getSharedPreferences("my_preferences", MODE_PRIVATE);
 
-        preferences.edit()
-                .putBoolean("onboarding_complete",true).apply();
+       // preferences.edit()                .putBoolean("onboarding_complete",true).apply();
 
-        Intent main = new Intent(this, MainActivity.class);
-        startActivity(main);
+        Intent signUp = new Intent(this, SignUp.class);
+        startActivity(signUp);
 
         finish();
     }

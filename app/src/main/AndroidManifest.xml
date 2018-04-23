@@ -29,10 +29,9 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:scheme="https"
                     android:host="actfeeds.wordpress.com"
                     android:pathPrefix="/about"
-                     />
+                    android:scheme="https" />
             </intent-filter>
         </activity>
         <activity
@@ -76,6 +75,15 @@
             android:label="All Activities"
             android:parentActivityName=".MainActivity" />
 
+        <receiver
+            android:name=".MyReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".signinsignup.LoginActivity"
+            android:label="@string/Login"/>
+        <activity android:name=".signinsignup.SignUp"
+            android:label="@string/SignUp" />
     </application>
 
 </manifest>

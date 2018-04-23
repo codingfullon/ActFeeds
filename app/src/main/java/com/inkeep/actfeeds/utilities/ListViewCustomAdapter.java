@@ -44,7 +44,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<ItemAttributes> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View v = convertView;
-        LayoutInflater layoutInflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater layoutInflater =(LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         v = layoutInflater.inflate(R.layout.dwm_habits_rows, null);
 
         //Setting textView value

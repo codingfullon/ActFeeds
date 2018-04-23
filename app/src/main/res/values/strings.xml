@@ -113,6 +113,8 @@
     <string name="all_added_activities">All added activities</string>
     <string name="no_activities_added">No activities added</string>
     <string name="swipe_right_to_complete">Swipe activity right to complete</string>
+    <string name="Login">Login</string>
+    <string name="SignUp">SignUp</string>
 
 
 </resources>

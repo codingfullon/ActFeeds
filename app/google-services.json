@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1003861985318-n1atfjh9q9lk8uos23qaeosot9rnrnvu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.inkeep.actfeeds",
+            "certificate_hash": "ba7b95f027e2a578cbee34945903af054a245130"
+          }
+        },
+        {
           "client_id": "1003861985318-nbc0rk7fd1c2g342tiums6dtcgh7aeq2.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
