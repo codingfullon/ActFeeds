@@ -52,6 +52,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         findViewById(R.id.tvSignIn).setOnClickListener(this);
         findViewById(R.id.tvSignInGoogle).setOnClickListener(this);
+/*
         findViewById(R.id.tvSignUp).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +61,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 finish();
             }
         });
+*/
 
     }
 
@@ -115,6 +117,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            String id = user.getUid();
+                            Log.d("user id", "uid"+id);
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.

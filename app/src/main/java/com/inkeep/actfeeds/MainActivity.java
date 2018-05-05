@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
     List<Fragment> fragments = new ArrayList<>();
     private  TourGuide  mTourHandler;
     private FirebaseAuth mAuth;
-    private TextView tvName;
     String name;
 
 
@@ -77,10 +76,10 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
             startActivity(onboarding);
             finish();
         }
-        tvName = (TextView) findViewById(R.id.textViewName);
+
         if (user != null) {
             // Name, email address, and profile photo Url
-            name = user.getDisplayName();
+           // name = user.getDisplayName();
             String email = user.getEmail();
             //Uri photoUrl = user.getPhotoUrl();
 
@@ -155,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
         });
        // tvName.setText(name);
 
-        Log.d("name", "success"+name);
+        Log.d("name", "success"+mAuth.getCurrentUser());
 
         //get extra data from server
        /* Bundle extras = getIntent().getExtras();
