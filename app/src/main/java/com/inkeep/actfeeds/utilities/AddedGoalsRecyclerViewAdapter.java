@@ -23,6 +23,7 @@ import com.inkeep.actfeeds.R;
 
 import com.inkeep.actfeeds.data.HabitContract;
 import com.inkeep.actfeeds.data.HabitDbHelper;
+import com.inkeep.actfeeds.videocall.JoinChannel;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -158,19 +159,19 @@ public class AddedGoalsRecyclerViewAdapter extends RecyclerView.Adapter<AddedGoa
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     switch (item.getItemId()) {
-                       /* case R.id.edit:
+                        case R.id.collaborate:
                             //handle menu1 click
-                            Intent intent = new Intent(mContext, EditActivity.class)
-                                    .putExtra(HABIT_PK, id)
-                                    .putExtra(TITLE_NAME, name)
-                                    .putExtra(ICON_NAME, iconName)
-                                    .putExtra(PRIORITY, priority)
-                                    .putExtra(TIME_VALUE, reminderTimeStr)
-                                    .putExtra(DURATION_HOURS, durationHoursValue)
-                                    .putExtra(DURATION_MINS, durationMinutesValue)
-                                    .putExtra(REPEAT_DAILY, repeatDaily);
+                            Intent intent = new Intent(mContext, JoinChannel.class)
+                                    //.putExtra(HABIT_PK, id)
+                                    .putExtra(TITLE_NAME, name);
+                                   // .putExtra(ICON_NAME, iconName);
+                                   // .putExtra(PRIORITY, priority)
+                                   // .putExtra(TIME_VALUE, reminderTimeStr)
+                                    //.putExtra(DURATION_HOURS, durationHoursValue)
+                                    //.putExtra(DURATION_MINS, durationMinutesValue)
+                                   // .putExtra(REPEAT_DAILY, repeatDaily);
                             mContext.startActivity(intent);
-                            break;*/
+                            break;
 
                     case R.id.delete:
                             //handle menu2 click

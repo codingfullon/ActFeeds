@@ -85,6 +85,7 @@
     <string name="update">UPDATE</string>
     <string name="save">save</string>
     <string name="delete">Delete</string>
+    <string name="collaborate">Collaborate</string>
     <string name="start_text">No activities added, click on plus button on top to add activities and swipe right to complete.</string>
     <string name="complete_text">Congratulations! You have completed all activities today.</string>
     <string name="empty_actvity_count">No activity progress data, click on plus button on top to add activities</string>
@@ -115,6 +116,6 @@
     <string name="swipe_right_to_complete">Swipe activity right to complete</string>
     <string name="Login">Login</string>
     <string name="SignUp">SignUp</string>
-
+    <string name="agora_app_id">31c938524795488fb37ce2bdabaccffd</string>
 
 </resources>

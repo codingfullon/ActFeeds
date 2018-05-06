@@ -9,4 +9,8 @@
         android:id="@+id/delete"
         android:title="@string/delete"
         android:icon="@drawable/ic_delete_black_24dp"/>
+    <item
+        android:id="@+id/collaborate"
+        android:title="@string/collaborate"
+        android:icon="@drawable/ic_delete_black_24dp"/>
 </menu>
