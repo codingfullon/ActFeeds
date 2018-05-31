@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements AddedGoals.OnFrag
     private TabLayout tabLayout;
     private int position;
     List<Fragment> fragments = new ArrayList<>();
-    private  TourGuide  mTourHandler;
+    //private  TourGuide  mTourHandler;
     private FirebaseAuth mAuth;
     String name;
 
